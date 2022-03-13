@@ -42,6 +42,7 @@
     <ItemGroup>
         <Compile Include="Bonus.cs" />
         <Compile Include="Carre.cs" />
+        <Compile Include="Echange.cs" />
         <Compile Include="Energie.cs" />
         <Compile Include="EspaceEchange.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,5 +1,8 @@
 ﻿namespace Tetris
 {
+    /// <summary>
+    /// Energie est utilisé pour l'échange
+    /// </summary>
     public class Energie
     {
         private int total;
@@ -22,6 +25,9 @@
             total = 0;
         }
 
+        /// <summary>
+        /// ajouter l'énergie selon le destruction des lignes.
+        /// </summary>
         public void AjouterEnergie()
         {
             /*
@@ -29,7 +35,10 @@
              obtenir un methode pour calculer l'énergie à ajouter
              */
         }
-
+        
+        /// <summary>
+        /// Quand le joueur utilise un échange, l'énergie se diminue.
+        /// </summary>
         public void DiminuerEnergie()
         {
             /*
