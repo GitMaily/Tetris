@@ -16,7 +16,7 @@ namespace Tetris
             tertominoDansEspaceEchange = (TypeTetromino) random.Next(0,7);
         }
 
-        public TypeTetromino GetType()
+        public new TypeTetromino GetType()
         {
             return tertominoDansEspaceEchange;
         }

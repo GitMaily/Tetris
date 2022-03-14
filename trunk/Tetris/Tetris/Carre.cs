@@ -5,11 +5,13 @@
     /// </summary>
     public class Carre
     {
+        private bool isCenter;
         private TypeCarre typeCarre;
 
-        public Carre(TypeCarre typeCarre)
+        public Carre(TypeCarre typeCarre, bool isCenter)
         {
             this.typeCarre = typeCarre;
+            this.isCenter = isCenter;
         }
         
         /// <summary>
