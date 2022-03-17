@@ -1,4 +1,8 @@
-﻿namespace Tetris
+﻿
+using System.Runtime.Remoting.Messaging;
+using UnityEngine;
+
+namespace Tetris
 {
     /// <summary>
     /// le composant de tétrominos
@@ -6,11 +10,13 @@
     public class Carre
     {
         private bool isCenter;
+        private Position positionCarre;
         private TypeCarre typeCarre;
 
-        public Carre(TypeCarre typeCarre, bool isCenter)
+        public Carre(TypeCarre typeCarre, Position positionCarre, bool isCenter)
         {
             this.typeCarre = typeCarre;
+            this.positionCarre = positionCarre;
             this.isCenter = isCenter;
         }
         
@@ -31,6 +37,27 @@
         {
             return typeCarre == TypeCarre.Explosif;
         }
+
+        public Position GetPosition()
+        {
+            return positionCarre;
+        }
+
+        public void DescendCarre()
+        {
+            positionCarre.SetOrdonnee(positionCarre.GetOrdonne() - 1);
+        }
+
+        public void LeftMove()
+        {
+            positionCarre.SetAbscisse(positionCarre.GetAbscisse() - 1);
+        }
+
+        public void RightMove()
+        {
+            positionCarre.SetAbscisse(positionCarre.GetAbscisse() + 1);
+        }
+
     }
     
     public enum TypeCarre
