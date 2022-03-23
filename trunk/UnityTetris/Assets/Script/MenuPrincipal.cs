@@ -12,7 +12,7 @@ public class MenuPrincipal : MonoBehaviour
     public void StartGame()
     {
         Debug.Log("Une nouvelle partie a été lancée");
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("ChampDuJeu");
     }
     
     //Charger une partie
