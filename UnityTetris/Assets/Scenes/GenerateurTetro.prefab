@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7818222623736263608
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7818222623736263606}
+  - component: {fileID: 7818222623736263609}
+  - component: {fileID: 4255391608035783124}
+  m_Layer: 0
+  m_Name: GenerateurTetro
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7818222623736263606
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7818222623736263608}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5, y: 10, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7818222623736263609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7818222623736263608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92caabb7c8204fd79530c491b7666a39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tetrominos:
+  - {fileID: 7523098793167645156, guid: 5c90ea83c7b4b11408c67aab210565ac, type: 3}
+  - {fileID: 435130667551130035, guid: 4b054feba39614b42900c2c04df3f1a7, type: 3}
+  - {fileID: 6759627883099040200, guid: ea30ae64eb5215b41bafce72fe884e38, type: 3}
+  - {fileID: 4354975752146363350, guid: f7291983279844545ac8570f7572f94e, type: 3}
+  - {fileID: 3403259101700723378, guid: 41b24e17abd8bc14b86720b82399f142, type: 3}
+  - {fileID: 6666251983745514056, guid: e6688d111e5c7c14b9a9ae4aa0e5bd6e, type: 3}
+  - {fileID: 6185976722058167850, guid: 5e73dc2fae2f02d4eab1d5403ff30c1a, type: 3}
+  clone: {fileID: 0}
+--- !u!114 &4255391608035783124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7818222623736263608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aade89a00db471baa59e8fb83e3c8f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  genererEchange: {fileID: 7818222623736263608}
