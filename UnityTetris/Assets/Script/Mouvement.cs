@@ -1,6 +1,8 @@
+using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace Script
 {
@@ -8,17 +10,19 @@ namespace Script
     {
         public float temps;
         public float tempsChute = 0.5f;
+
+        private const int DistanceCarre = 50;
         
         public void AGauche()
         {
             Debug.Log("Déplacement gauche");
-            transform.position += new Vector3(-1, 0, 0);
+            transform.position += new Vector3(-1 * DistanceCarre, 0, 0);
             //transform.position += new Vector3(-50, 0, 0);
         }
         public void ADroite()
         {
             Debug.Log("Déplacement droit");
-            transform.position += new Vector3(1, 0, 0);
+            transform.position += new Vector3(1 * DistanceCarre, 0, 0);
             //transform.position += new Vector3(50, 0, 0);
 
         }
@@ -54,7 +58,7 @@ namespace Script
         {
             if (Time.time - temps > tempsChute)
             {
-                transform.position += new Vector3(0, -1, 0);
+                transform.position += new Vector3(0, -1 * DistanceCarre, 0);
                 temps = Time.time;
             }
         }
