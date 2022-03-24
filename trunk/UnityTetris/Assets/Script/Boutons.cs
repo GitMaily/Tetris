@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 //using UnityEngine.EventSystems.PointerEventData.InputButton;
 
@@ -64,24 +65,25 @@ namespace Script
     
         //Création d'un objet tetro
         public GameObject tetro;
+        //public GameObject regenerer;
         
         //Instance de TetroT
         //private Tetrot _tetrot;
         
         //Une instance move de la classe Mouvement
-        private Mouvement _move;
-
-       
+        public Mouvement move;
+        //public GenerateurTetro generateur;
+        public Echange echange;
 
         public void BoutonDroit()
         {
             //_tetrot = tetro.GetComponent<Tetrot>();
-            _move = tetro.GetComponent<Mouvement>();
+            move = tetro.GetComponent<Mouvement>();
             
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 //_tetrot.Droit();
-                _move.ADroite();
+                move.ADroite();
             }
             
             
@@ -89,20 +91,21 @@ namespace Script
         public void BoutonGauche()
         {
             //_tetrot = tetro.GetComponent<Tetrot>();
-            _move = tetro.GetComponent<Mouvement>();
+            move = tetro.GetComponent<Mouvement>();
             
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 //_tetrot.Droit();
-                _move.AGauche();
+                move.AGauche();
             }
         }
 
         public void BoutonHaut()
         {
+            move = tetro.GetComponent<Mouvement>();
             if (Input.GetKeyDown(KeyCode.UpArrow))
-            {   
-                _move.RotationDroite();
+            {
+                move.RotationDroite(); 
             }
             
         }
@@ -111,7 +114,7 @@ namespace Script
         {
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {   
-                _move.RotationGauche();
+                move.RotationGauche();
             }
             
         }
@@ -120,18 +123,42 @@ namespace Script
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                _move.Descente();
+                move.Descente();
                 
             }
         }
-        
+
+
+        public void Tabulation()
+        {
+            //Generateur = regenerer.GetComponent<GenerateurTetro>();
+            //echange = regenerer.GetComponent<Echange>();
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                //echange.Changer();
+            }
+
+           
+        }
+
+        public void Echap()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                SceneManager.LoadScene("MenuPause");
+            }
+        }
         private void Update()
         {
-            BoutonHaut();
+            move = tetro.GetComponent<Mouvement>();
+
+            move.Chute();
             BoutonBas();
             BoutonDroit();
             BoutonGauche();
             BarreEspace();
+            BoutonHaut();
+            Tabulation();
 
             /*if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
@@ -152,15 +179,12 @@ namespace Script
 
 
 
-            if (Input.GetKeyDown(KeyCode.Tab))
+            /*if (Input.GetKeyDown(KeyCode.Tab))
             {
                 Debug.Log("Tabulation appuyée : échange");
-            }
+            }*/
 
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Debug.Log("Espace appuyé : faire descendre la pièce rapidement");
-            }
+        
 
             //Eventuellement essayer d'implémenter le bouton maintenu en continu
 
@@ -178,11 +202,11 @@ namespace Script
 
             //bool left = Input.GetKeyDown(KeyCode.LeftArrow);
 
-            if (Time.time - temps > tempsChute)
+            /*if (Time.time - temps > tempsChute)
             {
                 transform.position += new Vector3(0, -1, 0);
                 temps = Time.time;
-            }
+            }*/
 
         }
     }
