@@ -19,7 +19,13 @@ namespace Script
         
         public void GenerateTetro()
         {
+            
+
             _listTetrominos.Enqueue((TypeTetromino) Random.Range(0,7));
+
+           
+            
+            
         }
     }
     

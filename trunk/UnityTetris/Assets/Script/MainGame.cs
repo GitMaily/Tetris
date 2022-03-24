@@ -7,7 +7,8 @@ namespace Script
 {
     public class MainGame : MonoBehaviour
     {
-        #region  //indiquer des objets on va utiliser
+        //Liste d'objets à utiliser
+        #region Objets
 
         public GameObject ecranPrincipal;
         private EcranPrincipal _ecranPrincipal;
@@ -22,20 +23,23 @@ namespace Script
 
         public GameObject pause;
 
-        #endregion
+        #endregion Objets
         
         
         // Start is called before the first frame update
+        // Chargement début
         void Start()
         {
             //Obtenir des composants dans la classe EcranPrincipal et les initialiser.
             _ecranPrincipal = ecranPrincipal.GetComponent<EcranPrincipal>(); 
             _ecranPrincipal.Initialiser();
 
+            // Charger les tetrominos
             _tetroCourrant = tetroCourrant.GetComponent<TetroCourrant>();
             _tetroCourrant.InitialiserTetromino();
             _tetroCourrant.UpdateTetromino();
 
+            // Charger l'utilisation des boutons
             _boutonsBis = boutonsBis.GetComponent<BoutonsBis>();
             _boutonsBis.Initialiser();
 
@@ -45,7 +49,13 @@ namespace Script
         void Update()
         {
             _tetroCourrant.Chute();
-            _boutonsBis.BottonCheck();
+            _boutonsBis.BoutonCheck();
+            _boutonsBis.BoutonBas();
+            _boutonsBis.BoutonHaut();
+            _boutonsBis.BoutonEspace();
+            _boutonsBis.Tabulation();
+            _boutonsBis.Echap();
+            
         }
     }
 }
