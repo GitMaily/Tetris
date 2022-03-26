@@ -6,6 +6,7 @@ namespace Script
 {
     public class BoutonsBis : MonoBehaviour
     {
+
         public GameObject tetroCourrant;
 
         private TetroCourrant _tetroCourrant;
@@ -15,6 +16,8 @@ namespace Script
             _tetroCourrant = tetroCourrant.GetComponent<TetroCourrant>();
         }
 
+        
+ 
         public void BoutonCheck()
         {
             if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -31,9 +34,11 @@ namespace Script
         
         public void BoutonEspace() // Descente
         {
+           
             if (Input.GetKeyDown(KeyCode.Space))
-            { 
-                _tetroCourrant.Descente();
+            {
+               _tetroCourrant.Descente();
+
             }
                 
         }
@@ -56,9 +61,7 @@ namespace Script
         
         public void Tabulation() // Echange
         {
-            if (Input.GetKeyDown(KeyCode.Tab ) || Input.GetKeyUp(KeyCode.Tab)) // Pour éviter d'appuyer sur tab 2 fois
-            // Problème : si on maintient la touche appuyée, aucun tetromino n'est généré
-            // Problème mineur, à corriger si on a le temps
+            if (Input.GetKeyDown(KeyCode.Tab )) // Problème d'échange avec 2* Tab résolus
             {
                 
                 Debug.Log("Tabulation appuyée, chargée dans boutons.bis");
