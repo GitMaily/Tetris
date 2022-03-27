@@ -13,17 +13,21 @@ namespace Script
     public class EcranPrincipal : MonoBehaviour
     {
         public GameObject _border;
+
         
-        private GameObject[,] _champDuJeu;
-        private GameObject[,] _espacePrevision;
-        private GameObject[,] _espaceEchange;
+        public Transform[,] Matrice = new Transform[LargueurDuChampDuJeu, HauteurDuChampDuJeu];
+
+        
+        public GameObject[,] _champDuJeu;
+        public GameObject[,] _espacePrevision;
+        public GameObject[,] _espaceEchange;
         
         private Point _pointOriginChampDuJeu = new Point(1, 2);
         private Point _pointOriginPrevision = new Point(12, 3);
         private Point _pointOriginEspaceEchange = new Point(12, 10);
         
-        private const int LargueurDuChampDuJeu = 10;
-        private const int HauteurDuChampDuJeu = 20;
+        public const int LargueurDuChampDuJeu = 10;
+        public const int HauteurDuChampDuJeu = 20;
         private const int LongueurEspace = 4;
         
         private const int TailleCarre = 47;
@@ -41,7 +45,7 @@ namespace Script
         /// L'initialisation d'écran. Cette méthode afficher le champ du jeu, score, prévision d'un tétromino,
         /// espace d'échange.
         /// </summary>
-        private void InitialiserEcran()
+        public void InitialiserEcran()
         {
             // Creer un tableau bidimentionnel en taille de 10 x 20
             _champDuJeu = new GameObject[LargueurDuChampDuJeu, HauteurDuChampDuJeu];
