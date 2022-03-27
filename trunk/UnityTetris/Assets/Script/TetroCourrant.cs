@@ -23,6 +23,7 @@ public class TetroCourrant : MonoBehaviour
 
 
     public EcranPrincipal _champDeJeu;
+
     //public GameObject TableauDeJeu;
     private GameObject[] _positionVerrou;
 
@@ -32,6 +33,7 @@ public class TetroCourrant : MonoBehaviour
     private TetroGenerator _tetroGenerator;
 
     public GameObject _shapeTetromino;
+    private GameObject _shapeTetrominoNext;
 
     // Initialisation du temps
     // On peut modifier les valeurs sur l'éditeur
@@ -67,8 +69,11 @@ public class TetroCourrant : MonoBehaviour
 
         //{
 
+        _tetroGenerator.GenerateTetro();
         switch (_tetroGenerator.ListTetrominos.Dequeue()) // On défile
+                                                         // On instancie le Tetrominos défilé
         {
+
             case TypeTetromino.TetroI:
                 _shapeTetromino = Instantiate(TetroI, new Vector3(250, 1050, 0), Quaternion.identity);
                 _shapeTetromino.tag = "clone"; // On associe chaque instance de Tetro avec le tag "clone", nous permettant de les manipuler 
@@ -89,6 +94,7 @@ public class TetroCourrant : MonoBehaviour
                 : // Le Tetro O est particulier, son millieu ne contenant pas de carré, il a fallut décaler de (25,-25)
                 _shapeTetromino = Instantiate(TetroO, new Vector3(275, 1025, 0), Quaternion.identity);
                 _shapeTetromino.tag = "clone";
+                
                 break;
             case TypeTetromino.TetroS:
                 _shapeTetromino = Instantiate(TetroS, new Vector3(250, 1050, 0), Quaternion.identity);
@@ -106,6 +112,13 @@ public class TetroCourrant : MonoBehaviour
                 _shapeTetromino = null;
                 break;
         }
+        //Next();
+        if (!EstDedans())
+        {
+            GameObject nextGroupe = GameObject.FindGameObjectWithTag("next"); // On cherche les objets ayant pour tag "clones"
+            Destroy(nextGroupe);
+        }
+
         //}
 
         if (_tetroGenerator.ListTetrominos.Count < 10)
@@ -181,10 +194,11 @@ public class TetroCourrant : MonoBehaviour
         }
         // Fin maintient bouton
 
-        
+
         if (!EstDedans()) // Si la nouvelle position est hors limite
         {
-            _shapeTetromino.transform.position -= new Vector3(0, -1 * DistanceCarre, 0); // Retourner à la position d'avant (aucun mouvement)
+            _shapeTetromino.transform.position -=
+                new Vector3(0, -1 * DistanceCarre, 0); // Retourner à la position d'avant (aucun mouvement)
 
         }
     }
@@ -216,71 +230,164 @@ public class TetroCourrant : MonoBehaviour
         }
 
 
+
     }
 
-    // méthode pour implémenter le stockage eventuellement
-    public void Echanger()
+    public void Next()
     {
-        UpdateTetromino();
-        Debug.Log("tab appuyée de tetroCourrant");
+        GameObject tetroNext = GameObject.FindGameObjectWithTag("next");
+
+        if (tetroNext == null)
+        {
+            
+            //GameObject _tetroNext = _shapeTetrominoNext;
+
+
+            switch (_tetroGenerator.ListTetrominos.Peek()) // On regarde le premier élément de la file sans la défiler
+                                                        // On instancie le Tetrominos donné dans l'espace Next
+            {
+
+                case TypeTetromino.TetroI:
+                    _shapeTetrominoNext = Instantiate(TetroI, new Vector3(669, 600, 0), Quaternion.identity);
+                    _shapeTetrominoNext.tag = "next";
+
+                    break;
+                case TypeTetromino.TetroJ:
+                    _shapeTetrominoNext = Instantiate(TetroJ, new Vector3(669, 600, 0), Quaternion.identity);
+                    _shapeTetrominoNext.tag = "next";
+
+                    break;
+                case TypeTetromino.TetroL:
+                    _shapeTetrominoNext = Instantiate(TetroL, new Vector3(669, 600, 0), Quaternion.identity);
+                    _shapeTetrominoNext.tag = "next";
+
+                    break;
+                case TypeTetromino.TetroO:
+                    _shapeTetrominoNext = Instantiate(TetroO, new Vector3(694, 575, 0), Quaternion.identity);
+                    _shapeTetrominoNext.tag = "next";
+                    
+                    break;
+                case TypeTetromino.TetroS:
+                    _shapeTetrominoNext = Instantiate(TetroS, new Vector3(669, 600, 0), Quaternion.identity);
+                    _shapeTetrominoNext.tag = "next";
+                    break;
+                case TypeTetromino.TetroZ:
+                    _shapeTetrominoNext = Instantiate(TetroZ, new Vector3(669, 600, 0), Quaternion.identity);
+                    _shapeTetrominoNext.tag = "next";
+                    break;
+                case TypeTetromino.TetroT:
+                    _shapeTetrominoNext = Instantiate(TetroT, new Vector3(669, 600, 0), Quaternion.identity);
+                    _shapeTetrominoNext.tag = "next";
+                    break;
+
+            }
+
+        }
     }
 
-    public void GenererEchange() // Génère un nouveau Tetro en appuyant sur Tab
-        // Penser à implémenter le stockage
-    {
 
-        _tetroGenerator.GenerateTetro(); // On génère un nouveau Tetro
+   
+
+    public void Next3()
+    {
+        GameObject tetroNext = GameObject.FindGameObjectWithTag("next");
+    
+
+
         GameObject clones = GameObject.FindGameObjectWithTag("clone"); // On cherche les objets ayant pour tag "clones"
 
+        GameObject _tetroNext = _shapeTetrominoNext;
+        _tetroNext = Instantiate(_shapeTetrominoNext, new Vector3(669, 600, 0), Quaternion.identity);
+
+        
+        _tetroNext.tag = "next";
+        
+
+    }
+    
+
+    public void GenererEchange()
+    {
+        GameObject echangeGroupe = GameObject.FindGameObjectWithTag("EchangeGroupe"); // On cherche les objets ayant pour tag "clones"
+
+        // S'il y a déjà un groupe d'échange, le supprimer
+        if (echangeGroupe != null) 
+        {
+            Destroy(echangeGroupe);
+            Debug.Log("echange groupe a été supprimé");
+
+        }
+        //_tetroGenerator.GenerateTetro(); // On génère un nouveau Tetro
+
+        GameObject clones = GameObject.FindGameObjectWithTag("clone"); // On cherche les objets ayant pour tag "clones"
+
+        GameObject _tetroEchange = _shapeTetromino ;
+        var test = _tetroGenerator.ListTetrominos.Dequeue();
+
+        // Instancier le tétromino courant dans l'espace d'échange
+        // Donner le tag "EchangeGroupe" au groupe de Tétrominos stocké
+         _tetroEchange = Instantiate(_shapeTetromino, new Vector3(669, 250, 0), Quaternion.identity);
+         _tetroEchange.tag = "EchangeGroupe";
+    
+     
         Destroy(clones); // On détruit l'objet
+        
+        //_shapeTetromino = Instantiate( _tetroEchange, new Vector3(669, 250, 0), Quaternion.identity);
+
+        
         UpdateTetromino(); // On relance l'instanciation
-
-
     }
 
 
     public void Chute() // On décrémente de une case à chaque frame et selon la valeur du temps de chute 
     {
         GameObject clones = GameObject.FindWithTag("clone");
-        //if (!(GameObject.FindWithTag("clone") == null )) // Seulement si il y a objet avec le tag "clone" (un tetromino dans le jeu)
-        //{
-        if (Time.time - temps > tempsChute)
-        {
-
-            _shapeTetromino.transform.position += new Vector3(0, -1 * DistanceCarre, 0);
-            temps = Time.time;
-
-            //PositionCarresCourrant();
+        //f (!(GameObject.FindWithTag("clone") == null )) // Seulement si il y a objet avec le tag "clone" (un tetromino dans le jeu)
+        { 
             
-
-            ///////// Collision non fonctionnelle  //////////
-
-
-            if (!EstDedans()) // Si la pièce est sur la limite
+            if (Time.time - temps > tempsChute)
             {
-                _shapeTetromino.transform.position -= new Vector3(0, -1 * DistanceCarre, 0); // Annuler la chute
 
-                _shapeTetromino.tag = "VerrouGroupe"; // Attribuer au groupe Tetromino placé (du prefab) le tag "VerrouGroupe"
+                _shapeTetromino.transform.position += new Vector3(0, -1 * DistanceCarre, 0);
+                temps = Time.time;
 
-                foreach (Transform carre in _shapeTetromino.transform) // Pour chaque carré d'un Tetromino
+                //PositionCarresCourrant();
+                
+
+                ///////// Collision non fonctionnelle  //////////
+
+
+                if (!EstDedans()) // Si la pièce est sur la limite
                 {
-                    GameObject.FindGameObjectsWithTag("Untagged"); // Rechercher les Objets (ici le groupe Prefab de nos Tetrominos) qui ont un tag "Untagged"
+                    _shapeTetromino.transform.position -= new Vector3(0, -1 * DistanceCarre, 0); // Annuler la chute
 
-                    carre.tag = "Verrou"; // Attribuer à leur carré (donc à chaque enfants du prefab) le tag "Verrou"
+                    _shapeTetromino.tag = "VerrouGroupe"; // Attribuer au groupe Tetromino placé (du prefab) le tag "VerrouGroupe"
+
+                    foreach (Transform carre in _shapeTetromino.transform) // Pour chaque carré d'un Tetromino
+                    {
+                        GameObject.FindGameObjectsWithTag("Untagged"); // Rechercher les Objets (ici le groupe Prefab de nos Tetrominos) qui ont un tag "Untagged"
+
+                        carre.tag = "Verrou"; // Attribuer à leur carré (donc à chaque enfants du prefab) le tag "Verrou"
+                    }
+
+                    PositionCarresVerrouilles();
+                    
+                    //Next3();
+                    
+                    
+                    // Puisqu'on va passer à un nouveau Tetromino, détruire le groupe dans l'espace Next
+                    GameObject nextGroupe = GameObject.FindGameObjectWithTag("next"); // On cherche les objets ayant pour tag "next"
+                    Destroy(nextGroupe);
+                    //Next();
+                    
+                    
+                    //Verouiller();
+
+                    UpdateTetromino(); // Après que les tags ont été attribués, générer un nouveau Tetromino et ainsi de suite
                 }
-
-                PositionCarresVerrouilles();
-
-                
-                
-                
-                //Verouiller();
-
-                UpdateTetromino(); // Après que les tags ont été attribués, générer un nouveau Tetromino et ainsi de suite
+                //PositionCarresVerrouilles();
             }
-            //PositionCarresVerrouilles();
         }
-        //}
 
 
 
@@ -299,7 +406,10 @@ public class TetroCourrant : MonoBehaviour
             if (carre.transform.position.x > 500 || carre.transform.position.x < 50 || carre.transform.position.y < 100) // Le Tetro Courant n'est plus dans la zone si il y a un dépassement dans:
                 // le mur gauche (x < 50), le mur droit (x>500) et le sol (y<100)
             {
+                
+                
                 return false;
+                
             }
 
             // Probleme : les carrés pensent qu'ils sont en collision a chaque descente

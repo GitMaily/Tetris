@@ -66,6 +66,7 @@ namespace Script
                 
                 Debug.Log("Tabulation appuyée, chargée dans boutons.bis");
                 _tetroCourrant.GenererEchange();
+                
 
             }
 

@@ -38,6 +38,12 @@ namespace Script
             _tetroCourrant = tetroCourrant.GetComponent<TetroCourrant>();
             _tetroCourrant.InitialiserTetromino();
             _tetroCourrant.UpdateTetromino();
+            
+            // Charger l'espace Next
+            
+            _tetroCourrant.Next();
+            //_tetroCourrant.Next3();
+           
 
             // Charger l'utilisation des boutons
             _boutonsBis = boutonsBis.GetComponent<BoutonsBis>();
@@ -48,14 +54,19 @@ namespace Script
         // Update is called once per frame
         void Update()
         {
-            _tetroCourrant.Chute();
-            _boutonsBis.BoutonCheck();
-            _boutonsBis.BoutonBas();
-            _boutonsBis.BoutonHaut();
-            _boutonsBis.BoutonEspace();
-            _boutonsBis.Tabulation();
-            _boutonsBis.Echap();
             
+                _tetroCourrant.Chute();
+                _boutonsBis.BoutonCheck();
+                _boutonsBis.BoutonBas();
+                _boutonsBis.BoutonHaut();
+                _boutonsBis.BoutonEspace();
+                _boutonsBis.Tabulation();
+                _boutonsBis.Echap();
+                _tetroCourrant.Next();
+
+            
+            //_tetroCourrant.PositionCarresCourrant();
+
         }
     }
 }
