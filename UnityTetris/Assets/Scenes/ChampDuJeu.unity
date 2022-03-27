@@ -777,6 +777,8 @@ MonoBehaviour:
   TetroS: {fileID: 3265587807772597483, guid: bb7f1f74faadbc94590eff3a7a44ec68, type: 3}
   TetroZ: {fileID: 1952673600014682577, guid: d3153c37c0e231a47bec4b53495ff269, type: 3}
   TetroT: {fileID: 4312419852266592891, guid: f956ad6300210bb4c96a6d8c39c509a2, type: 3}
+  _champDeJeu: {fileID: 0}
+  carresVerrouilles: {fileID: 2110636141}
   tetroGenerator: {fileID: 1764566915}
   _shapeTetromino: {fileID: 0}
   temps: 0
@@ -789,7 +791,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1146417989}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.692745, y: 155.408, z: -6.5631223}
+  m_LocalPosition: {x: 311, y: 1127, z: -6.5631223}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -914,7 +916,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1764566915}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.885525, y: 16.096655, z: -0.28741616}
+  m_LocalPosition: {x: 330, y: 1149, z: -0.28741616}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1007,4 +1009,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2110636141
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2110636142}
+  m_Layer: 0
+  m_Name: CarresVerouilles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2110636142
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110636141}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
