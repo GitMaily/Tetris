@@ -5,21 +5,23 @@ using System.Collections.Generic;
 
 namespace Script
 {
-    public class Collision
+    public class Collision: MonoBehaviour
     {
         public static int largeur = 10;
         public static int hauteur = 20;
 
         private static Transform[,] epspace = new Transform[largeur, hauteur];
 
-        void nouvGrille()
+        private void ChampDuJ()
         {
-            foreach (Transform block in Transform)
+            foreach (Transform block in transform)
             {
-                int roundedX = Mathf.RoundToInt(block.transform.position.x);
-                int roundedY = Mathf.RoundToInt(block.transform.position.y);
+                int X = Mathf.RoundToInt(block.transform.position.x);
+                int Y = Mathf.RoundToInt(block.transform.position.y);
 
-                epspace[roundedX, roundedY] = block;
+                epspace[X, Y] = block;
+                
+             
 
             }
             
@@ -27,19 +29,26 @@ namespace Script
 
         }
 
-        void CollisionZone()
+        
+
+        
+        
+        bool CollisionZone
         {
-            foreach (Transform block in Transform)
+            get
             {
-                int abscisseX = Mathf.RoundToInt(block.transform.position.x);
-                int ordonneY = Mathf.RoundToInt(block.transform.position.y);
-
-                if (abscisseX < 0 || abscisseX >= largeur || ordonneY < 0 || ordonneY >= hauteur)
+                foreach (Transform block in transform)
                 {
-                    return false;
-                }
-                return true;
+                    int x = Mathf.RoundToInt(block.position.x);
+                    int y = Mathf.RoundToInt(block.position.y);
 
+                    if (x < 0 || x >= largeur || y < 0 || y >= hauteur || epspace[x, y] != null)
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
             }
         }
     }
