@@ -34,6 +34,8 @@ public class TetroCourrant : MonoBehaviour
 
     public GameObject _shapeTetromino;
     private GameObject _shapeTetrominoNext;
+    private GameObject _shapeTetrominoEchange;
+
 
     // Initialisation du temps
     // On peut modifier les valeurs sur l'éditeur
@@ -65,67 +67,72 @@ public class TetroCourrant : MonoBehaviour
     // Un par un
     public void UpdateTetromino()
     {
-        //if (_shapeTetromino == null)
-
-        //{
-
-        _tetroGenerator.GenerateTetro();
-        switch (_tetroGenerator.ListTetrominos.Dequeue()) // On défile
-                                                         // On instancie le Tetrominos défilé
+        GameObject clones = GameObject.FindWithTag("clone");
+        if (clones == null)
         {
+            
+        
+            //if (_shapeTetromino == null)
 
-            case TypeTetromino.TetroI:
-                _shapeTetromino = Instantiate(TetroI, new Vector3(250, 1050, 0), Quaternion.identity);
-                _shapeTetromino.tag = "clone"; // On associe chaque instance de Tetro avec le tag "clone", nous permettant de les manipuler 
-                // On pourra par exemple détruire ou les remplacer.
+            //{
 
-                break;
-            case TypeTetromino.TetroJ:
-                _shapeTetromino = Instantiate(TetroJ, new Vector3(250, 1050, 0), Quaternion.identity);
-                _shapeTetromino.tag = "clone";
-
-                break;
-            case TypeTetromino.TetroL:
-                _shapeTetromino = Instantiate(TetroL, new Vector3(250, 1050, 0), Quaternion.identity);
-                _shapeTetromino.tag = "clone";
-
-                break;
-            case TypeTetromino.TetroO
-                : // Le Tetro O est particulier, son millieu ne contenant pas de carré, il a fallut décaler de (25,-25)
-                _shapeTetromino = Instantiate(TetroO, new Vector3(275, 1025, 0), Quaternion.identity);
-                _shapeTetromino.tag = "clone";
-                
-                break;
-            case TypeTetromino.TetroS:
-                _shapeTetromino = Instantiate(TetroS, new Vector3(250, 1050, 0), Quaternion.identity);
-                _shapeTetromino.tag = "clone";
-                break;
-            case TypeTetromino.TetroZ:
-                _shapeTetromino = Instantiate(TetroZ, new Vector3(250, 1050, 0), Quaternion.identity);
-                _shapeTetromino.tag = "clone";
-                break;
-            case TypeTetromino.TetroT:
-                _shapeTetromino = Instantiate(TetroT, new Vector3(250, 1050, 0), Quaternion.identity);
-                _shapeTetromino.tag = "clone";
-                break;
-            default:
-                _shapeTetromino = null;
-                break;
-        }
-        //Next();
-        if (!EstDedans())
-        {
-            GameObject nextGroupe = GameObject.FindGameObjectWithTag("next"); // On cherche les objets ayant pour tag "clones"
-            Destroy(nextGroupe);
-        }
-
-        //}
-
-        if (_tetroGenerator.ListTetrominos.Count < 10)
-        {
             _tetroGenerator.GenerateTetro();
-        }
+            switch (_tetroGenerator.ListTetrominos.Dequeue()) // On défile
+                                                             // On instancie le Tetrominos défilé
+            {
 
+                case TypeTetromino.TetroI:
+                    _shapeTetromino = Instantiate(TetroI, new Vector3(250, 1050, 0), Quaternion.identity);
+                    _shapeTetromino.tag = "clone"; // On associe chaque instance de Tetro avec le tag "clone", nous permettant de les manipuler 
+                    // On pourra par exemple détruire ou les remplacer.
+
+                    break;
+                case TypeTetromino.TetroJ:
+                    _shapeTetromino = Instantiate(TetroJ, new Vector3(250, 1050, 0), Quaternion.identity);
+                    _shapeTetromino.tag = "clone";
+
+                    break;
+                case TypeTetromino.TetroL:
+                    _shapeTetromino = Instantiate(TetroL, new Vector3(250, 1050, 0), Quaternion.identity);
+                    _shapeTetromino.tag = "clone";
+
+                    break;
+                case TypeTetromino.TetroO
+                    : // Le Tetro O est particulier, son millieu ne contenant pas de carré, il a fallut décaler de (25,-25)
+                    _shapeTetromino = Instantiate(TetroO, new Vector3(250, 1050, 0), Quaternion.identity);
+                    _shapeTetromino.tag = "clone";
+                    
+                    break;
+                case TypeTetromino.TetroS:
+                    _shapeTetromino = Instantiate(TetroS, new Vector3(250, 1050, 0), Quaternion.identity);
+                    _shapeTetromino.tag = "clone";
+                    break;
+                case TypeTetromino.TetroZ:
+                    _shapeTetromino = Instantiate(TetroZ, new Vector3(250, 1050, 0), Quaternion.identity);
+                    _shapeTetromino.tag = "clone";
+                    break;
+                case TypeTetromino.TetroT:
+                    _shapeTetromino = Instantiate(TetroT, new Vector3(250, 1050, 0), Quaternion.identity);
+                    _shapeTetromino.tag = "clone";
+                    break;
+                default:
+                    _shapeTetromino = null;
+                    break;
+            }
+            // Si la pièce a été placée, détruire le tétromino de l'espace Next pour la remplacer avec la prochaine
+            if (!EstDedans())
+            {
+                GameObject nextGroupe = GameObject.FindGameObjectWithTag("next"); // On cherche les objets ayant pour tag "next"
+                Destroy(nextGroupe);
+            }
+
+            //}
+
+            if (_tetroGenerator.ListTetrominos.Count < 10)
+            {
+                _tetroGenerator.GenerateTetro();
+            }
+        }
     }
 
 
@@ -239,10 +246,6 @@ public class TetroCourrant : MonoBehaviour
 
         if (tetroNext == null)
         {
-            
-            //GameObject _tetroNext = _shapeTetrominoNext;
-
-
             switch (_tetroGenerator.ListTetrominos.Peek()) // On regarde le premier élément de la file sans la défiler
                                                         // On instancie le Tetrominos donné dans l'espace Next
             {
@@ -263,7 +266,7 @@ public class TetroCourrant : MonoBehaviour
 
                     break;
                 case TypeTetromino.TetroO:
-                    _shapeTetrominoNext = Instantiate(TetroO, new Vector3(694, 575, 0), Quaternion.identity);
+                    _shapeTetrominoNext = Instantiate(TetroO, new Vector3(669, 600, 0), Quaternion.identity);
                     _shapeTetrominoNext.tag = "next";
                     
                     break;
@@ -308,34 +311,78 @@ public class TetroCourrant : MonoBehaviour
 
     public void GenererEchange()
     {
-        GameObject echangeGroupe = GameObject.FindGameObjectWithTag("EchangeGroupe"); // On cherche les objets ayant pour tag "clones"
+        
+        GameObject clones = GameObject.FindGameObjectWithTag("clone"); // On cherche les objets ayant pour tag "clone"
+        GameObject nextGroupe = GameObject.FindGameObjectWithTag("next"); // On cherche les objets ayant pour tag "next"
 
-        // S'il y a déjà un groupe d'échange, le supprimer
-        if (echangeGroupe != null) 
+        GameObject echangeGroupe = GameObject.FindGameObjectWithTag("EchangeGroupe"); // On cherche les objets ayant pour tag "EchangeGroupe"
+        GameObject _tetroEchange = _shapeTetromino ;
+
+        // S'il y a déjà un groupe d'échange : //
+        
+        /*  1. Détruire le groupe de Tétromino dans l'espace d'échange
+         *  2. Placer le tétromino courant dans l'espace d'échange
+         *  3. Instancier le tétromino précédemment stocké dans le champ de jeu
+         *  4. Détruire le tétromino courant
+         */
+        
+        if (echangeGroupe != null)  // S'il existe déjà un groupe d'échange
         {
-            Destroy(echangeGroupe);
+            
+            
+            Destroy(echangeGroupe); // On détruit le Tétromino affiché dans Echange
             Debug.Log("echange groupe a été supprimé");
+            
+    
+            // Instancier le tétromino courant dans l'espace d'échange
+            // Donner le tag "EchangeGroupe" au groupe de Tétrominos stocké
+            _tetroEchange = Instantiate(_shapeTetromino, new Vector3(669, 250, 0), Quaternion.identity);
+            _tetroEchange.tag = "EchangeGroupe";
+            
+             
+            GameObject _tetroEchange2 = echangeGroupe ;
+
+           
+            // Instancier le tétromino précédemment stocké dans le jeu
+            // Donner le tag "clone" au groupe de Tétrominos courant
+            _shapeTetromino = Instantiate(_tetroEchange2, new Vector3(250, 1050, 0), Quaternion.identity);
+            _shapeTetromino.tag = "clone";
+           
+            _tetroGenerator.GenerateTetro();
+             
+             
+            Destroy(clones); // On détruit l'objet
+           
+
 
         }
-        //_tetroGenerator.GenerateTetro(); // On génère un nouveau Tetro
-
-        GameObject clones = GameObject.FindGameObjectWithTag("clone"); // On cherche les objets ayant pour tag "clones"
-
-        GameObject _tetroEchange = _shapeTetromino ;
-        var test = _tetroGenerator.ListTetrominos.Dequeue();
-
-        // Instancier le tétromino courant dans l'espace d'échange
-        // Donner le tag "EchangeGroupe" au groupe de Tétrominos stocké
-         _tetroEchange = Instantiate(_shapeTetromino, new Vector3(669, 250, 0), Quaternion.identity);
-         _tetroEchange.tag = "EchangeGroupe";
-    
-     
-        Destroy(clones); // On détruit l'objet
+        // S'il n'y a aucun Tétromino dans l'espace d'échange (Tout premier échange du jeu) : //
         
-        //_shapeTetromino = Instantiate( _tetroEchange, new Vector3(669, 250, 0), Quaternion.identity);
-
+        /*  1. Détruire le tétromino de l'espace Next
+         *  2. Détruire le tétromino courant
+         *  3. Placer le tétromino courant dans l'espace d'échange
+         *  4. Instancier le prochain tétromino
+         */
         
-        UpdateTetromino(); // On relance l'instanciation
+        else 
+        {
+            _tetroEchange.tag = "EchangeGroupe";
+             
+            Destroy(nextGroupe);   // On détruit le Tétromino affiché dans Next
+             //Next();                // On remplace par la nouvelle pièce chargée
+             
+            Destroy(clones); // On détruit l'objet
+            
+            // Instancier le tétromino précédemment stocké dans le jeu
+            // Donner le tag "clone" au groupe de Tétrominos courant
+            _shapeTetromino = Instantiate( _tetroEchange, new Vector3(669, 250, 0), Quaternion.identity);
+            _shapeTetromino.tag = "EchangeGroupe";
+            
+            //Destroy(clones); // On détruit l'objet
+            //Next();
+            UpdateTetromino();
+
+        }
     }
 
 
