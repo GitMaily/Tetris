@@ -8,6 +8,7 @@ public class Tetrot : MonoBehaviour
     public float tempsdechute = 0.5f;
     public static int largeur = 10;
     public static int hauteur = 20;
+    private static Transform[,] epspace = new Transform[largeur, hauteur];
 
    
     // Start is called before the first frame update
