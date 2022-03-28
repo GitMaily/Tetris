@@ -9,7 +9,7 @@ public class Tetrot : MonoBehaviour
     public static int largeur = 10;
     public static int hauteur = 20;
 
-    private static Transform[,]grille- new Transform[hautuer,Largeur];
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -21,60 +21,55 @@ public class Tetrot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (!Input.GetKeyDown(KeyCode.LeftArrow)) return;
+        transform.position += new Vector3(-1, 0, 0);
+        if (!CollisionZone)
         {
-            transform.position += new Vector3(-1,0,0);
-            if(!Collision()){
-                transform.position -= new Vector3(-1,0,0);
-            }
-            
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            transform.position -= new Vector3(-1, 0, 0);
+        }
+        
+
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             transform.position += new Vector3(1, 0, 0);
-            if(!Collision()){
+            if(!CollisionZone){
                 transform.position -= new Vector3(-1,0,0);
             }
 
         }
 
-        if (Time.time - temps > tempsdechute)
-        {
-            transform.position += new Vector3(0,-1,0);
-            if(!Collision()){
-                transform.position -= new Vector3(-1,0,0);
-            }
-            temps=Time.time;
+        if (!(Time.time - temps > tempsdechute)) return;
+        transform.position += new Vector3(0,-1,0);
+        if(!CollisionZone){
+            transform.position -= new Vector3(-1,0,0);
         }
+        temps=Time.time;
 
+
+
+    }
+
+    bool CollisionZone
         
-    }
-    
-    
-            
-    }
-
-    bool estVide()
     {
-        foreach (Transform block in transform)
+        get
         {
-            int roundedX = Mathf.RoundToInt(block.transform.position.x);
-            int roundedY = Mathf.RoundToInt(block.transform.position.y);
-
-            if (roundedX < 0 || roundedX >= largeur || roundedY < 0 || roundedY >= hauteur)
+            foreach (Transform block in transform)
             {
-                return false;
+                int x = Mathf.RoundToInt(block.position.x);
+                int y = Mathf.RoundToInt(block.position.y);
+
+                if (x < 0 || x >= largeur || y < 0 || y >= hauteur || epspace[x, y] != null)
+                {
+                    return false;
+                }
             }
 
-            if (grille[roundedX, roundedY] != null)
-            {
-                return false;
-            }
-            {
-                
-            }
-
+            return true;
         }
     }
+
+   
 }
     
 
