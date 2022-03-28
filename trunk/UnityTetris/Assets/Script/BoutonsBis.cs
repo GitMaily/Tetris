@@ -63,10 +63,10 @@ namespace Script
         {
             if (Input.GetKeyDown(KeyCode.Tab )) // Problème d'échange avec 2* Tab résolus
             {
-                
+                _tetroCourrant.Next();
+
                 Debug.Log("Tabulation appuyée, chargée dans boutons.bis");
                 _tetroCourrant.GenererEchange();
-                
 
             }
 
