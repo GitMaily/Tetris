@@ -6,6 +6,9 @@ namespace Script
 {
     public class BoutonsBis : MonoBehaviour
     {
+        private GameObject _shapeTetromino;
+        private const int DistanceCarre = 50; // Distance entre chaque carré (espace de 3 entre chaque carré, donc 47 + 3)
+
 
         public GameObject tetroCourrant;
 
@@ -37,25 +40,24 @@ namespace Script
            
             if (Input.GetKeyDown(KeyCode.Space))
             {
-               _tetroCourrant.Descente();
-
+                _tetroCourrant.Descente();
             }
                 
         }
-        public void BoutonHaut() // Rotation gauche
+        public void BoutonHaut() // Rotation droite
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             { 
-               _tetroCourrant.RotationGauche();
+               _tetroCourrant.RotationDroite();
             }
                 
         }
             
-        public void BoutonBas() // Rotation droite
+        public void BoutonBas() // Rotation gauche
         {
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-                _tetroCourrant.RotationDroite();
+                _tetroCourrant.RotationGauche();
             }
         }
         

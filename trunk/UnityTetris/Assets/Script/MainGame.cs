@@ -19,9 +19,16 @@ namespace Script
         public GameObject boutonsBis;
         private BoutonsBis _boutonsBis;
 
+        public GameObject _sauvegarde;
+        private MenuSauvegarde menuSauvegarde;
+
         public GameObject score;
 
         public GameObject pause;
+
+        
+        private GameObject _shapeTetromino;
+        private const int DistanceCarre = 50; // Distance entre chaque carré (espace de 3 entre chaque carré, donc 47 + 3)
 
         #endregion Objets
         
@@ -48,21 +55,30 @@ namespace Script
             // Charger l'utilisation des boutons
             _boutonsBis = boutonsBis.GetComponent<BoutonsBis>();
             _boutonsBis.Initialiser();
+            
+            // Sauvegarde
+
+            //menuSauvegarde = _sauvegarde.GetComponent<MenuSauvegarde>();
+            
 
         }
 
         // Update is called once per frame
         void Update()
         {
-            
-                _tetroCourrant.Chute();
-                _boutonsBis.BoutonCheck();
-                _boutonsBis.BoutonBas();
-                _boutonsBis.BoutonHaut();
-                _boutonsBis.BoutonEspace();
-                _boutonsBis.Tabulation();
-                _boutonsBis.Echap();
-                _tetroCourrant.Next();
+
+            //menuSauvegarde.Sauvegardes();
+
+            //_tetroCourrant.BloquerChampDeJeu();
+            _tetroCourrant.Chute();
+            _boutonsBis.BoutonCheck();
+            _boutonsBis.BoutonBas();
+            _boutonsBis.BoutonHaut();
+            _boutonsBis.BoutonEspace();
+            _boutonsBis.Tabulation();
+            _boutonsBis.Echap();
+            _tetroCourrant.Next();
+                
 
             
             //_tetroCourrant.PositionCarresCourrant();
