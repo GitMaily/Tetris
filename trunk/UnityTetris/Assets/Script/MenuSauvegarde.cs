@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Script;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
@@ -14,7 +15,7 @@ public class MenuSauvegarde : MonoBehaviour
     private bool sauvegarde7;
     private bool sauvegarde8;
 
-    public MenuSauvegarde()
+    public void Initialiser()
     {
         sauvegarde1 = false;
         sauvegarde2 = false;
