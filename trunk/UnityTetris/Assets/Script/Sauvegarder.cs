@@ -18,9 +18,13 @@ public class Sauvegarder : MonoBehaviour
     {
         Sauvegarder fichier = new Sauvegarder();
         IFormatter formatter = new BinaryFormatter();
-        Stream stream = new FileStream("GameSave.bin", FileMode.Create, FileAccess.Write, FileShare.None);
-        formatter.Serialize(stream, fichier);
+        Stream stream = new FileStream("GameSave.bin", FileMode.Create, FileAccess.Write, FileShare.None); /* problème */
+        Debug.Log("Création du fichier");
+        formatter.Serialize(stream, fichier); /* problème */
+        Debug.Log("Sérialisation");
         stream.Close();
+        
+        Debug.Log("Sauvegarde réussi");
     }
     
     // Start is called before the first frame update
