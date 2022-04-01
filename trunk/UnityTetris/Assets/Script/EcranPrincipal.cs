@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEditor;
-using UnityEditor.VersionControl;
 using UnityEngine;
 
 namespace Script
@@ -15,7 +14,7 @@ namespace Script
         public GameObject _border;
 
         
-        public Transform[,] Matrice = new Transform[LargueurDuChampDuJeu, HauteurDuChampDuJeu];
+        public Transform[,] Matrice = new Transform[550, 1100];
 
         
         public GameObject[,] _champDuJeu;

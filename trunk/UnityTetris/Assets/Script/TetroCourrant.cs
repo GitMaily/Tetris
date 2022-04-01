@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 using Script;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -27,7 +25,7 @@ public class TetroCourrant : MonoBehaviour
     public EcranPrincipal _champDeJeu;
 
     //public GameObject TableauDeJeu;
-    private GameObject[] _positionVerrou;
+    public GameObject[] _positionVerrou;
 
     public GameObject carresVerrouilles;
 
@@ -37,6 +35,8 @@ public class TetroCourrant : MonoBehaviour
     public GameObject _shapeTetromino;
     private GameObject _shapeTetrominoNext;
     private GameObject _shapeTetrominoEchange;
+
+    //public GameObject detruireLigne;
 
 
     // Initialisation du temps
@@ -48,9 +48,10 @@ public class TetroCourrant : MonoBehaviour
 
     private const int DistanceCarre = 50; // Distance entre chaque carré (espace de 3 entre chaque carré, donc 47 + 3)
 
-
-    // Ici on va commencer à générer une liste de tétrominos grâce à la classe TetroGenerator
-    // Utilisation de FILE ici, first in first out
+    /// <summary>
+    /// Génère une liste de Tetrominos avec la classe TetroGenerator.
+    /// La liste correspond à une file, méthode first in first out.
+    /// </summary>
     public void InitialiserTetromino()
     {
         _tetroGenerator = tetroGenerator.GetComponent<TetroGenerator>();
@@ -64,9 +65,9 @@ public class TetroCourrant : MonoBehaviour
 
     }
 
-    // Pour chaque cas, on instancie un tétromino de la file d'attente dans l'aire de jeu
-    // La position sera la 5e case de la deuxième ligne du tableau (250, 1050)
-    // Un par un
+    /// <summary>
+    /// Utilise la méthode Dequeue() pour instancier dans le champ de jeu le prochain Tetromino de la file à la position (250,1050).
+    /// </summary>
     public void UpdateTetromino()
     {
         GameObject clones = GameObject.FindWithTag("clone");
@@ -114,7 +115,7 @@ public class TetroCourrant : MonoBehaviour
                     _shapeTetromino.tag = "clone";
                     break;
                 case TypeTetromino.TetroT:
-                    _shapeTetromino = Instantiate(TetroT, new Vector3(250, 1050, 0), Quaternion.identity);
+                    _shapeTetromino = Instantiate(TetroT, new Vector3(250, 1000, 0), Quaternion.identity);
                     _shapeTetromino.tag = "clone";
                     break;
                 default:
@@ -250,6 +251,11 @@ public class TetroCourrant : MonoBehaviour
 
     }
     #endregion Mouvements joueurs
+    
+    /// <summary>
+    /// Utilise la méthode Peek() pour voir le premier Tetromino de la file, sans la défiler.
+    /// Instancie ce tétromino dans l'espace Next.
+    /// </summary>
     public void Next()
     {
         GameObject tetroNext = GameObject.FindGameObjectWithTag("next");
@@ -289,7 +295,7 @@ public class TetroCourrant : MonoBehaviour
                     _shapeTetrominoNext.tag = "next";
                     break;
                 case TypeTetromino.TetroT:
-                    _shapeTetrominoNext = Instantiate(TetroT, new Vector3(669, 600, 0), Quaternion.identity);
+                    _shapeTetrominoNext = Instantiate(TetroT, new Vector3(669, 550, 0), Quaternion.identity);
                     _shapeTetrominoNext.tag = "next";
                     break;
 
@@ -319,6 +325,9 @@ public class TetroCourrant : MonoBehaviour
     }
     
 
+    /// <summary>
+    /// Instancie dans l'espace d'Echange le Tetromino courant.
+    /// </summary>
     public void GenererEchange()
     {
         
@@ -408,13 +417,8 @@ public class TetroCourrant : MonoBehaviour
                 
                 _shapeTetromino.transform.position += new Vector3(0, -1 * DistanceCarre, 0);
                 temps = Time.time;
-                   
 
-                    //PositionCarresCourrant();
-                
-                ///////// Collision non fonctionnelle  //////////
-
-                if (!EstDedans() ) // Si la pièce est sur la limite
+                if (!EstDedans()  ) // Si la pièce est sur la limite
                 {
                     _shapeTetromino.transform.position -= new Vector3(0, -1 * DistanceCarre, 0); // Annuler la chute
 
@@ -427,53 +431,21 @@ public class TetroCourrant : MonoBehaviour
                         carre.tag = "Verrou"; // Attribuer à leur carré (donc à chaque enfants du prefab) le tag "Verrou"
 
                         
-                    }
-                    
-                    PositionCarresVerrouilles();
 
-                    
-                    
-                    //Next3();
-                    
+                    }
+
+                    PositionCarresVerrouilles();
+                    VerrouillerCarre();
                     
                     // Puisqu'on va passer à un nouveau Tetromino, détruire le groupe dans l'espace Next
                     GameObject nextGroupe = GameObject.FindGameObjectWithTag("next"); // On cherche les objets ayant pour tag "next"
                     Destroy(nextGroupe);
-                    //Next();
-                    
-                    
-                    //Verouiller();
+                   
 
                     UpdateTetromino(); // Après que les tags ont été attribués, générer un nouveau Tetromino et ainsi de suite
                     
                     
                 }
-                
-                /*foreach (GameObject carre in _positionVerrou)
-                {
-                    foreach (Transform carresVerrou in carresVerrouilles.transform)
-                    {
-                        if (carre.transform.position == carresVerrou.transform.position)
-                        {
-                            
-                            Debug.Log("Vrai collision!!!!");
-                            _shapeTetromino.transform.position -= new Vector3(0, -1 * DistanceCarre, 0); // Annuler la chute
-                            UpdateTetromino(); // Après que les tags ont été attribués, générer un nouveau Tetromino et ainsi de suite
-        
-                        }
-        
-                    }
-
-                }*/
-                /*if (EstEnCollision(_shapeTetromino.transform.position))
-                {
-                    Debug.Log("Il y a une collision dans chute");
-                    _shapeTetromino.transform.position -= new Vector3(0, -1 * DistanceCarre, 0); // Annuler la chute
-                    UpdateTetromino(); // Après que les tags ont été attribués, générer un nouveau Tetromino et ainsi de suite
-
-                };*/
-                //PositionCarresVerrouilles();
-                
                 
             }
             
@@ -488,7 +460,6 @@ public class TetroCourrant : MonoBehaviour
     public bool EstDedans()
 
     {
-        //GameObject [] clones = GameObject.FindGameObjectsWithTag("clone"); 
 
         foreach (Transform carre in _shapeTetromino.transform) // Pour chaque carré d'un Tetromino
         {
@@ -497,30 +468,15 @@ public class TetroCourrant : MonoBehaviour
             int posX = Mathf.RoundToInt(carre.transform.position.x);
             int posY = Mathf.RoundToInt(carre.transform.position.y);
 
-            if (posX > 500 || posX < 50 || posY < 100) // Le Tetro Courant n'est plus dans la zone si il y a un dépassement dans:
+            if (posX > 500 || posX < 50 || posY < 100 || _champDeJeu.Matrice[posX,posY] != null) // Le Tetro Courant n'est plus dans la zone si il y a un dépassement dans:
                 // le mur gauche (x < 50), le mur droit (x>500) et le sol (y<100)
+                // S'il existe un carré verrouillé à la place du tetro Courant, ce Tetromino devient un mur aussi
             {
-                
-                
                 return false;
                 
             }
-
-            // Probleme : les carrés pensent qu'ils sont en collision a chaque descente
-            /*if (carre.transform.position != PositionCarresVerrouilles())
-            {
-                return false;
-            }*/
-
-            /*if ((int) carre.transform.position.x != (int) GameObject.FindWithTag("Verrou").transform.position.x)
-            {
-                if ((int) carre.transform.position.y != (int) GameObject.FindWithTag("Verrou").transform.position.y)
-                {
-                    return false;
-                }
-                
-                return false;
-            }*/
+            
+           
         }
         return true;
     }
@@ -547,7 +503,10 @@ public class TetroCourrant : MonoBehaviour
         
     }
 
-    
+    /// <summary>
+    /// Place les carrés ayant un tag "Verrou" dans le parent carresVerrouilles.
+    /// </summary>
+    /// <returns>Vector3 la position d'un carré avec un tag "Verrou"</returns>
     public Vector3 PositionCarresVerrouilles() // Montre dans la console la position de chaque carré qui ont été verouillés
 
     {
@@ -564,77 +523,108 @@ public class TetroCourrant : MonoBehaviour
         foreach (GameObject carre in _positionVerrou)
         {
             var positionCarre = carre.transform.position;
-            Debug.Log("Position d'un carré bloqué:"+ positionCarre);
             
             carre.transform.SetParent(carresVerrouilles.transform); // Les carrés vérouillés on été placés ici
 
-            /*foreach (Transform carresVerrou in carresVerrouilles.transform)
-            {
-                if (carre.transform.position == carresVerrou.transform.position)
-                {
-                    
-                    Debug.Log("Vrai collision!!!!");
-                    _shapeTetromino.transform.position -= new Vector3(0, -1 * DistanceCarre, 0); // Annuler la chute
-                    UpdateTetromino(); // Après que les tags ont été attribués, générer un nouveau Tetromino et ainsi de suite
-
-                }
-
-            }*/
 
         }
         
         return positionCarresVerrou;
     }
     
-    public void BloquerChampDeJeu()
-    { 
-        const int LargueurDuChampDuJeu = 10;
-        const int HauteurDuChampDuJeu = 20;
-        _positionVerrou = GameObject.FindGameObjectsWithTag("Verrou");
-        Vector3[] Matrice = new Vector3[_positionVerrou.Length];
-
-       
-        foreach (GameObject carre in _positionVerrou)
-        {
-            
-            
-            
-            //Matrice[PositionCarresVerrouilles()] = carre.transform;
-
-        }
-
-    }
-
-
-    public void Collision()
+    public void Ligne()
     {
-        //collisions = collision1.GetComponent<Collision>();
+        _positionVerrou = GameObject.FindGameObjectsWithTag("Verrou");
+
         
 
+        foreach (GameObject carre in _positionVerrou)
+        {
+            //int posX = Mathf.RoundToInt(carre.transform.position.x);
+            int posY = Mathf.RoundToInt(carre.transform.position.y);
+            
+            if (posY == 150)
+            {
+                Destroy(carre);
+            }
+            
+        }
+    }
+    
+    /// <summary>
+    /// Prend la position x et y de chaque carrés qui ont été verrouillés.
+    /// Les place dans la Matrice 2D du champ de jeu.
+    /// </summary>
+    public void VerrouillerCarre()
+    {
+        _positionVerrou = GameObject.FindGameObjectsWithTag("Verrou");
+
+        // avec for
+        int count = _positionVerrou.Length;
+        for(int i = 0; i < count; i++)
+        {
+            
+            Transform block = carresVerrouilles.transform.GetChild(i);
+            int X = Mathf.RoundToInt(block.position.x);
+            int Y = Mathf.RoundToInt(block.position.y);
+            var positionCarre = block.transform.position;
+            _champDeJeu.Matrice[X, Y] = block;
+            
+            //Debug.Log("nouvGrille marche");
+            //Debug.Log("Position d'un carré :"+ positionCarre);
+
+            
+            
+        }
+        
+        
+        
+        // avec foreach
+        /*foreach (Transform block in carresVerrouilles.transform)
+        {
+            int X = Mathf.RoundToInt(block.position.x);
+            int Y = Mathf.RoundToInt(block.position.y);
+            Debug.Log("nouvGrille&1 marche");
+
+            Debug.Log("Longueur de _positionVerrou:"+_positionVerrou.Length);
+            var positionCarre = block.transform.position;
+            Debug.Log("Position d'un carré :"+ positionCarre);
+                
+            _champDeJeu.Matrice[X, Y] = block;
+            Debug.Log("nouvGrille marche");
+
+             
+
+        }*/
+            
+
+
     }
 
+   
+
     
-    public bool EstEnCollision(Vector3 carreCollision)
+    public bool EstEnCollision()
     {
 
         _positionVerrou = GameObject.FindGameObjectsWithTag("Verrou");
         GameObject _carreVerrou = GameObject.FindGameObjectWithTag("Verrou");
 
-        
+
         foreach (Transform carre in _shapeTetromino.transform) // Pour chaque carré d'un Tetromino courant
         {
-            foreach (GameObject carreVerrou in _carreVerrou.transform) // Pour chaque objet carré dans le groupe de Tétromino vérouillés
+            int posX = Mathf.RoundToInt(carre.position.x);
+            int posY = Mathf.RoundToInt(carre.position.y);
+
+            if (_champDeJeu.Matrice[posX, posY] != null) 
             {
-                if (carre.transform.position != PositionCarresVerrouilles()) continue;
-                Debug.Log("position de carre.transform"+carre.transform.position);
-                Debug.Log("position de carreVerrou.transform"+carreVerrou.transform.position);
-
-                return true;
+                return false;
             }
-            
-        }
 
-        return false;
+
+
+        }
+        return true;
 
 
         /*foreach (Transform carre in _shapeTetromino.transform) // Pour chaque carré d'un Tetromino courant
