@@ -30,6 +30,14 @@ namespace Script
         private GameObject _shapeTetromino;
         private const int DistanceCarre = 50; // Distance entre chaque carré (espace de 3 entre chaque carré, donc 47 + 3)
 
+
+        public GameObject ligne;
+        private DestructionLigne _destructionLigne;
+
+        public GameObject colli;
+        private Collision _collisions;
+        
+        
         #endregion Objets
         
         
@@ -60,6 +68,16 @@ namespace Script
 
             //menuSauvegarde = _sauvegarde.GetComponent<MenuSauvegarde>();
             
+            // Destruction Ligne
+            _destructionLigne = ligne.GetComponent<DestructionLigne>();
+
+            _destructionLigne.Initialiser();
+            
+
+            // Collision
+            
+            _collisions = colli.GetComponent<Collision>();
+            _collisions.Initialiser();
 
         }
 
@@ -70,6 +88,8 @@ namespace Script
             //menuSauvegarde.Sauvegardes();
 
             //_tetroCourrant.BloquerChampDeJeu();
+            //_tetroCourrant.ChampDuJ();
+
             _tetroCourrant.Chute();
             _boutonsBis.BoutonCheck();
             _boutonsBis.BoutonBas();
@@ -78,9 +98,11 @@ namespace Script
             _boutonsBis.Tabulation();
             _boutonsBis.Echap();
             _tetroCourrant.Next();
-                
-
             
+            //_collisions.ChampDuJeu();
+            //_destructionLigne.Ligne();
+            //_tetroCourrant.Ligne();
+
             //_tetroCourrant.PositionCarresCourrant();
 
         }
