@@ -73,19 +73,19 @@ namespace Script
 
         public void DescenteLignes(int ligne)
         {
-            for (int y = ligne; y < 1100 - 1; y++)
+            for (int y = ligne; y < 1100 - 50; y++)
             {
-                for (int x = 0; x < 500; x++)
+                for (int x = 0; x <= 500; x++)
                 {
-                    // if the row above has a block
-                    if (_champDeJeu.Matrice[x, y + 1] != null)
+                   
+                    if (_champDeJeu.Matrice[x, y +50] != null)
                     {
-                        // switch the transforms of this row and the row above 
-                        _champDeJeu.Matrice[x, y] = _champDeJeu.Matrice[x, y + 1];
-                        // it should be null because the transform was swapped
-                        _champDeJeu.Matrice[x, y + 1] = null;
-                        // move the swapped blocks down
-                        _champDeJeu.Matrice[x, y].gameObject.transform.position += Vector3.down;
+                        _champDeJeu.Matrice[x, y] = _champDeJeu.Matrice[x, y + 50];
+                       
+                        _champDeJeu.Matrice[x, y + 50] = null;
+                        _champDeJeu.Matrice[x, y].gameObject.transform.position +=new Vector3(0,-1*50,0);
+                        
+                        
                     }
                 }
             }
@@ -98,7 +98,7 @@ namespace Script
         public int Ligne()
         {
             int _ligneCompteur = 0;
-            for (int y =1100- 1; y >= 0; y--)
+            for (int y =0; y < 1100; y++)
             {
 
                 if (LigneEstComplete(y))
