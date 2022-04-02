@@ -71,8 +71,24 @@ namespace Script
             }
         }
 
-        public void DescenteLignes()
+        public void DescenteLignes(int ligne)
         {
+            for (int y = ligne; y < 1100 - 1; y++)
+            {
+                for (int x = 0; x < 500; x++)
+                {
+                    // if the row above has a block
+                    if (_champDeJeu.Matrice[x, y + 1] != null)
+                    {
+                        // switch the transforms of this row and the row above 
+                        _champDeJeu.Matrice[x, y] = _champDeJeu.Matrice[x, y + 1];
+                        // it should be null because the transform was swapped
+                        _champDeJeu.Matrice[x, y + 1] = null;
+                        // move the swapped blocks down
+                        _champDeJeu.Matrice[x, y].gameObject.transform.position += Vector3.down;
+                    }
+                }
+            }
             
         }
 
@@ -82,7 +98,7 @@ namespace Script
         public int Ligne()
         {
             int _ligneCompteur = 0;
-            for (int y = 0; y < 1100; y++)
+            for (int y =1100- 1; y >= 0; y--)
             {
 
                 if (LigneEstComplete(y))
@@ -90,7 +106,7 @@ namespace Script
                     Debug.Log("Une ligne est complete");
 
                     DetruireLigne(y);
-                    DescenteLignes();
+                    DescenteLignes(y);
                     _ligneCompteur++;
                 }
             }
