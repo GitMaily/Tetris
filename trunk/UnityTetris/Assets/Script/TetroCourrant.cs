@@ -36,6 +36,8 @@ public class TetroCourrant : MonoBehaviour
     private GameObject _shapeTetrominoNext;
     private GameObject _shapeTetrominoEchange;
 
+    private TypeTetromino _typeTetromino;
+
     //public GameObject detruireLigne;
 
 
@@ -78,9 +80,10 @@ public class TetroCourrant : MonoBehaviour
             //if (_shapeTetromino == null)
 
             //{
-
             _tetroGenerator.GenerateTetro();
-            switch (_tetroGenerator.ListTetrominos.Dequeue()) // On défile
+            _typeTetromino = _tetroGenerator.ListTetrominos.Dequeue();
+            
+            switch (_typeTetromino) // On défile
                                                              // On instancie le Tetrominos défilé
             {
 
@@ -224,30 +227,67 @@ public class TetroCourrant : MonoBehaviour
 
     public void RotationGauche()
     {
-        if (!_shapeTetromino.Equals(TetroO))
+        if (_typeTetromino != TypeTetromino.TetroO)
         {
-            Debug.Log("Flèche haut appuyée : effectuer la rotation à gauche de la pièce de 90°");
+            Debug.Log("Flèche bas appuyée : effectuer la rotation à gauche de la pièce de 90°");
+            _shapeTetromino.transform.Rotate(0, 0, 90);
+            if (!EstDedans()) // Si la nouvelle position est hors limite
+            {
+                _shapeTetromino.transform.Rotate(0, 0, -90); // Retourner à la position d'avant (aucun mouvement)
+                if (_typeTetromino == TypeTetromino.TetroI)
+                {
+                    ADroite();
+                    ADroite();
                     _shapeTetromino.transform.Rotate(0, 0, 90);
-                    if (!EstDedans()) // Si la nouvelle position est hors limite
-                    {
-                        _shapeTetromino.transform.Rotate(0, 0, -90); // Retourner à la position d'avant (aucun mouvement)
-            
-                    }
+                }
+                else
+                {
+                    ADroite();
+                    _shapeTetromino.transform.Rotate(0, 0, 90);
+                }
+
+                
+                
+                
+            }
+
+                  
         }
     }
 
     public void RotationDroite()
     {
-        if (!_shapeTetromino.Equals(TetroO))
+        if (_typeTetromino != TypeTetromino.TetroO)
         {
             Debug.Log("Flèche haut appuyée : effectuer la rotation à droite de la pièce de 90°");
-                    _shapeTetromino.transform.Rotate(0, 0, -90);
-            
-                    if (!EstDedans()) // Si la nouvelle position est hors limite
+            _shapeTetromino.transform.Rotate(0, 0, -90);
+    
+            if (!EstDedans()) // Si la nouvelle position est hors limite
+            {
+                _shapeTetromino.transform.Rotate(0, 0, 90); // Retourner à la position d'avant (aucun mouvement)
+    
+                if (_typeTetromino == TypeTetromino.TetroI)
+                {
+                    if (Mathf.RoundToInt(_shapeTetromino.transform.rotation.z) == Mathf.RoundToInt(90))
                     {
-                        _shapeTetromino.transform.Rotate(0, 0, 90); // Retourner à la position d'avant (aucun mouvement)
-            
+                        AGauche();
+                       
+                        _shapeTetromino.transform.Rotate(0, 0, 90);
                     }
+                    else
+                    {
+                        AGauche();
+                        AGauche();
+                        _shapeTetromino.transform.Rotate(0, 0, 90);
+                    }
+                    
+                }
+                else
+                {
+                    AGauche();
+                    _shapeTetromino.transform.Rotate(0, 0, 90);
+                }
+            }
         }
     }
     #endregion Mouvements joueurs
