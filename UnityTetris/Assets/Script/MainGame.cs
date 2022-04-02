@@ -99,11 +99,10 @@ namespace Script
             _boutonsBis.Echap();
             _tetroCourrant.Next();
             
-            //_collisions.ChampDuJeu();
-            //_destructionLigne.Ligne();
-            //_tetroCourrant.Ligne();
+           
+            
+            _destructionLigne.Ligne();
 
-            //_tetroCourrant.PositionCarresCourrant();
 
         }
     }
