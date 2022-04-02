@@ -79,23 +79,24 @@ namespace Script
         /// <summary>
         /// Détruit une ligne si elle est complète, puis fait descendre les carrés du dessus.
         /// </summary>
-        public void Ligne()
+        public int Ligne()
         {
-            for(int y = 0;y<1100;y++)
+            int _ligneCompteur = 0;
+            for (int y = 0; y < 1100; y++)
             {
-                
+
                 if (LigneEstComplete(y))
                 {
                     Debug.Log("Une ligne est complete");
 
                     DetruireLigne(y);
                     DescenteLignes();
-                    
+                    _ligneCompteur++;
                 }
             }
+
+            return _ligneCompteur;
         }
-        
-        
     }
 }
 

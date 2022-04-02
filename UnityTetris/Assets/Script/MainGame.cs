@@ -23,6 +23,7 @@ namespace Script
         private MenuSauvegarde menuSauvegarde;
 
         public GameObject score;
+        private Score _score;
 
         public GameObject pause;
 
@@ -77,7 +78,9 @@ namespace Script
             // Collision
             
             _collisions = colli.GetComponent<Collision>();
-            _collisions.Initialiser();
+
+            _score = score.GetComponent<Score>();
+            _score.Initialiser();
 
         }
 
@@ -100,8 +103,9 @@ namespace Script
             _tetroCourrant.Next();
             
            
+            _score.AjouterScore(_destructionLigne.Ligne());
+            _score.UpdateScore();
             
-            _destructionLigne.Ligne();
 
 
         }
