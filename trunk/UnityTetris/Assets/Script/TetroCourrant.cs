@@ -224,31 +224,31 @@ public class TetroCourrant : MonoBehaviour
 
     public void RotationGauche()
     {
-
-        Debug.Log("Flèche haut appuyée : effectuer la rotation à gauche de la pièce de 90°");
-        _shapeTetromino.transform.Rotate(0, 0, 90);
-        if (!EstDedans()) // Si la nouvelle position est hors limite
+        if (!_shapeTetromino.Equals(TetroO))
         {
-            _shapeTetromino.transform.Rotate(0, 0, -90); // Retourner à la position d'avant (aucun mouvement)
-
+            Debug.Log("Flèche haut appuyée : effectuer la rotation à gauche de la pièce de 90°");
+                    _shapeTetromino.transform.Rotate(0, 0, 90);
+                    if (!EstDedans()) // Si la nouvelle position est hors limite
+                    {
+                        _shapeTetromino.transform.Rotate(0, 0, -90); // Retourner à la position d'avant (aucun mouvement)
+            
+                    }
         }
-
     }
 
     public void RotationDroite()
     {
-
-        Debug.Log("Flèche haut appuyée : effectuer la rotation à droite de la pièce de 90°");
-        _shapeTetromino.transform.Rotate(0, 0, -90);
-
-        if (!EstDedans()) // Si la nouvelle position est hors limite
+        if (!_shapeTetromino.Equals(TetroO))
         {
-            _shapeTetromino.transform.Rotate(0, 0, 90); // Retourner à la position d'avant (aucun mouvement)
-
+            Debug.Log("Flèche haut appuyée : effectuer la rotation à droite de la pièce de 90°");
+                    _shapeTetromino.transform.Rotate(0, 0, -90);
+            
+                    if (!EstDedans()) // Si la nouvelle position est hors limite
+                    {
+                        _shapeTetromino.transform.Rotate(0, 0, 90); // Retourner à la position d'avant (aucun mouvement)
+            
+                    }
         }
-
-
-
     }
     #endregion Mouvements joueurs
     

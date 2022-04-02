@@ -860,7 +860,7 @@ MonoBehaviour:
   tetroCourrant: {fileID: 1146417989}
   boutonsBis: {fileID: 1999875875}
   _sauvegarde: {fileID: 0}
-  score: {fileID: 0}
+  score: {fileID: 1031360054}
   pause: {fileID: 0}
   ligne: {fileID: 232865034}
   colli: {fileID: 886835763}
