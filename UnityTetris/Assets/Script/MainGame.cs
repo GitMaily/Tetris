@@ -37,6 +37,9 @@ namespace Script
 
         public GameObject colli;
         private Collision _collisions;
+
+        public GameObject energie;
+        private EnergieCourant _energieCourant;
         
         
         #endregion Objets
@@ -79,8 +82,14 @@ namespace Script
             
             _collisions = colli.GetComponent<Collision>();
 
+            // Score
             _score = score.GetComponent<Score>();
             _score.Initialiser();
+            
+            // Energie
+            _energieCourant = energie.GetComponent<EnergieCourant>();
+            _energieCourant.Initialiser();
+            
 
         }
 
@@ -98,7 +107,7 @@ namespace Script
             _boutonsBis.BoutonBas();
             _boutonsBis.BoutonHaut();
             _boutonsBis.BoutonEspace();
-            _boutonsBis.Tabulation();
+            //_boutonsBis.Tabulation();
             _boutonsBis.Echap();
             _tetroCourrant.Next();
             
@@ -107,6 +116,15 @@ namespace Script
             _score.UpdateScore();
             
 
+            /*if (Input.GetKeyDown(KeyCode.Tab) && _energieCourant.energie >= 4)
+            {
+                
+                _energieCourant.ResetEnergie();
+                _tetroCourrant.GenererEchange();
+            }
+
+            _energieCourant.AjoutEnergie(_destructionLigne.Ligne());*/
+             
 
         }
     }

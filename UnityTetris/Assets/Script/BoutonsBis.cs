@@ -14,6 +14,7 @@ namespace Script
 
         private TetroCourrant _tetroCourrant;
 
+        private DestructionLigne _destructionLigne;
         public void Initialiser()
         {
             _tetroCourrant = tetroCourrant.GetComponent<TetroCourrant>();
@@ -63,7 +64,7 @@ namespace Script
         
         public void Tabulation() // Echange
         {
-            if (Input.GetKeyDown(KeyCode.Tab )) // Problème d'échange avec 2* Tab résolus
+            if (Input.GetKeyDown(KeyCode.Tab ) && _destructionLigne.Ligne() >= 4) // Problème d'échange avec 2* Tab résolus
             {
                 _tetroCourrant.Next();
 
