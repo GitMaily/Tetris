@@ -38,7 +38,7 @@ namespace Script
         public void BoutonEspace() // Descente
         {
            
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.S))
             {
                 _tetroCourrant.Descente();
             }

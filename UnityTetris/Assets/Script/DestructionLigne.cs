@@ -41,7 +41,7 @@ namespace Script
             for (int i = 50; i <= 500; i++) // Pour chaque colonne i de la Matrice
             {
                 if (i % 50 == 0) // Le champ de jeu ne possède des objets qu'à chaque modulo 50.
-                                 // C'est parce que la distance entre chaque carrés est de 50.
+                                 // C'est parce que la distance entre chaque carré est de 50.
                 {
                     //Debug.Log(i);
                     if (_champDeJeu.Matrice[i, y] == null) // Pour chaque colonne i de la Matrice de la ligne y, retourner faux s'il n'y a aucun objet.
