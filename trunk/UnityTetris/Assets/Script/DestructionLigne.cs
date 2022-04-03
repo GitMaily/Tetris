@@ -91,10 +91,11 @@ namespace Script
             }
             
         }
-
+        
         /// <summary>
         /// Détruit une ligne si elle est complète, puis fait descendre les carrés du dessus.
         /// </summary>
+        /// <returns>Le nombre de lignes détruites.</returns>
         public int Ligne()
         {
             int _ligneCompteur = 0;
