@@ -15,8 +15,10 @@ namespace Script
 
         public GameObject champDeJeu;
         private EcranPrincipal _champDeJeu;
-        
-    
+
+
+        public int totalLignesDetruites;
+        public int lignesDetruitesEchange;
         public void Initialiser()
         {
             _tetroCourrant = tetroCourrant.GetComponent<TetroCourrant>();
@@ -109,11 +111,27 @@ namespace Script
                     DetruireLigne(y);
                     DescenteLignes(y);
                     _ligneCompteur++;
+                    totalLignesDetruites++;
                 }
             }
 
+            Debug.Log("Nombre total de lignes détruites:"+totalLignesDetruites);
+            lignesDetruitesEchange = _ligneCompteur;
             return _ligneCompteur;
         }
+        
+        /// <summary>
+        /// Donne le nombre de lignes détruites sans faire appel à Ligne().
+        /// </summary>
+        /// <returns>Le nombre de lignes détruites.</returns>
+        public int GetLignesDetruitesEchange()
+        {
+            
+            Debug.Log("Dans GetLignes lignesDetruitesEchange possède :"+lignesDetruitesEchange);
+            return lignesDetruitesEchange;
+        }
     }
+    
+    
 }
 

@@ -364,35 +364,35 @@ public class TetroCourrant : MonoBehaviour
             {
 
                 case TypeTetromino.TetroI:
-                    _shapeTetrominoNext = Instantiate(TetroI, new Vector3(669, 600, 0), Quaternion.identity);
+                    _shapeTetrominoNext = Instantiate(TetroI, new Vector3(650, 950, 0), Quaternion.identity);
                     _shapeTetrominoNext.tag = "next";
 
                     break;
                 case TypeTetromino.TetroJ:
-                    _shapeTetrominoNext = Instantiate(TetroJ, new Vector3(669, 600, 0), Quaternion.identity);
+                    _shapeTetrominoNext = Instantiate(TetroJ, new Vector3(650, 950, 0), Quaternion.identity);
                     _shapeTetrominoNext.tag = "next";
 
                     break;
                 case TypeTetromino.TetroL:
-                    _shapeTetrominoNext = Instantiate(TetroL, new Vector3(669, 600, 0), Quaternion.identity);
+                    _shapeTetrominoNext = Instantiate(TetroL, new Vector3(650, 950, 0), Quaternion.identity);
                     _shapeTetrominoNext.tag = "next";
 
                     break;
                 case TypeTetromino.TetroO:
-                    _shapeTetrominoNext = Instantiate(TetroO, new Vector3(669, 600, 0), Quaternion.identity);
+                    _shapeTetrominoNext = Instantiate(TetroO, new Vector3(650, 950, 0), Quaternion.identity);
                     _shapeTetrominoNext.tag = "next";
                     
                     break;
                 case TypeTetromino.TetroS:
-                    _shapeTetrominoNext = Instantiate(TetroS, new Vector3(669, 600, 0), Quaternion.identity);
+                    _shapeTetrominoNext = Instantiate(TetroS, new Vector3(650, 950, 0), Quaternion.identity);
                     _shapeTetrominoNext.tag = "next";
                     break;
                 case TypeTetromino.TetroZ:
-                    _shapeTetrominoNext = Instantiate(TetroZ, new Vector3(669, 600, 0), Quaternion.identity);
+                    _shapeTetrominoNext = Instantiate(TetroZ, new Vector3(650, 950, 0), Quaternion.identity);
                     _shapeTetrominoNext.tag = "next";
                     break;
                 case TypeTetromino.TetroT:
-                    _shapeTetrominoNext = Instantiate(TetroT, new Vector3(669, 550, 0), Quaternion.identity);
+                    _shapeTetrominoNext = Instantiate(TetroT, new Vector3(650, 900, 0), Quaternion.identity);
                     _shapeTetrominoNext.tag = "next";
                     break;
 
@@ -413,7 +413,7 @@ public class TetroCourrant : MonoBehaviour
         GameObject clones = GameObject.FindGameObjectWithTag("clone"); // On cherche les objets ayant pour tag "clones"
 
         GameObject _tetroNext = _shapeTetrominoNext;
-        _tetroNext = Instantiate(_shapeTetrominoNext, new Vector3(669, 600, 0), Quaternion.identity);
+        _tetroNext = Instantiate(_shapeTetrominoNext, new Vector3(650, 900, 0), Quaternion.identity);
 
         
         _tetroNext.tag = "next";
@@ -452,7 +452,7 @@ public class TetroCourrant : MonoBehaviour
     
             // Instancier le tétromino courant dans l'espace d'échange
             // Donner le tag "EchangeGroupe" au groupe de Tétrominos stocké
-            _tetroEchange = Instantiate(_shapeTetromino, new Vector3(669, 250, 0), Quaternion.identity);
+            _tetroEchange = Instantiate(_shapeTetromino, new Vector3(650, 600, 0), Quaternion.identity);
             _tetroEchange.tag = "EchangeGroupe";
             
              
@@ -491,7 +491,7 @@ public class TetroCourrant : MonoBehaviour
             
             // Instancier le tétromino précédemment stocké dans le jeu
             // Donner le tag "clone" au groupe de Tétrominos courant
-            _shapeTetromino = Instantiate( _tetroEchange, new Vector3(669, 250, 0), Quaternion.identity);
+            _shapeTetromino = Instantiate( _tetroEchange, new Vector3(650, 600, 0), Quaternion.identity);
             _shapeTetromino.tag = "EchangeGroupe";
             
             //Destroy(clones); // On détruit l'objet
@@ -507,7 +507,7 @@ public class TetroCourrant : MonoBehaviour
         GameObject clones = GameObject.FindWithTag("clone");
         //f (!(GameObject.FindWithTag("clone") == null )) // Seulement si il y a objet avec le tag "clone" (un tetromino dans le jeu)
         { 
-            //         if (Time.time - temps > (Input.GetKey(KeyCode.Space)? tempsChute / 5 : tempsChute) )
+            //            if (Time.time - temps > (Input.GetKey(KeyCode.Space)? tempsChute / 5 : tempsChute) )
 
             if (Time.time - temps > (Input.GetKey(KeyCode.Space)? tempsChute / 8 : tempsChute) ) 
             {
@@ -526,6 +526,7 @@ public class TetroCourrant : MonoBehaviour
                         GameObject.FindGameObjectsWithTag("Untagged"); // Rechercher les Objets (ici le groupe Prefab de nos Tetrominos) qui ont un tag "Untagged"
 
                         carre.tag = "Verrou"; // Attribuer à leur carré (donc à chaque enfants du prefab) le tag "Verrou"
+
                         
 
                     }
@@ -546,7 +547,9 @@ public class TetroCourrant : MonoBehaviour
             }
             
         }
-        
+
+
+
     }
 
 
@@ -686,6 +689,7 @@ public class TetroCourrant : MonoBehaviour
         _positionVerrou = GameObject.FindGameObjectsWithTag("Verrou");
         GameObject _carreVerrou = GameObject.FindGameObjectWithTag("Verrou");
 
+
         foreach (Transform carre in _shapeTetromino.transform) // Pour chaque carré d'un Tetromino courant
         {
             int posX = Mathf.RoundToInt(carre.position.x);
@@ -695,6 +699,9 @@ public class TetroCourrant : MonoBehaviour
             {
                 return false;
             }
+
+
+
         }
         return true;
 
@@ -777,7 +784,6 @@ public class TetroCourrant : MonoBehaviour
         {
             int posX = Mathf.RoundToInt(carre.transform.position.x);
             int posY = Mathf.RoundToInt(carre.transform.position.y);
-
             // Vérifier si le tétromino dépasse le haut champ du jeu
             if (posY > 1050 || _champDeJeu.Matrice[posX,posY] != null)
             {
