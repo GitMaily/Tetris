@@ -507,7 +507,7 @@ public class TetroCourrant : MonoBehaviour
         GameObject clones = GameObject.FindWithTag("clone");
         //f (!(GameObject.FindWithTag("clone") == null )) // Seulement si il y a objet avec le tag "clone" (un tetromino dans le jeu)
         { 
-            //            if (Time.time - temps > (Input.GetKey(KeyCode.Space)? tempsChute / 5 : tempsChute) )
+            //         if (Time.time - temps > (Input.GetKey(KeyCode.Space)? tempsChute / 5 : tempsChute) )
 
             if (Time.time - temps > (Input.GetKey(KeyCode.Space)? tempsChute / 8 : tempsChute) ) 
             {
@@ -526,7 +526,6 @@ public class TetroCourrant : MonoBehaviour
                         GameObject.FindGameObjectsWithTag("Untagged"); // Rechercher les Objets (ici le groupe Prefab de nos Tetrominos) qui ont un tag "Untagged"
 
                         carre.tag = "Verrou"; // Attribuer à leur carré (donc à chaque enfants du prefab) le tag "Verrou"
-
                         
 
                     }
@@ -547,9 +546,7 @@ public class TetroCourrant : MonoBehaviour
             }
             
         }
-
-
-
+        
     }
 
 
@@ -689,7 +686,6 @@ public class TetroCourrant : MonoBehaviour
         _positionVerrou = GameObject.FindGameObjectsWithTag("Verrou");
         GameObject _carreVerrou = GameObject.FindGameObjectWithTag("Verrou");
 
-
         foreach (Transform carre in _shapeTetromino.transform) // Pour chaque carré d'un Tetromino courant
         {
             int posX = Mathf.RoundToInt(carre.position.x);
@@ -699,9 +695,6 @@ public class TetroCourrant : MonoBehaviour
             {
                 return false;
             }
-
-
-
         }
         return true;
 
@@ -775,6 +768,24 @@ public class TetroCourrant : MonoBehaviour
 
         
     }*/
+    }
+    
+    public bool GameOver()
+    {
+        bool depasser = false;
+        foreach (Transform carre in _shapeTetromino.transform) // Pour chaque carré d'un Tetromino
+        {
+            int posX = Mathf.RoundToInt(carre.transform.position.x);
+            int posY = Mathf.RoundToInt(carre.transform.position.y);
+
+            // Vérifier si le tétromino dépasse le haut champ du jeu
+            if (posY > 1050 || _champDeJeu.Matrice[posX,posY] != null)
+            {
+                depasser = true;
+                Debug.Log("Game Over.");
+            }
+        }
+        return depasser;
     }
 }
         
