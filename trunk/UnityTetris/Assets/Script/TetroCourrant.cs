@@ -192,14 +192,14 @@ public class TetroCourrant : MonoBehaviour
         Debug.Log("Descente verticale plus rapide de la pièce");
 
         // Maintient bouton
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.S))
         {
             _shapeTetromino.transform.position += new Vector3(0, -1 * DistanceCarre, 0);
 
             _compteurTemps = Time.time;
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.S))
         {
 
             tempsMaintenu = Time.time - _compteurTemps;
@@ -227,6 +227,9 @@ public class TetroCourrant : MonoBehaviour
 
     public void RotationGauche()
     {
+        int posX = Mathf.RoundToInt(_shapeTetromino.transform.position.x);
+        int posY = Mathf.RoundToInt(_shapeTetromino.transform.position.y);
+        
         if (_typeTetromino != TypeTetromino.TetroO)
         {
             Debug.Log("Flèche bas appuyée : effectuer la rotation à gauche de la pièce de 90°");
@@ -234,21 +237,40 @@ public class TetroCourrant : MonoBehaviour
             if (!EstDedans()) // Si la nouvelle position est hors limite
             {
                 _shapeTetromino.transform.Rotate(0, 0, -90); // Retourner à la position d'avant (aucun mouvement)
-                if (_typeTetromino == TypeTetromino.TetroI)
+                if (_typeTetromino != TypeTetromino.TetroI && _shapeTetromino.transform.position.x <= 100 
+                    && _champDeJeu.Matrice[posX,posY] == null
+                    && _champDeJeu.Matrice[posX+50,posY] == null 
+                    && _champDeJeu.Matrice[posX+100,posY] == null
+                    /*&& _champDeJeu.Matrice[Mathf.RoundToInt(_shapeTetromino.transform.position.x)+150,Mathf.RoundToInt(_shapeTetromino.transform.position.y)] == null*/
+                    && _champDeJeu.Matrice[posX,posY-50] == null
+                    //&& _champDeJeu.Matrice[Mathf.RoundToInt(_shapeTetromino.transform.position.x),Mathf.RoundToInt(_shapeTetromino.transform.position.y-100)] == null
+                    /*&& _champDeJeu.Matrice[Mathf.RoundToInt(_shapeTetromino.transform.position.x),Mathf.RoundToInt(_shapeTetromino.transform.position.y-150)] == null*/
+                    && _champDeJeu.Matrice[posX+50,posY-50] == null
+                    && _champDeJeu.Matrice[posX+50,posY-100] == null
+                    /*&& _champDeJeu.Matrice[Mathf.RoundToInt(_shapeTetromino.transform.position.x+50),Mathf.RoundToInt(_shapeTetromino.transform.position.y-150)] == null*/
+                    && _champDeJeu.Matrice[posX+100,posY-50] == null
+                    && _champDeJeu.Matrice[posX+100,posY-100] == null)
+                    
                 {
                     ADroite();
-                    ADroite();
                     _shapeTetromino.transform.Rotate(0, 0, 90);
+
                 }
-                else
+                if (_typeTetromino != TypeTetromino.TetroI && _shapeTetromino.transform.position.x >= 400 
+                   && _champDeJeu.Matrice[posX,posY] == null
+                   && _champDeJeu.Matrice[posX+-50,posY] == null 
+                   && _champDeJeu.Matrice[posX-100,posY] == null
+                   && _champDeJeu.Matrice[posX,posY-50] == null
+                   && _champDeJeu.Matrice[posX-50,posY-50] == null
+                   && _champDeJeu.Matrice[posX-50,posY-100] == null
+                   && _champDeJeu.Matrice[posX-100,posY-50] == null
+                   && _champDeJeu.Matrice[posX-100,posY-100] == null)
                 {
-                    ADroite();
+                    AGauche();
                     _shapeTetromino.transform.Rotate(0, 0, 90);
+
                 }
 
-                
-                
-                
             }
 
                   
@@ -257,6 +279,8 @@ public class TetroCourrant : MonoBehaviour
 
     public void RotationDroite()
     {
+        int posX = Mathf.RoundToInt(_shapeTetromino.transform.position.x);
+        int posY = Mathf.RoundToInt(_shapeTetromino.transform.position.y);
         if (_typeTetromino != TypeTetromino.TetroO)
         {
             Debug.Log("Flèche haut appuyée : effectuer la rotation à droite de la pièce de 90°");
@@ -265,28 +289,61 @@ public class TetroCourrant : MonoBehaviour
             if (!EstDedans()) // Si la nouvelle position est hors limite
             {
                 _shapeTetromino.transform.Rotate(0, 0, 90); // Retourner à la position d'avant (aucun mouvement)
-    
-                if (_typeTetromino == TypeTetromino.TetroI)
-                {
-                    if (Mathf.RoundToInt(_shapeTetromino.transform.rotation.z) == Mathf.RoundToInt(90))
-                    {
-                        AGauche();
-                       
-                        _shapeTetromino.transform.Rotate(0, 0, 90);
-                    }
-                    else
-                    {
-                        AGauche();
-                        AGauche();
-                        _shapeTetromino.transform.Rotate(0, 0, 90);
-                    }
-                    
-                }
-                else
+                if (_typeTetromino != TypeTetromino.TetroI && _shapeTetromino.transform.position.x >= 400 
+                    && _champDeJeu.Matrice[posX,posY] == null
+                    && _champDeJeu.Matrice[posX-50,posY] == null 
+                    && _champDeJeu.Matrice[posX-50,posY-50] == null
+                    && _champDeJeu.Matrice[posX-50,posY-100] == null
+                    && _champDeJeu.Matrice[posX-100,posY] == null
+                    && _champDeJeu.Matrice[posX-100,posY-50] == null
+                    && _champDeJeu.Matrice[posX-100,posY-100] == null
+                    && _champDeJeu.Matrice[posX,posY-50] == null)
                 {
                     AGauche();
-                    _shapeTetromino.transform.Rotate(0, 0, 90);
+                    _shapeTetromino.transform.Rotate(0, 0, -90);
+
                 }
+                if (_typeTetromino != TypeTetromino.TetroI && _shapeTetromino.transform.position.x <= 100 
+                    && _champDeJeu.Matrice[posX,posY] == null
+                    && _champDeJeu.Matrice[posX+50,posY] == null 
+                    && _champDeJeu.Matrice[posX+100,posY] == null
+                    && _champDeJeu.Matrice[posX,posY-50] == null
+                    && _champDeJeu.Matrice[posX+50,posY-50] == null
+                    && _champDeJeu.Matrice[posX+50,posY-100] == null
+                    && _champDeJeu.Matrice[posX+100,posY-50] == null
+                    && _champDeJeu.Matrice[posX+100,posY-100] == null)
+                {
+                    ADroite();
+                    _shapeTetromino.transform.Rotate(0, 0, -90);
+
+                }
+                
+                
+                
+                 /*if (_shapeTetromino.transform.position.x <= 100 
+                    && _champDeJeu.Matrice[posX,posY] == null
+                    && _champDeJeu.Matrice[posX+50,posY] == null 
+                    && _champDeJeu.Matrice[posX+100,posY] == null
+                    && _champDeJeu.Matrice[posX+150,posY] == null
+                    && _champDeJeu.Matrice[posX,posY-50] == null
+                    && _champDeJeu.Matrice[posX,posY-100] == null
+                    && _champDeJeu.Matrice[posX,posY-150] == null
+                    && _champDeJeu.Matrice[posX+50,posY-50] == null
+                    && _champDeJeu.Matrice[posX+50,posY-100] == null
+                    && _champDeJeu.Matrice[posX+50,posY-150] == null
+                    && _champDeJeu.Matrice[posX+100,posY-50] == null
+                    && _champDeJeu.Matrice[posX+100,posY-100] == null
+                    && _champDeJeu.Matrice[posX+100,posY-150] == null
+                    && _champDeJeu.Matrice[posX+150,posY-50] == null
+                    && _champDeJeu.Matrice[posX+150,posY-100] == null
+                    && _champDeJeu.Matrice[posX+150,posY-150] == null)
+                    
+                {
+                    ADroite();
+                    _shapeTetromino.transform.Rotate(0, 0, 90);
+
+                }*/
+                
             }
         }
     }
@@ -572,24 +629,7 @@ public class TetroCourrant : MonoBehaviour
         return positionCarresVerrou;
     }
     
-    public void Ligne()
-    {
-        _positionVerrou = GameObject.FindGameObjectsWithTag("Verrou");
-
-        
-
-        foreach (GameObject carre in _positionVerrou)
-        {
-            //int posX = Mathf.RoundToInt(carre.transform.position.x);
-            int posY = Mathf.RoundToInt(carre.transform.position.y);
-            
-            if (posY == 150)
-            {
-                Destroy(carre);
-            }
-            
-        }
-    }
+   
     
     /// <summary>
     /// Prend la position x et y de chaque carrés qui ont été verrouillés.
@@ -607,10 +647,9 @@ public class TetroCourrant : MonoBehaviour
             Transform block = carresVerrouilles.transform.GetChild(i);
             int X = Mathf.RoundToInt(block.position.x);
             int Y = Mathf.RoundToInt(block.position.y);
-            var positionCarre = block.transform.position;
+            //var positionCarre = block.transform.position;
             _champDeJeu.Matrice[X, Y] = block;
             
-            //Debug.Log("nouvGrille marche");
             //Debug.Log("Position d'un carré :"+ positionCarre);
 
             

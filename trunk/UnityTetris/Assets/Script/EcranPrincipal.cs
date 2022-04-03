@@ -14,7 +14,7 @@ namespace Script
         public GameObject _border;
 
         
-        public Transform[,] Matrice = new Transform[550, 1100];
+        public Transform[,] Matrice = new Transform[550, 1151];
 
         
         public GameObject[,] _champDuJeu;
