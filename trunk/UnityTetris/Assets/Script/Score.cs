@@ -36,6 +36,11 @@ namespace Script
         {
             ScoreUI.text = ToString();
         }
+
+        public int GetScore()
+        {
+            return _scoreCourant;
+        }
         
     }
 }

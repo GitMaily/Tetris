@@ -106,7 +106,6 @@ namespace Script
 
                 if (LigneEstComplete(y))
                 {
-                    Debug.Log("Une ligne est complete");
 
                     DetruireLigne(y);
                     DescenteLignes(y);
@@ -115,9 +114,17 @@ namespace Script
                 }
             }
 
-            Debug.Log("Nombre total de lignes détruites:"+totalLignesDetruites);
             lignesDetruitesEchange = _ligneCompteur;
             return _ligneCompteur;
+        }
+
+        /// <summary>
+        /// Donne le nombre total de lignes détruites.
+        /// </summary>
+        /// <returns>Un entier</returns>
+        public int GetTotalLignesDetruites()
+        {
+            return totalLignesDetruites;
         }
         
         /// <summary>
@@ -127,7 +134,6 @@ namespace Script
         public int GetLignesDetruitesEchange()
         {
             
-            Debug.Log("Dans GetLignes lignesDetruitesEchange possède :"+lignesDetruitesEchange);
             return lignesDetruitesEchange;
         }
     }

@@ -13,10 +13,10 @@ namespace Script
         public Slider slider;
 
         /// <summary>
-        /// Attribue un maximal à la barre d'énergie.
+        /// Attribue un maximum à la barre d'énergie.
         /// </summary>
         /// <param name="energie">Le nombre d'énergie maximale que l'on veut attribuer</param>
-        public void SetMaxEnergie(int energie)
+        public void SetMaxEnergie(float energie)
         {
             slider.maxValue = energie;
             slider.value = energie;
@@ -29,11 +29,28 @@ namespace Script
         /// Attribue de l'énergie à la barre d'énergie.
         /// </summary>
         /// <param name="energie">Nombre d'énergie à attribuer.</param>
-        public void SetEnergie(int energie)
+        public void SetEnergie(float energie)
         {
-            slider.value = energie;
+            slider.value = ArrondirFloat(energie,100);
         }
+        
+        
+        
+        
+        /// <summary>
+        /// Arrondit un float à une precision déterminée.
+        /// </summary>
+        /// <param name ="unFloat">Un float à arrondir</param>
+        /// <param name ="precision">Nombre de chiffres apres la virgule avec le nombre de zéros(100000....)</param>
+        /// <returns> La valeur du float arrondie </returns>
+        public static float ArrondirFloat(float unFloat, float precision)
+        {
+            return Mathf.Floor(unFloat * precision + 0.5f) / precision;
+        }
+
     }
+    
+    
     
     
 }
