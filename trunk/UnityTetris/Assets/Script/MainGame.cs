@@ -99,6 +99,7 @@ namespace Script
 
             //menuSauvegarde.Sauvegardes();
 
+           
 
             _tetroCourrant.Chute();
             _boutonsBis.BoutonCheck();
@@ -115,19 +116,16 @@ namespace Script
             _score.UpdateScore();
             
             _energieCourant.AjoutEnergie(_destructionLigne.GetLignesDetruitesEchange());
-            
-            _energieCourant.AjoutEnergieVerrou(_tetroCourrant.GetCompteurVerrou());
 
 
-            if (Input.GetKeyDown(KeyCode.Tab) && _energieCourant.energie >= 4f)
+            if (Input.GetKeyDown(KeyCode.Tab) && _energieCourant.energie >= 4)
             {
                 
                 _energieCourant.ResetEnergie();
                 _tetroCourrant.GenererEchange();
             }
 
-            _tetroCourrant.AugmentationDifficulte(_destructionLigne.GetTotalLignesDetruites());
-
+            _tetroCourrant.ConditionGameOver();
 
         }
     }
