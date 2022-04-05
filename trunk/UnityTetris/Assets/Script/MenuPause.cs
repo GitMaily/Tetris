@@ -5,10 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class MenuPause : MonoBehaviour
 {
+    bool pause=true ;
+    public GameObject Canvas;
 
     public void Reprendre()
     {
         
+        SceneManager.LoadScene("MenuPause");
     }
 
     
@@ -37,6 +40,25 @@ public class MenuPause : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (pause == true)
+        {
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                Time.timeScale = 0;
+                pause = false;
+                Canvas.SetActive(true);
+            }
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.P))
+                {
+                    Time.timeScale = 1;
+                    pause = true;
+                    Canvas.SetActive(false);
+                }
+
+            }
+        }
+
     }
 }
