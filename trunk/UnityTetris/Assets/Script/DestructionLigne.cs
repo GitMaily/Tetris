@@ -66,9 +66,22 @@ namespace Script
             {
                 if (i % 50 == 0){ // Le champ de jeu ne possède des objets qu'à chaque modulo 50.
                                   // C'est parce que la distance entre chaque carrés est de 50.
-                    
-                    Destroy(_champDeJeu.Matrice[i, y].gameObject); // Pour chaque colonne i de la Matrice, détruire l'objet de la ligne y.
-                    
+                int nbbonus = 0;
+
+                  
+                  
+                if(_champDeJeu.Matrice[i,y].Find("CarreBonus") != null)
+                {
+                      nbbonus++;
+                      Destroy(_champDeJeu.Matrice[i, y-50].gameObject);
+                      Destroy(_champDeJeu.Matrice[i, y].gameObject);
+                      Destroy(_champDeJeu.Matrice[i, y+50].gameObject);
+                }
+                  
+                Debug.Log("nbbonus ="+nbbonus);
+
+                Destroy(_champDeJeu.Matrice[i, y].gameObject); // Pour chaque colonne i de la Matrice, détruire l'objet de la ligne y.
+                //Destroy(_champDeJeu.Matrice[i, y+50].gameObject);
                 }
             }
         }
