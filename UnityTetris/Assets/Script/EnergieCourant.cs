@@ -22,7 +22,7 @@ namespace Script
         /// </summary>
         public void Initialiser()
         {
-            energie = 0f;
+            energie = 16f;
             barreEnergie.SetMaxEnergie(maxEnergie);
         }
 
