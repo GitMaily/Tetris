@@ -64,24 +64,11 @@ namespace Script
         {
             for (int i = 50; i <= 500; i++) 
             {
-                if (i % 50 == 0){ // Le champ de jeu ne possède des objets qu'à chaque modulo 50.
-                                  // C'est parce que la distance entre chaque carrés est de 50.
-                int nbbonus = 0;
-
-                  
-                  
-                if(_champDeJeu.Matrice[i,y].Find("CarreBonus") != null)
+                if (i % 50 == 0)  // Le champ de jeu ne possède des objets qu'à chaque modulo 50.
+                    // C'est parce que la distance entre chaque carré est de 50.
                 {
-                      nbbonus++;
-                      Destroy(_champDeJeu.Matrice[i, y-50].gameObject);
-                      Destroy(_champDeJeu.Matrice[i, y].gameObject);
-                      Destroy(_champDeJeu.Matrice[i, y+50].gameObject);
-                }
-                  
-                Debug.Log("nbbonus ="+nbbonus);
+                    Destroy(_champDeJeu.Matrice[i, y].gameObject); // Pour chaque colonne i de la Matrice, détruire l'objet de la ligne y.
 
-                Destroy(_champDeJeu.Matrice[i, y].gameObject); // Pour chaque colonne i de la Matrice, détruire l'objet de la ligne y.
-                //Destroy(_champDeJeu.Matrice[i, y+50].gameObject);
                 }
             }
         }
@@ -149,6 +136,109 @@ namespace Script
             
             return lignesDetruitesEchange;
         }
+        
+        
+        
+        
+        /// <summary>
+        /// Détermine si une ligne est complète.
+        /// </summary>
+        /// <param name="y">La position y du champ de jeu.</param>
+        /// <returns>
+        /// Vrai si une ligne est complète.
+        /// Faux sinon.
+        /// </returns>
+        public bool LigneCompleteEstBonus(int y)
+        {
+
+
+            /*for (int i = 50; i <= 500; i++)
+            {
+                if (i % 50 == 0)
+                {
+                    if (LigneEstComplete(y) && _champDeJeu.Matrice[i, y] == GameObject.Find("CarreBonus(Clone)").transform)
+                    {
+                        return true;
+                    }
+                }
+                
+            }*/
+            
+            //////
+            if (LigneEstComplete(y) && Mathf.RoundToInt(GameObject.FindGameObjectWithTag("Bonus").transform.position.y) == y)
+            {
+                Debug.Log("TrueeeeeEeeeEEEE");
+
+                return true;
+            }
+
+            return false;
+
+        }
+        
+        /// <summary>
+        /// Détruit une ligne assignée.
+        /// </summary>
+        /// <param name="y">Position y de la ligne à détruire.</param>
+        public void DetruireLigneBonus(int y)
+        {
+            for (int i = 50; i <= 500; i++) 
+            {
+                if (i % 50 == 0)
+                { 
+                    if (_champDeJeu.Matrice[i, y + 50] != null)
+                    {
+                        Destroy(_champDeJeu.Matrice[i, y+50].gameObject);
+                    }
+                }
+            }
+        }
+
+        public void DescenteLignesBonus(int ligne)
+        {
+            for (int y = ligne+50; y < 1100 - 50; y++)
+            {
+                for (int x = 0; x <= 500; x++)
+                {
+                   
+                    if (_champDeJeu.Matrice[x, y +100] != null)
+                    {
+                        _champDeJeu.Matrice[x, y] = _champDeJeu.Matrice[x, y + 100]; // 50?
+                       
+                        _champDeJeu.Matrice[x, y + 100] = null;
+                        _champDeJeu.Matrice[x, y+50].gameObject.transform.position +=new Vector3(0,-1*50*2,0);
+                        
+                        
+                    }
+                }
+            }
+            
+        }
+        
+        /// <summary>
+        /// Détruit une ligne si elle est complète, puis fait descendre les carrés du dessus.
+        /// </summary>
+        /// <returns>Le nombre de lignes détruites.</returns>
+        public int LigneBonus()
+        {
+            int _ligneCompteur = 0;
+            for (int y =0; y < 1100; y++)
+            {
+
+                if (LigneCompleteEstBonus(y))
+                {
+
+                    DetruireLigneBonus(y);
+                    DescenteLignesBonus(y);
+                    _ligneCompteur++;
+                    totalLignesDetruites++;
+                }
+            }
+
+            lignesDetruitesEchange = _ligneCompteur;
+            return _ligneCompteur;
+        }
+        
     }
     
     

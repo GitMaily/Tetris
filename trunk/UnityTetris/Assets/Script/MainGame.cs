@@ -128,6 +128,8 @@ namespace Script
 
             _tetroCourrant.AugmentationDifficulte(_destructionLigne.GetTotalLignesDetruites());
 
+            _destructionLigne.LigneBonus();
+            
             _tetroCourrant.ConditionGameOver();
 
         }
