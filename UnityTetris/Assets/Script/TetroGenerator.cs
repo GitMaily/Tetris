@@ -26,45 +26,39 @@ namespace Script
 
         private TypeTetromino RandomTetro()
         {
-            List<bool> boxBool = new List<bool>
-            {
-                true,
-                true,
-                true,
-                false,
-                false
-            };
-            List<TypeTetromino> boxTetrominos = new List<TypeTetromino>
-            {
-                TypeTetromino.TetroI,       // Posibilité TetroI = 4 / 23 = 0.174
-                TypeTetromino.TetroI,
-                TypeTetromino.TetroI,
-                TypeTetromino.TetroI,
-                TypeTetromino.TetroJ,       // Posibilité TetroJ = 3 / 23 = 0.130
-                TypeTetromino.TetroJ,
-                TypeTetromino.TetroJ,
-                TypeTetromino.TetroL,       // Posibilité TetroL = 3 / 23 = 0.130
-                TypeTetromino.TetroL,
-                TypeTetromino.TetroL,
-                TypeTetromino.TetroO,       // Posibilité TetroO = 3 / 23 = 0.130
-                TypeTetromino.TetroO,
-                TypeTetromino.TetroO,
-                TypeTetromino.TetroS,       // Posibilité TetroS = 3 / 23 = 0.130
-                TypeTetromino.TetroS,
-                TypeTetromino.TetroS,
-                TypeTetromino.TetroT,       // Posibilité TetroT = 4 / 23 = 0.174
-                TypeTetromino.TetroT,
-                TypeTetromino.TetroT,
-                TypeTetromino.TetroT,
-                TypeTetromino.TetroZ,       // Posibilité TetroZ = 3 / 23 = 0.130
-                TypeTetromino.TetroZ,
-                TypeTetromino.TetroZ
-            };
+            List<bool> boxBool = new List<bool>();
+            for (int i = 0; i < 15; i++)
+                boxBool.Add(true);
+            
+            for (int i = 0; i < 1; i++)
+                boxBool.Add(false);
+
+            List<TypeTetromino> boxTetrominos = new List<TypeTetromino>();
+            for (int i = 0; i < 4; i++)
+                boxTetrominos.Add(TypeTetromino.TetroI);    // Possibilité de TétrominoI = 4 / 23 = 0.174
+            
+            for (int i = 0; i < 3; i++)
+                boxTetrominos.Add(TypeTetromino.TetroJ);    // Possibilité de TétrominoJ = 3 / 23 = 0.130
+            
+            for (int i = 0; i < 3; i++)
+                boxTetrominos.Add(TypeTetromino.TetroL);    // Possibilité de TétrominoL = 3 / 23 = 0.130
+            
+            for (int i = 0; i < 3; i++)
+                boxTetrominos.Add(TypeTetromino.TetroO);    // Possibilité de TétrominoO = 3 / 23 = 0.130
+            
+            for (int i = 0; i < 3; i++)
+                boxTetrominos.Add(TypeTetromino.TetroS);    // Possibilité de TétrominoS = 3 / 23 = 0.130
+            
+            for (int i = 0; i < 4; i++)
+                boxTetrominos.Add(TypeTetromino.TetroT);    // Possibilité de TétrominoT = 4 / 23 = 0.174
+            
+            for (int i = 0; i < 3; i++)
+                boxTetrominos.Add(TypeTetromino.TetroZ);    // Possibilité de TétrominoZ = 3 / 23 = 0.130
 
             TypeTetromino typeTetromino = boxTetrominos[Random.Range(0, boxTetrominos.Count)];
             if (_listTetrominos.Count > 1 && 
                 typeTetromino == _listTetrominos.ToArray()[_listTetrominos.Count - 1] && 
-                boxBool[Random.Range(0, boxBool.Count)])
+                boxBool[Random.Range(0, boxBool.Count)])      // Possibilité avoir deux tétrominos de même type succesivement = 0.2
             {
                 typeTetromino = boxTetrominos[Random.Range(0, boxTetrominos.Count)];
             }
