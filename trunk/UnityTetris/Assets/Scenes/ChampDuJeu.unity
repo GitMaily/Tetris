@@ -1140,12 +1140,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 886835763}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 292805a781c36e3499a34d99ba30a8ee, type: 3}
+  m_Script: {fileID: 11500000, guid: 564e2bad19624c2e854b0e273bc73adf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  champDeJeu: {fileID: 0}
-  tetroCourant: {fileID: 0}
-  carresVerrouilles: {fileID: 0}
 --- !u!4 &886835765
 Transform:
   m_ObjectHideFlags: 0
@@ -1460,7 +1457,7 @@ MonoBehaviour:
   TetroS: {fileID: 3265587807772597483, guid: bb7f1f74faadbc94590eff3a7a44ec68, type: 3}
   TetroZ: {fileID: 1952673600014682577, guid: d3153c37c0e231a47bec4b53495ff269, type: 3}
   TetroT: {fileID: 4312419852266592891, guid: f956ad6300210bb4c96a6d8c39c509a2, type: 3}
-  TetroBonus: {fileID: 7189323424313676347, guid: c1ffb91203a471d48a05cd54f2c84e81, type: 3}
+  TetroBonus: {fileID: 7189323424313676347, guid: a7c9379c38148a2458faec76061dec29, type: 3}
   canvas: {fileID: 0}
   _champDeJeu: {fileID: 2063672355}
   _positionVerrou: []
