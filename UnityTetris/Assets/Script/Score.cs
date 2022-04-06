@@ -17,6 +17,11 @@ namespace Script
         {
             _scoreCourant += (int)(100 * ligneDetruit * (1 + 0.1 * ligneDetruit));
         }
+        
+        public void AjouterScoreBonus(int ligneBonusDetruit)
+        {
+            _scoreCourant += (int)(500 * ligneBonusDetruit * (1 + 0.1 * ligneBonusDetruit));
+        }
 
         public override string ToString()
         {
