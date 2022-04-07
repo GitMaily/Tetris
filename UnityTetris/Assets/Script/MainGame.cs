@@ -109,7 +109,9 @@ namespace Script
             _boutonsBis.Echap();
             _tetroCourrant.Next();
             
-           
+            //_destructionLigne.LigneBonus();
+            
+            _score.AjouterScoreBonus(_destructionLigne.LigneBonus());
             _score.AjouterScore(_destructionLigne.Ligne());
             
             _score.UpdateScore();
@@ -128,7 +130,6 @@ namespace Script
 
             _tetroCourrant.AugmentationDifficulte(_destructionLigne.GetTotalLignesDetruites());
 
-            _destructionLigne.LigneBonus();
             
             _tetroCourrant.ConditionGameOver();
 
