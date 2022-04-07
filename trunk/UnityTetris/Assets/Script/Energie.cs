@@ -10,8 +10,9 @@ namespace Script
     /// </summary>
     public class Energie : MonoBehaviour
     {
+        public Gradient gradient;
         public Slider slider;
-
+        public Image fill;
         /// <summary>
         /// Attribue un maximum à la barre d'énergie.
         /// </summary>
@@ -20,8 +21,8 @@ namespace Script
         {
             slider.maxValue = energie;
             slider.value = energie;
-            
-            
+
+            fill.color = gradient.Evaluate(1f);
         }
 
 
@@ -32,6 +33,8 @@ namespace Script
         public void SetEnergie(float energie)
         {
             slider.value = ArrondirFloat(energie,100);
+            fill.color = gradient.Evaluate(slider.normalizedValue);
+
         }
         
         

@@ -381,35 +381,35 @@ public class TetroCourrant : MonoBehaviour
             {
 
                 case TypeTetromino.TetroI:
-                    _shapeTetrominoNext = Instantiate(TetroI, new Vector3(650, 950, 0), Quaternion.identity);
+                    _shapeTetrominoNext = Instantiate(TetroI, new Vector3(660, 950, 0), Quaternion.identity);
                     _shapeTetrominoNext.tag = "next";
 
                     break;
                 case TypeTetromino.TetroJ:
-                    _shapeTetrominoNext = Instantiate(TetroJ, new Vector3(650, 950, 0), Quaternion.identity);
+                    _shapeTetrominoNext = Instantiate(TetroJ, new Vector3(660, 950, 0), Quaternion.identity);
                     _shapeTetrominoNext.tag = "next";
 
                     break;
                 case TypeTetromino.TetroL:
-                    _shapeTetrominoNext = Instantiate(TetroL, new Vector3(650, 950, 0), Quaternion.identity);
+                    _shapeTetrominoNext = Instantiate(TetroL, new Vector3(660, 950, 0), Quaternion.identity);
                     _shapeTetrominoNext.tag = "next";
 
                     break;
                 case TypeTetromino.TetroO:
-                    _shapeTetrominoNext = Instantiate(TetroO, new Vector3(650, 950, 0), Quaternion.identity);
+                    _shapeTetrominoNext = Instantiate(TetroO, new Vector3(660, 950, 0), Quaternion.identity);
                     _shapeTetrominoNext.tag = "next";
                     
                     break;
                 case TypeTetromino.TetroS:
-                    _shapeTetrominoNext = Instantiate(TetroS, new Vector3(650, 950, 0), Quaternion.identity);
+                    _shapeTetrominoNext = Instantiate(TetroS, new Vector3(660, 950, 0), Quaternion.identity);
                     _shapeTetrominoNext.tag = "next";
                     break;
                 case TypeTetromino.TetroZ:
-                    _shapeTetrominoNext = Instantiate(TetroZ, new Vector3(650, 950, 0), Quaternion.identity);
+                    _shapeTetrominoNext = Instantiate(TetroZ, new Vector3(660, 950, 0), Quaternion.identity);
                     _shapeTetrominoNext.tag = "next";
                     break;
                 case TypeTetromino.TetroT:
-                    _shapeTetrominoNext = Instantiate(TetroT, new Vector3(650, 900, 0), Quaternion.identity);
+                    _shapeTetrominoNext = Instantiate(TetroT, new Vector3(660, 900, 0), Quaternion.identity);
                     _shapeTetrominoNext.tag = "next";
                     break;
 
@@ -448,11 +448,13 @@ public class TetroCourrant : MonoBehaviour
     
             // Instancier le tétromino courant dans l'espace d'échange
             // Donner le tag "EchangeGroupe" au groupe de Tétrominos stocké
-            _tetroEchange = Instantiate(_shapeTetromino, new Vector3(650, 600, 0), Quaternion.identity);
+            _tetroEchange = Instantiate(_shapeTetromino, new Vector3(660, 600, 0), Quaternion.identity);
             _tetroEchange.tag = "EchangeGroupe";
             
             int nbCarresBonus = 0;
 
+            
+            // On compte le nombre de carrés bonus parmis un groupe de Tetrominos
             for (int i = 0; i < _tetroEchange.transform.childCount; i++)
             {
                 bool estBonus = _tetroEchange.transform.GetChild(i).CompareTag("Bonus");
@@ -465,25 +467,25 @@ public class TetroCourrant : MonoBehaviour
             }
 
             Debug.Log("Nombre carres bonus:"+nbCarresBonus);
-            if (nbCarresBonus == 0)
+            if (nbCarresBonus == 0) // S'il n'existe aucun carré bonus, en créer un.
+
             {
-                shapeBonus = Instantiate(TetroBonus, new Vector3(650, 600, 0), Quaternion.identity);
+                shapeBonus = Instantiate(TetroBonus, new Vector3(660, 600, 0), Quaternion.identity);
                 shapeBonus.transform.SetParent(_tetroEchange.transform); 
             }
-            else
+            else // Sinon, détruire le carré bonus de trop
             {
                 Destroy(GameObject.FindWithTag("Bonus"));
                 
             }
-
+            
+            
+            // On détruit un des carré qui sera remplacé par le carré bonus. Il s'agit du premier objet du groupe
             if (_shapeTetromino.transform.childCount == 5 || _tetroEchange.transform.childCount == 5 )
             {
                 
                 Destroy(_shapeTetromino.transform.GetChild(0).gameObject);
                 Destroy(_tetroEchange.transform.GetChild(0).gameObject);
-                
-
-
             }
             
              
@@ -494,21 +496,18 @@ public class TetroCourrant : MonoBehaviour
             // Donner le tag "clone" au groupe de Tétrominos courant
             _shapeTetromino = Instantiate(_tetroEchange2, new Vector3(250, 1050, 0), Quaternion.identity);
             _shapeTetromino.tag = "clone";
+            
+            // On détruit un des carré qui sera remplacé par le carré bonus. Il s'agit du premier objet du groupe
             if (_tetroEchange2.transform.childCount == 5)
             {
                 Destroy(_tetroEchange2.transform.GetChild(0).gameObject);
 
             }
-
-          
-
+            
             _tetroGenerator.GenerateTetro();
-             
-             
+            
             Destroy(clones); // On détruit l'objet
-           
-
-
+            
         }
         // S'il n'y a aucun Tétromino dans l'espace d'échange (Tout premier échange du jeu) : //
         
@@ -529,19 +528,19 @@ public class TetroCourrant : MonoBehaviour
             
             // Instancier le tétromino courant dans l'espace d'échange
             // Donner le tag "EchangeGroupe" au groupe de Tétrominos stocké
-            _shapeTetromino = Instantiate( _tetroEchange, new Vector3(650, 600, 0), Quaternion.identity);
+            _shapeTetromino = Instantiate( _tetroEchange, new Vector3(660, 600, 0), Quaternion.identity);
             _shapeTetromino.tag = "EchangeGroupe";
             //Object.Destroy(_shapeTetromino.transform.GetChild(0).gameObject);
 
-            shapeBonus = Instantiate(TetroBonus, new Vector3(650, 600, 0), Quaternion.identity);
+            // On crée le carré bonus
+            shapeBonus = Instantiate(TetroBonus, new Vector3(660, 600, 0), Quaternion.identity);
             shapeBonus.transform.SetParent(_shapeTetromino.transform);
+            // On remplace un carré par le carré bonus
             if (_shapeTetromino.transform.childCount == 5)
             {
-                Object.Destroy(_shapeTetromino.transform.GetChild(0).gameObject);
+                Destroy(_shapeTetromino.transform.GetChild(0).gameObject);
 
             }
-            //Destroy(clones); // On détruit l'objet
-            //Next();
             UpdateTetromino();
 
         }
@@ -580,9 +579,16 @@ public class TetroCourrant : MonoBehaviour
 
                     foreach (Transform carre in _shapeTetromino.transform) // Pour chaque carré d'un Tetromino
                     {
-                        GameObject.FindGameObjectsWithTag("Untagged"); // Rechercher les Objets (ici le groupe Prefab de nos Tetrominos) qui ont un tag "Untagged"
+                        if (carre.CompareTag("Untagged"))
+                        {
+                            carre.tag = "Verrou"; // Attribuer à leur carré (donc à chaque enfants du prefab) le tag "Verrou"
 
-                        carre.tag = "Verrou"; // Attribuer à leur carré (donc à chaque enfants du prefab) le tag "Verrou"
+                        } // Rechercher les Objets (ici le groupe Prefab de nos Tetrominos) qui ont un tag "Untagged"
+
+                        else
+                        {
+                            carre.tag = "BonusVerrou";
+                        }
 
                         
 
@@ -590,6 +596,9 @@ public class TetroCourrant : MonoBehaviour
 
                     PositionCarresVerrouilles();
                     VerrouillerCarre();
+                    VerrouillerCarreBonus();
+                    //GameObject cloneBonus = GameObject.Find("CarreBonus");
+                    //cloneBonus.tag = "BonusVerrou";
                     
                     // Puisqu'on va passer à un nouveau Tetromino, détruire le groupe dans l'espace Next
                     GameObject nextGroupe = GameObject.FindGameObjectWithTag("next"); // On cherche les objets ayant pour tag "next"
@@ -660,6 +669,7 @@ public class TetroCourrant : MonoBehaviour
         
     }
 
+    
     /// <summary>
     /// Place les carrés ayant un tag "Verrou" dans le parent carresVerrouilles.
     /// </summary>
@@ -685,6 +695,18 @@ public class TetroCourrant : MonoBehaviour
 
 
         }
+        
+        _positionBonus = GameObject.FindGameObjectsWithTag("BonusVerrou");
+
+        foreach (GameObject carre in _positionBonus)
+        {
+
+            var positionCarre = carre.transform.position;
+            
+            carre.transform.SetParent(BonusVerrouilles.transform); // Les carrés vérouillés on été placés ici
+
+
+        }
 
 
 
@@ -697,6 +719,7 @@ public class TetroCourrant : MonoBehaviour
     public void VerrouillerCarre()
     {
         _positionVerrou = GameObject.FindGameObjectsWithTag("Verrou");
+        
 
         // avec for
         int count = _positionVerrou.Length;
@@ -733,6 +756,32 @@ public class TetroCourrant : MonoBehaviour
             
 
 
+    }
+
+    public GameObject[] _positionBonus;
+    public GameObject BonusVerrouilles;
+    /// <summary>
+    /// Prend la position x et y de chaque carrés qui ont été verrouillés.
+    /// Les place dans la Matrice 2D du champ de jeu.
+    /// </summary>
+    public void VerrouillerCarreBonus()
+    {
+        _positionBonus = GameObject.FindGameObjectsWithTag("BonusVerrou");
+        
+
+        // avec for
+        int count = _positionBonus.Length;
+        for(int i = 0; i < count; i++)
+        {
+            
+            Transform block = BonusVerrouilles.transform.GetChild(i);
+            int X = Mathf.RoundToInt(block.position.x);
+            int Y = Mathf.RoundToInt(block.position.y);
+            //var positionCarre = block.transform.position;
+            _champDeJeu.Matrice[X, Y] = block;
+            
+            //Debug.Log("Position d'un carré :"+ positionCarre);
+        }
     }
 
    

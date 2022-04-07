@@ -74,7 +74,7 @@ namespace Script
                     int abscisse = (_pointOriginPrevision._abscisse + colonne) * (TailleCarre + IntervalleCarre);
                     int ordonne = (_pointOriginPrevision._ordonne + ligne) * (TailleCarre + IntervalleCarre);
 
-                    Vector3 coordonneCarre = new Vector3(abscisse , ordonne + 350, 0);
+                    Vector3 coordonneCarre = new Vector3(abscisse +10 , ordonne + 350, 0);
 
                     _espacePrevision[colonne, ligne] = Instantiate(_border, coordonneCarre, Quaternion.identity);
                 }
@@ -88,7 +88,7 @@ namespace Script
                     int abscisse = (_pointOriginEspaceEchange._abscisse + colonne) * (TailleCarre + IntervalleCarre);
                     int ordonne = (_pointOriginEspaceEchange._ordonne + ligne) * (TailleCarre + IntervalleCarre);
 
-                    Vector3 coordonneCarre = new Vector3(abscisse , ordonne + 350, 0);
+                    Vector3 coordonneCarre = new Vector3(abscisse +10 , ordonne + 350, 0);
 
                     _espaceEchange[colonne, ligne] = Instantiate(_border, coordonneCarre, Quaternion.identity);
                 }
