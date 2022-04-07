@@ -141,43 +141,33 @@ namespace Script
         
         
         /// <summary>
-        /// Détermine si une ligne est complète.
+        /// Détermine si la ligne complète comporte un carré Bonus.
         /// </summary>
         /// <param name="y">La position y du champ de jeu.</param>
         /// <returns>
-        /// Vrai si une ligne est complète.
+        /// Vrai si une ligne complète comporte un carré Bonus.
         /// Faux sinon.
         /// </returns>
         public bool LigneCompleteEstBonus(int y)
         {
 
-
-            /*for (int i = 50; i <= 500; i++)
+            if (GameObject.FindGameObjectWithTag("BonusVerrou")) // On cherche s'il existe un carré bonus qui a été verrouillé.
             {
-                if (i % 50 == 0)
+                // On vérifie d'abord que la ligne est complète
+                // puis on vérifie si la position y du carré bonus correspond à la ligne y rentrée en paramètre
+                if (LigneEstComplete(y) && Mathf.RoundToInt(GameObject.FindGameObjectWithTag("BonusVerrou").transform.position.y) == Mathf.RoundToInt(y))
                 {
-                    if (LigneEstComplete(y) && _champDeJeu.Matrice[i, y] == GameObject.Find("CarreBonus(Clone)").transform)
-                    {
-                        return true;
-                    }
+                    return true;
                 }
-                
-            }*/
-            
-            //////
-            if (LigneEstComplete(y) && Mathf.RoundToInt(GameObject.FindGameObjectWithTag("Bonus").transform.position.y) == y)
-            {
-                Debug.Log("TrueeeeeEeeeEEEE");
-
-                return true;
             }
+            
 
             return false;
 
         }
         
         /// <summary>
-        /// Détruit une ligne assignée.
+        /// Détruit une ligne assignée comportant un carré bonus.
         /// </summary>
         /// <param name="y">Position y de la ligne à détruire.</param>
         public void DetruireLigneBonus(int y)
@@ -186,9 +176,9 @@ namespace Script
             {
                 if (i % 50 == 0)
                 { 
-                    if (_champDeJeu.Matrice[i, y + 50] != null)
+                    if (_champDeJeu.Matrice[i, y ] != null)
                     {
-                        Destroy(_champDeJeu.Matrice[i, y+50].gameObject);
+                        Destroy(_champDeJeu.Matrice[i, y].gameObject);
                     }
                 }
             }
@@ -196,17 +186,17 @@ namespace Script
 
         public void DescenteLignesBonus(int ligne)
         {
-            for (int y = ligne+50; y < 1100 - 50; y++)
+            for (int y = ligne; y < 1100 - 50; y++)
             {
                 for (int x = 0; x <= 500; x++)
                 {
                    
-                    if (_champDeJeu.Matrice[x, y +100] != null)
+                    if (_champDeJeu.Matrice[x, y +50] != null)
                     {
-                        _champDeJeu.Matrice[x, y] = _champDeJeu.Matrice[x, y + 100]; // 50?
+                        _champDeJeu.Matrice[x, y] = _champDeJeu.Matrice[x, y + 50]; // 50?
                        
-                        _champDeJeu.Matrice[x, y + 100] = null;
-                        _champDeJeu.Matrice[x, y+50].gameObject.transform.position +=new Vector3(0,-1*50*2,0);
+                        _champDeJeu.Matrice[x, y + 50] = null;
+                        _champDeJeu.Matrice[x, y].gameObject.transform.position +=new Vector3(0,-1*50,0);
                         
                         
                     }
@@ -216,7 +206,7 @@ namespace Script
         }
         
         /// <summary>
-        /// Détruit une ligne si elle est complète, puis fait descendre les carrés du dessus.
+        /// Détruit une ligne si elle est complète et comporte un carré bonus, puis fait descendre les carrés du dessus.
         /// </summary>
         /// <returns>Le nombre de lignes détruites.</returns>
         public int LigneBonus()

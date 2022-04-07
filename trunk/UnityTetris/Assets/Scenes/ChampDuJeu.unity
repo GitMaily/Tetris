@@ -441,7 +441,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &245295737
 GameObject:
@@ -564,7 +564,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &319042341
 GameObject:
@@ -607,7 +607,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &350107864
 GameObject:
@@ -796,7 +796,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &493212827
 GameObject:
@@ -1155,7 +1155,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1031360054
 GameObject:
@@ -1457,7 +1457,7 @@ MonoBehaviour:
   TetroS: {fileID: 3265587807772597483, guid: bb7f1f74faadbc94590eff3a7a44ec68, type: 3}
   TetroZ: {fileID: 1952673600014682577, guid: d3153c37c0e231a47bec4b53495ff269, type: 3}
   TetroT: {fileID: 4312419852266592891, guid: f956ad6300210bb4c96a6d8c39c509a2, type: 3}
-  TetroBonus: {fileID: 7189323424313676347, guid: a7c9379c38148a2458faec76061dec29, type: 3}
+  TetroBonus: {fileID: 7189323424313676347, guid: c1ffb91203a471d48a05cd54f2c84e81, type: 3}
   canvas: {fileID: 0}
   _champDeJeu: {fileID: 2063672355}
   _positionVerrou: []
@@ -1468,6 +1468,8 @@ MonoBehaviour:
   temps: 0
   tempsChute: 0.5
   compteurChute: 0
+  _positionBonus: []
+  BonusVerrouilles: {fileID: 1622236177}
   perdu: {fileID: 292618756}
 --- !u!4 &1146417992
 Transform:
@@ -1721,7 +1723,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1439317399
 GameObject:
@@ -1827,6 +1829,36 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1622236177
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1622236178}
+  m_Layer: 0
+  m_Name: BonusVerrouilles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1622236178
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622236177}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 244.90402, y: 248.60532, z: -2234.9211}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1764566915
 GameObject:
   m_ObjectHideFlags: 0
