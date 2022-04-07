@@ -19,6 +19,7 @@ namespace Script
 
         public int totalLignesDetruites;
         public int lignesDetruitesEchange;
+        public int lignesDetruitesBonus;
         public void Initialiser()
         {
             _tetroCourrant = tetroCourrant.GetComponent<TetroCourrant>();
@@ -211,7 +212,7 @@ namespace Script
         /// <returns>Le nombre de lignes détruites.</returns>
         public int LigneBonus()
         {
-            int _ligneCompteur = 0;
+            int _ligneBonusCompteur = 0;
             for (int y =0; y < 1100; y++)
             {
 
@@ -220,13 +221,20 @@ namespace Script
 
                     DetruireLigneBonus(y);
                     DescenteLignesBonus(y);
-                    _ligneCompteur++;
+                    _ligneBonusCompteur++;
                     totalLignesDetruites++;
                 }
             }
 
-            lignesDetruitesEchange = _ligneCompteur;
-            return _ligneCompteur;
+            lignesDetruitesBonus = _ligneBonusCompteur;
+            return _ligneBonusCompteur;
+        }
+        
+        
+        public int GetLignesBonusDetruites()
+        {
+            
+            return lignesDetruitesBonus;
         }
         
     }

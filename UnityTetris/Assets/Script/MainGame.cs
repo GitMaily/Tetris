@@ -117,6 +117,8 @@ namespace Script
             _score.UpdateScore();
             
             _energieCourant.AjoutEnergie(_destructionLigne.GetLignesDetruitesEchange());
+            _energieCourant.AjoutEnergie(_destructionLigne.GetLignesBonusDetruites());
+
             
             _energieCourant.AjoutEnergieVerrou(_tetroCourrant.GetCompteurVerrou());
 
