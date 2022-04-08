@@ -12,6 +12,7 @@ namespace Script
         private TetroCourrant _tetroCourrant;
         
         private GameObject[] _positionVerrou;
+        public GameObject[] _positionBonus;
 
         public GameObject champDeJeu;
         private EcranPrincipal _champDeJeu;
@@ -53,7 +54,7 @@ namespace Script
                     }
                 }
             }
-            Debug.Log("Une ligne est complete");
+            //Debug.Log("Une ligne est complete");
             return true;
         }
         
@@ -152,13 +153,20 @@ namespace Script
         public bool LigneCompleteEstBonus(int y)
         {
 
+            _positionBonus = GameObject.FindGameObjectsWithTag("BonusVerrou");
+
             if (GameObject.FindGameObjectWithTag("BonusVerrou")) // On cherche s'il existe un carré bonus qui a été verrouillé.
             {
                 // On vérifie d'abord que la ligne est complète
-                // puis on vérifie si la position y du carré bonus correspond à la ligne y rentrée en paramètre
-                if (LigneEstComplete(y) && Mathf.RoundToInt(GameObject.FindGameObjectWithTag("BonusVerrou").transform.position.y) == Mathf.RoundToInt(y))
+                if (LigneEstComplete(y)) //&& Mathf.RoundToInt(GameObject.FindGameObjectWithTag("BonusVerrou").transform.position.y) == Mathf.RoundToInt(y))
                 {
-                    return true;
+                    foreach (GameObject bonus in _positionBonus) // pour chaque carré bonus placés
+                    {
+                        if (Mathf.RoundToInt(bonus.transform.position.y) == Mathf.RoundToInt(y)) // on vérifie si la position y du carré bonus correspond à la ligne y rentrée en paramètre
+                        {
+                            return true; // Un des carrés possède donc un y identique à celui passé en paramètre
+                        }
+                    }
                 }
             }
             

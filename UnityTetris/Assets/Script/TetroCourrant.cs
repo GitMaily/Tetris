@@ -151,7 +151,7 @@ public class TetroCourrant : MonoBehaviour
     #region Mouvements joueur
     public void AGauche()
     {
-        Debug.Log("Déplacement gauche");
+        //Debug.Log("Déplacement gauche");
         _shapeTetromino.transform.position += new Vector3(-1 * DistanceCarre, 0, 0);
         //transform.position += new Vector3(-50, 0, 0);
         if (!EstDedans()) // Si la nouvelle position est hors limite
@@ -162,7 +162,7 @@ public class TetroCourrant : MonoBehaviour
 
     public void ADroite()
     {
-        Debug.Log("Déplacement droit");
+        //Debug.Log("Déplacement droit");
         _shapeTetromino.transform.position += new Vector3(1 * DistanceCarre, 0, 0);
         //transform.position += new Vector3(50, 0, 0);
 
@@ -194,7 +194,7 @@ public class TetroCourrant : MonoBehaviour
     {
         float tempsMax = 1.0f;
         float tempsMaintenu = 0f;
-        Debug.Log("Descente verticale plus rapide de la pièce");
+        //Debug.Log("Descente verticale plus rapide de la pièce");
 
         // Maintient bouton
         if (Input.GetKeyDown(KeyCode.S))
@@ -237,7 +237,7 @@ public class TetroCourrant : MonoBehaviour
         
         //if (_typeTetromino != TypeTetromino.TetroO)
         {
-            Debug.Log("Flèche bas appuyée : effectuer la rotation à gauche de la pièce de 90°");
+            //Debug.Log("Flèche bas appuyée : effectuer la rotation à gauche de la pièce de 90°");
             _shapeTetromino.transform.Rotate(0, 0, 90);
             if (!EstDedans()) // Si la nouvelle position est hors limite
             {
@@ -290,7 +290,7 @@ public class TetroCourrant : MonoBehaviour
         
         //if (_typeTetromino != TypeTetromino.TetroO)
         {
-            Debug.Log("Flèche haut appuyée : effectuer la rotation à droite de la pièce de 90°");
+            //Debug.Log("Flèche haut appuyée : effectuer la rotation à droite de la pièce de 90°");
             _shapeTetromino.transform.Rotate(0, 0, -90);
     
             if (!EstDedans()) // Si la nouvelle position est hors limite
@@ -466,7 +466,7 @@ public class TetroCourrant : MonoBehaviour
 
             }
 
-            Debug.Log("Nombre carres bonus:"+nbCarresBonus);
+            //Debug.Log("Nombre carres bonus:"+nbCarresBonus);
             if (nbCarresBonus == 0) // S'il n'existe aucun carré bonus, en créer un.
 
             {
@@ -549,7 +549,7 @@ public class TetroCourrant : MonoBehaviour
 
     public void AugmentationDifficulte(int totalLignesDetruites)
     {
-        Debug.Log("Total lignes détruites:"+totalLignesDetruites);
+        //Debug.Log("Total lignes détruites:"+totalLignesDetruites);
         _score = score.GetComponent<Score>();
         float vitesseChute = totalLignesDetruites / 1000f;
         tempsChute = 0.5f - vitesseChute;
@@ -619,7 +619,7 @@ public class TetroCourrant : MonoBehaviour
 
     public int GetCompteurVerrou()
     {
-        Debug.Log("Nombre compteurChute:"+compteurChute);
+        //Debug.Log("Nombre compteurChute:"+compteurChute);
         return compteurChute;
     }
 
