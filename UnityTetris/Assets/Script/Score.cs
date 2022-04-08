@@ -5,8 +5,9 @@ namespace Script
 {
     public class Score : MonoBehaviour
     {
-        private int _scoreCourant;
+        public static int _scoreCourant;
         public Text ScoreUI;
+        public Text ScoreFinal;
 
         public void Initialiser()
         {
@@ -17,12 +18,12 @@ namespace Script
         {
             _scoreCourant += (int)(100 * ligneDetruit * (1 + 0.1 * ligneDetruit));
         }
-        
+
         public void AjouterScoreBonus(int ligneBonusDetruit)
         {
             _scoreCourant += (int)(500 * ligneBonusDetruit * (1 + 0.1 * ligneBonusDetruit));
         }
-
+        
         public override string ToString()
         {
             string _stringScore = _scoreCourant.ToString();
@@ -40,11 +41,12 @@ namespace Script
         public void UpdateScore()
         {
             ScoreUI.text = ToString();
+            ScoreFinal.text = _scoreCourant.ToString();
         }
 
-        public int GetScore()
+        public string GetScore()
         {
-            return _scoreCourant;
+            return ToString();
         }
         
     }
