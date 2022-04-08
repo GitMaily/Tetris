@@ -883,9 +883,11 @@ public class TetroCourrant : MonoBehaviour
     
     public GameObject perdu;
     private GameOver _perdu;
+    
     public bool ConditionGameOver()
     {
         _perdu = perdu.GetComponent<GameOver>();
+
         bool depasser = false;
         foreach (Transform carre in _shapeTetromino.transform) // Pour chaque carré d'un Tetromino
         {
@@ -896,7 +898,10 @@ public class TetroCourrant : MonoBehaviour
             {
                 depasser = true;
                 Debug.Log("Game Over.");
-                _perdu.GamePerdu();
+                //MenuPause._estPause = true;
+
+                
+                
             }
         }
         

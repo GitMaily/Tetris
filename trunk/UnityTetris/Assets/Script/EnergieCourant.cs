@@ -10,7 +10,9 @@ namespace Script
     {
 
         //public DestructionLigne destructionLigne;
+        public GameObject tetroCourant;
         private TetroCourrant _tetroCourrant;
+        
         public float maxEnergie = 16f;
         public float energie;
 
@@ -34,9 +36,9 @@ namespace Script
         /// <param name="lignesDetruites">Nombre de lignes détruites.</param>
         public void AjoutEnergie(int lignesDetruites)
         {
-            
+            _tetroCourrant = tetroCourant.GetComponent<TetroCourrant>();
 
-            if (Mathf.RoundToInt(energie) != (Mathf.RoundToInt(maxEnergie))) // N'ajoute pas plus d'énergie si la barre d'énergie est déjà au max
+            if (!(_tetroCourrant.ConditionGameOver()) && Mathf.RoundToInt(energie) != (Mathf.RoundToInt(maxEnergie))) // N'ajoute pas plus d'énergie si la barre d'énergie est déjà au max
             {
                 energie += lignesDetruites;
 
@@ -55,7 +57,7 @@ namespace Script
         /// <param name="nombreVerrou">Le nombre de Tetromino placé</param>
         public void AjoutEnergieVerrou(int nombreVerrou)
         {
-            if (Mathf.RoundToInt(energie) != (Mathf.RoundToInt(maxEnergie))) // N'ajoute pas plus d'énergie si la barre d'énergie est déjà au max
+            if (!(_tetroCourrant.ConditionGameOver()) && Mathf.RoundToInt(energie) != (Mathf.RoundToInt(maxEnergie))) // N'ajoute pas plus d'énergie si la barre d'énergie est déjà au max
             {
                 energie += nombreVerrou/10f; // A chaque fois, on divise 1 par 10 donc on ajoute 0.1
                 barreEnergie.SetEnergie(energie);

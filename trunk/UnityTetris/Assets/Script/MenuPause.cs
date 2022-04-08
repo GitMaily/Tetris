@@ -3,62 +3,87 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuPause : MonoBehaviour
+namespace Script
 {
-    bool pause=true ;
-    public GameObject Canvas;
+    public class MenuPause : MonoBehaviour
+    {
+        public GameObject MenuPauseUI;
 
-    public void Reprendre()
-    {
-        
-        SceneManager.LoadScene("MenuPause");
-    }
 
-    
-    public void Sauvegarder()
-    {
-        
-    }
+        public static bool _estPause;
+        //private GameObject menuPause;
 
-    // Quitter la partie : retourner au menu principal
-    public void Quitter()
-    {
-        SceneManager.LoadScene("MenuPrincipal");
-    }
-
-    // On va charger une nouvelle partie
-    public void Recommencer()
-    {
-        SceneManager.LoadScene("SampleScene");
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (pause == true)
+        public void Pause()
         {
-            if (Input.GetKeyDown(KeyCode.P))
+            if (_estPause)
             {
-                Time.timeScale = 0;
-                pause = false;
-                Canvas.SetActive(true);
+                Time.timeScale = 0f;
             }
             else
             {
-                if (Input.GetKeyDown(KeyCode.P))
-                {
-                    Time.timeScale = 1;
-                    pause = true;
-                    Canvas.SetActive(false);
-                }
+                Time.timeScale = 1;
 
             }
         }
 
+        public void Reprendre()
+        {
+            MenuPauseUI.SetActive(false);
+            Time.timeScale = 1f;
+            _estPause = false;
+        }
+
+
+        public void Sauvegarder()
+        {
+
+        }
+
+        // Quitter la partie : retourner au menu principal
+        public void Quitter()
+        {
+            _estPause = false;
+            Reprendre();
+            SceneManager.LoadScene("MenuPrincipal");
+        }
+
+        // On va charger une nouvelle partie
+        public void Recommencer()
+        {
+            _estPause = false;
+            Reprendre();
+            SceneManager.LoadScene("ChampDuJeu");
+        }
+
+        // Start is called before the first frame update
+        void Start()
+        {
+
+        }
+
+        // Update is called once per frame
+        /*void Update()
+        {
+            if (_pause)
+            {
+                if (Input.GetKeyDown(KeyCode.P))
+                {
+                    Time.timeScale = 0;
+                    _pause = false;
+                    menuPause.SetActive(true);
+                }
+                else
+                {
+                    if (Input.GetKeyDown(KeyCode.P))
+                    {
+                        Time.timeScale = 1;
+                        _pause = true;
+                        menuPause.SetActive(false);
+                    }
+    
+                }
+            }
+    
+        }*/
     }
 }

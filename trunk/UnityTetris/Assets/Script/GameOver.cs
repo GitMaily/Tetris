@@ -2,26 +2,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class GameOver : MonoBehaviour
+namespace Script
 {
-    public GameObject gameOverUI;
-
-    public static GameOver gameOver;
-
-    public void GamePerdu()
+    public class GameOver : MonoBehaviour
     {
-        gameOverUI.SetActive(true); 
-    }
+        public GameObject gameOverUI;
 
-    public void ButtonRejouer()
-    {
-        SceneManager.LoadScene("ChampDuJeu");
-    }
+        private MenuPause _menuPause;
 
-    public void ButtonQuitter()
-    {
-        SceneManager.LoadScene("MenuPrincipal");
-        Debug.Log("Quitter le jeu.");
+        private Score score;
+
+
+        public void GamePerdu()
+        {
+            //MenuPause._estPause = true;
+
+            gameOverUI.SetActive(true);
+
+        }
+
+        public void Reprendre()
+        {
+            gameOverUI.SetActive(false);
+            Time.timeScale = 1f;
+            MenuPause._estPause = false;
+        }
+
+        public void ButtonRejouer()
+        {
+            MenuPause._estPause = false;
+            Reprendre();
+
+            SceneManager.LoadScene("ChampDuJeu");
+        }
+
+        public void ButtonQuitter()
+        {
+            Reprendre();
+            SceneManager.LoadScene("MenuPrincipal");
+            Debug.Log("Quitter le jeu.");
+        }
+
+        
     }
 }

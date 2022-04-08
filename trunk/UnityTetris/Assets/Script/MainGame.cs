@@ -41,6 +41,11 @@ namespace Script
         public GameObject energie;
         private EnergieCourant _energieCourant;
         
+        public GameObject perdu;
+        private GameOver _perdu;
+
+        public GameObject menuPause;
+        private MenuPause _menuPause;
         
         #endregion Objets
         
@@ -90,6 +95,11 @@ namespace Script
             _energieCourant = energie.GetComponent<EnergieCourant>();
             _energieCourant.Initialiser();
             
+            // GameOver
+            _perdu = perdu.GetComponent<GameOver>();
+
+            // Pause
+            _menuPause = menuPause.GetComponent<MenuPause>();
 
         }
 
@@ -99,14 +109,17 @@ namespace Script
 
             //menuSauvegarde.Sauvegardes();
 
+            if (!MenuPause._estPause && !_tetroCourrant.ConditionGameOver())
+            {
+                _tetroCourrant.Chute();
+                _boutonsBis.BoutonCheck();
+                _boutonsBis.BoutonBas();
+                _boutonsBis.BoutonHaut();
+                _boutonsBis.BoutonEspace();
+                _boutonsBis.Echap();
 
-            _tetroCourrant.Chute();
-            _boutonsBis.BoutonCheck();
-            _boutonsBis.BoutonBas();
-            _boutonsBis.BoutonHaut();
-            _boutonsBis.BoutonEspace();
-            //_boutonsBis.Tabulation();
-            _boutonsBis.Echap();
+            }
+            
             _tetroCourrant.Next();
             
             //_destructionLigne.LigneBonus();
@@ -123,17 +136,27 @@ namespace Script
             _energieCourant.AjoutEnergieVerrou(_tetroCourrant.GetCompteurVerrou());
 
 
-            if (Input.GetKeyDown(KeyCode.Tab) && _energieCourant.energie >= 4f)
+            if (!MenuPause._estPause && !_tetroCourrant.ConditionGameOver() && Input.GetKeyDown(KeyCode.Tab) && Mathf.RoundToInt(_energieCourant.energie) >= Mathf.RoundToInt(4f))
             {
                 
-                _energieCourant.ResetEnergie();
-                _tetroCourrant.GenererEchange();
+                    _energieCourant.ResetEnergie();
+                    _tetroCourrant.GenererEchange();
+                
             }
 
             _tetroCourrant.AugmentationDifficulte(_destructionLigne.GetTotalLignesDetruites());
 
-            
-            _tetroCourrant.ConditionGameOver();
+
+            //_perdu.ScoreFinal();
+            _menuPause.Pause();
+            if (_tetroCourrant.ConditionGameOver())
+            {
+                _perdu.gameOverUI.SetActive(true);
+                //Time.timeScale = 0f;
+                _perdu.GamePerdu();
+
+            }
+
 
         }
     }

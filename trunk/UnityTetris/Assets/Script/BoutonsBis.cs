@@ -15,6 +15,9 @@ namespace Script
         private TetroCourrant _tetroCourrant;
 
         private DestructionLigne _destructionLigne;
+        
+        public GameObject pause;
+        private MenuPause _menuPause;
         public void Initialiser()
         {
             _tetroCourrant = tetroCourrant.GetComponent<TetroCourrant>();
@@ -76,12 +79,18 @@ namespace Script
            
         }
 
+        
         public void Echap() // Pause
         {
+            _menuPause = pause.GetComponent<MenuPause>();
+            
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 Debug.Log("Partie mise en pause : chargement du menu de pause");
-                SceneManager.LoadScene("MenuPause");
+                _menuPause.MenuPauseUI.SetActive(true);
+                Time.timeScale = 0f;
+                MenuPause._estPause = true;
+
             }
         }
 
