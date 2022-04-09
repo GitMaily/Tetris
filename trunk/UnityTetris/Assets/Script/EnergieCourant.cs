@@ -22,9 +22,9 @@ namespace Script
         /// <summary>
         /// Initialise la barre d'énergie à 0 au lancement du jeu et son maximum à 16.
         /// </summary>
-        public void Initialiser()
+        public void Initialiser(float energie)
         {
-            energie = 16f;
+            this.energie = energie;
             barreEnergie.SetMaxEnergie(maxEnergie);
         }
 

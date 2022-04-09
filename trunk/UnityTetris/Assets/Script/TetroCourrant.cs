@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Script;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -32,13 +34,20 @@ public class TetroCourrant : MonoBehaviour
     public GameObject carresVerrouilles;
 
     public GameObject tetroGenerator;
-    private TetroGenerator _tetroGenerator;
+    public TetroGenerator _tetroGenerator;
 
-    public GameObject _shapeTetromino;
+    private GameObject _shapeTetromino;
     private GameObject _shapeTetrominoNext;
     private GameObject _shapeTetrominoEchange;
+    
+    [SerializeField]
+    public TypeTetromino _typeTetromino;
 
-    private TypeTetromino _typeTetromino;
+    [SerializeField] 
+    public TypeTetromino _typeTetrominoNext;
+
+    [SerializeField] 
+    public TypeTetromino _typeTetrominoEchange = TypeTetromino.Null;
 
     //public GameObject detruireLigne;
 
@@ -376,7 +385,8 @@ public class TetroCourrant : MonoBehaviour
 
         if (tetroNext == null)
         {
-            switch (_tetroGenerator.ListTetrominos.Peek()) // On regarde le premier élément de la file sans la défiler
+            _typeTetrominoNext = _tetroGenerator.ListTetrominos.Peek();
+            switch (_typeTetrominoNext) // On regarde le premier élément de la file sans la défiler
                                                         // On instancie le Tetrominos donné dans l'espace Next
             {
 
@@ -428,7 +438,8 @@ public class TetroCourrant : MonoBehaviour
         GameObject nextGroupe = GameObject.FindGameObjectWithTag("next"); // On cherche les objets ayant pour tag "next"
 
         GameObject echangeGroupe = GameObject.FindGameObjectWithTag("EchangeGroupe"); // On cherche les objets ayant pour tag "EchangeGroupe"
-        GameObject _tetroEchange = _shapeTetromino ;
+        GameObject _tetroEchange = _shapeTetromino;
+
 
         // S'il y a déjà un groupe d'échange : //
         
@@ -450,6 +461,9 @@ public class TetroCourrant : MonoBehaviour
             // Donner le tag "EchangeGroupe" au groupe de Tétrominos stocké
             _tetroEchange = Instantiate(_shapeTetromino, new Vector3(660, 600, 0), Quaternion.identity);
             _tetroEchange.tag = "EchangeGroupe";
+
+            TypeTetromino temps = _typeTetrominoEchange;
+            _typeTetrominoEchange = _typeTetromino;
             
             int nbCarresBonus = 0;
 
@@ -496,6 +510,7 @@ public class TetroCourrant : MonoBehaviour
             // Donner le tag "clone" au groupe de Tétrominos courant
             _shapeTetromino = Instantiate(_tetroEchange2, new Vector3(250, 1050, 0), Quaternion.identity);
             _shapeTetromino.tag = "clone";
+            _typeTetromino = temps;
             
             // On détruit un des carré qui sera remplacé par le carré bonus. Il s'agit du premier objet du groupe
             if (_tetroEchange2.transform.childCount == 5)
@@ -530,6 +545,7 @@ public class TetroCourrant : MonoBehaviour
             // Donner le tag "EchangeGroupe" au groupe de Tétrominos stocké
             _shapeTetromino = Instantiate( _tetroEchange, new Vector3(660, 600, 0), Quaternion.identity);
             _shapeTetromino.tag = "EchangeGroupe";
+            _typeTetrominoEchange = _typeTetromino;
             //Object.Destroy(_shapeTetromino.transform.GetChild(0).gameObject);
 
             // On crée le carré bonus

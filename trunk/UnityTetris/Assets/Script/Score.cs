@@ -5,7 +5,7 @@ namespace Script
 {
     public class Score : MonoBehaviour
     {
-        public static int _scoreCourant;
+        public int _scoreCourant;
         public Text ScoreUI;
         public Text ScoreFinal;
 
