@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using Button = UnityEngine.UIElements.Button;
 
 namespace Script
 {
@@ -33,11 +36,7 @@ namespace Script
             _estPause = false;
         }
 
-
-        public void Sauvegarder()
-        {
-
-        }
+        
 
         // Quitter la partie : retourner au menu principal
         public void Quitter()

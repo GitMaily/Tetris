@@ -9,7 +9,7 @@ namespace Script
 {
     public class ChargerSauvegarde : MonoBehaviour
     {
-        private Sauvegarder fichier;
+        private Sauvegarde fichier;
 
         public ChargerSauvegarde()
         {
@@ -23,7 +23,7 @@ namespace Script
 
             IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream("GameSave.bin", FileMode.OpenOrCreate, FileAccess.Read, FileShare.Read);
-            fichier = (Sauvegarder) formatter.Deserialize(stream);
+            fichier = (Sauvegarde) formatter.Deserialize(stream);
             stream.Close();
         }
     }

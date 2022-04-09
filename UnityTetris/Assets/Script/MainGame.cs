@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.CompilerServices;
+using System.Text;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 
 namespace Script
@@ -20,7 +23,7 @@ namespace Script
         private BoutonsBis _boutonsBis;
 
         public GameObject _sauvegarde;
-        private MenuSauvegarde menuSauvegarde;
+        // private MenuSauvegarde menuSauvegarde;
 
         public GameObject score;
         private Score _score;
@@ -46,6 +49,9 @@ namespace Script
 
         public GameObject menuPause;
         private MenuPause _menuPause;
+
+        public GameObject loadController;
+        private LoadController _loadController;
         
         #endregion Objets
         
@@ -54,15 +60,45 @@ namespace Script
         // Chargement début
         void Start()
         {
+            _loadController = loadController.GetComponent<LoadController>();
             //Obtenir des composants dans la classe EcranPrincipal et les initialiser.
             _ecranPrincipal = ecranPrincipal.GetComponent<EcranPrincipal>(); 
             _ecranPrincipal.Initialiser();
 
+            if (_loadController.GetIsLoad())
+            {
+                Sauvegarde sauvegarde = ChargerSauvegarde("sauvegarde1.json");
+                _tetroCourrant = tetroCourrant.GetComponent<TetroCourrant>();
+                _tetroCourrant.InitialiserTetromino();
+                _score = score.GetComponent<Score>();
+                _energieCourant = energie.GetComponent<EnergieCourant>();
+                foreach (TypeTetromino typeTetromino in sauvegarde.listTetromino)
+                {
+                    _tetroCourrant._tetroGenerator.ListTetrominos.Dequeue();
+                    _tetroCourrant._tetroGenerator.ListTetrominos.Enqueue(typeTetromino);
+                }
+
+                _score._scoreCourant = sauvegarde.score;
+                
+                _energieCourant.Initialiser(sauvegarde.energie);
+
+            }
+            else
+            {
+                _tetroCourrant = tetroCourrant.GetComponent<TetroCourrant>();
+                _tetroCourrant.InitialiserTetromino();
+                
+                            
+                // Score
+                _score = score.GetComponent<Score>();
+                _score.Initialiser();
+                                        
+                // Energie
+                _energieCourant = energie.GetComponent<EnergieCourant>();
+                _energieCourant.Initialiser(0.0f);
+            }
             // Charger les tetrominos
-            _tetroCourrant = tetroCourrant.GetComponent<TetroCourrant>();
-            _tetroCourrant.InitialiserTetromino();
             _tetroCourrant.UpdateTetromino();
-            
             // Charger l'espace Next
             
             _tetroCourrant.Next();
@@ -73,9 +109,6 @@ namespace Script
             _boutonsBis = boutonsBis.GetComponent<BoutonsBis>();
             _boutonsBis.Initialiser();
             
-            // Sauvegarde
-
-            //menuSauvegarde = _sauvegarde.GetComponent<MenuSauvegarde>();
             
             // Destruction Ligne
             _destructionLigne = ligne.GetComponent<DestructionLigne>();
@@ -86,14 +119,6 @@ namespace Script
             // Collision
             
             _collisions = colli.GetComponent<Collision>();
-
-            // Score
-            _score = score.GetComponent<Score>();
-            _score.Initialiser();
-            
-            // Energie
-            _energieCourant = energie.GetComponent<EnergieCourant>();
-            _energieCourant.Initialiser();
             
             // GameOver
             _perdu = perdu.GetComponent<GameOver>();
@@ -143,6 +168,7 @@ namespace Script
                     _tetroCourrant.GenererEchange();
                 
             }
+            
 
             _tetroCourrant.AugmentationDifficulte(_destructionLigne.GetTotalLignesDetruites());
 
@@ -156,8 +182,58 @@ namespace Script
                 _perdu.GamePerdu();
 
             }
+            
+            
+        }
 
+        public void Sauvegarder()
+        {
+            Sauvegarde _sauvegarde = new Sauvegarde();
+            _sauvegarde.typeTetrominoEchange = _tetroCourrant._typeTetrominoEchange;
+            
+            if (_sauvegarde.typeTetrominoEchange == TypeTetromino.Null)
+            {
+                for (int i = 0; i < 9; i++)
+                    _sauvegarde.listTetromino.Add(_tetroCourrant._tetroGenerator.ListTetrominos.ToArray()[i]);
+                _sauvegarde.listTetromino.Insert(0, _tetroCourrant._typeTetromino);
+            }
+            else
+            {
+                for (int i = 0; i < 8; i++)
+                    _sauvegarde.listTetromino.Add(_tetroCourrant._tetroGenerator.ListTetrominos.ToArray()[i]);
+                _sauvegarde.listTetromino.Insert(0, _sauvegarde.typeTetrominoEchange);
+                _sauvegarde.listTetromino.Insert(1, _tetroCourrant._typeTetromino);
+                _sauvegarde.hasTetroEchange = true;
+            }
 
+            _sauvegarde.score = _score._scoreCourant;
+
+            _sauvegarde.energie = _energieCourant.energie;
+
+            //_sauvegarde.Matrice = _ecranPrincipal.Matrice;
+
+            
+
+            string filepath = Application.dataPath + "/sauvegarde1.json";
+
+            string sauvegardeJson = JsonUtility.ToJson(_sauvegarde, true);
+
+            StreamWriter streamWriter = File.CreateText(filepath);
+            
+            streamWriter.Close();
+            
+            File.WriteAllText(filepath, sauvegardeJson, Encoding.UTF8);
+            
+        }
+
+        public Sauvegarde ChargerSauvegarde(string filename)
+        {
+            //if (File.Exists(Application.dataPath + "/" + filename))
+            {
+                string json = File.ReadAllText(Application.dataPath + "/" + filename);
+                return JsonUtility.FromJson<Sauvegarde>(json);
+            }
+            
         }
     }
 }

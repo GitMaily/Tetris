@@ -18,7 +18,8 @@ public class MenuPrincipal : MonoBehaviour
     public void LoadSave()
     {
         //new SceneLoadInfo();
-        SceneManager.LoadScene("ListeSauvegarde");
+        //SceneManager.LoadScene("ListeSauvegarde");
+        SceneManager.LoadScene("ChampDuJeu");
     }
     
     //Quitter l'application
