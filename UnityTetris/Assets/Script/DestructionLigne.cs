@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 namespace Script
@@ -138,8 +139,21 @@ namespace Script
             
             return lignesDetruitesEchange;
         }
-        
-        
+
+        public bool PossedeBonus(int y)
+        {
+            _positionBonus = GameObject.FindGameObjectsWithTag("BonusVerrou");
+
+            foreach (GameObject bonus in _positionBonus) // pour chaque carré bonus placés
+            {
+                if (Mathf.RoundToInt(bonus.transform.position.y) == Mathf.RoundToInt(y)) // on vérifie si la position y du carré bonus correspond à la ligne y rentrée en paramètre
+                {
+                    return true; // Un des carrés possède donc un y identique à celui passé en paramètre
+                }
+            }
+
+            return false;
+        }
         
         
         /// <summary>
@@ -213,22 +227,65 @@ namespace Script
             }
             
         }
+
+        /// <summary>
+        /// Cache un canvas après un certain nombre de temps.
+        /// </summary>
+        /// <param name="canvas">Le canvas à cacher</param>
+        /// <param name="secondes">Le nombre de secondes à attendre avant de cacher le canvas</param>
+        /// <param name="estActif">Vrai si on veut montrer le canvas, Faux sinon</param>
+        /// <returns>Retourne une routine (doit être appelée dans un StartCoroutine</returns>
+        IEnumerator CacherCanvas (GameObject canvas, float secondes, bool estActif = false)
+        {
+            //int frame;
+            //yield return new WaitUntil(() => frame >= 10);
+            
+            yield return new WaitForSeconds(secondes); // secondes à attendre avant de cacher le canvas
+            canvas.SetActive(estActif);
+            
+
+        }
+        /// <summary>
+        /// Détruit un canvas après un certain nombre de temps.
+        /// </summary>
+        /// <param name="canvasDestroy">Le canvas à détruire</param>
+        /// <param name="secondes">Le nombre de secondes à attendre avant de détruire le canvas</param>
+        /// <returns>Retourne une routine (doit être appelée dans un StartCoroutine)</returns>
+        IEnumerator DestroyCanvas (GameObject canvasDestroy, float secondes)
+        {
+            yield return new WaitForSeconds(secondes); // secondes à attendre avant de détruire le canvas
+            Destroy(canvasDestroy);
+        }
+
         
+        public GameObject ligneBonusCanvas;
+        public GameObject ligneParent;
+
         /// <summary>
         /// Détruit une ligne si elle est complète et comporte un carré bonus, puis fait descendre les carrés du dessus.
         /// </summary>
         /// <returns>Le nombre de lignes détruites.</returns>
         public int LigneBonus()
         {
+            GameObject ligneCanvas;
             int _ligneBonusCompteur = 0;
             for (int y =0; y < 1100; y++)
             {
-
                 if (LigneCompleteEstBonus(y))
                 {
+                    // Faire apparaître un fond blanc à chaque fois qu'une ligne Bonus est détruite
+                    ligneCanvas = Instantiate(ligneBonusCanvas, new Vector3(275, y, 0), Quaternion.identity);
+                    ligneCanvas.transform.SetParent(ligneParent.transform);
+                    StartCoroutine(DestroyCanvas(ligneCanvas, 0.5f));
+
+
+                    //ligneBonusCanvas.transform.position = new Vector3(275, y, 0);
+                    //ligneBonusCanvas.SetActive(true);
+                    //StartCoroutine(CacherCanvas(ligneBonusCanvas, 0.3f));
 
                     DetruireLigneBonus(y);
                     DescenteLignesBonus(y);
+                    
                     _ligneBonusCompteur++;
                     totalLignesDetruites++;
                 }
