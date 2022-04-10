@@ -5,6 +5,7 @@ using Script;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Object = UnityEngine.Object;
 
 
 public class TetroCourrant : MonoBehaviour
@@ -685,6 +686,86 @@ public class TetroCourrant : MonoBehaviour
         
     }
 
+    public void AfficherVectorList()
+    {
+
+
+        for (int i = 0; i < ListeVerrou.Count; i++)
+        {
+            Debug.Log("Position de chaque carrés Verrouillés dans le vecteur:"+ListeVerrou[i].ToString());
+        }
+    }
+    
+    private List<String> NomBlock = new List<String>();
+    private List<Vector3> ListeVerrou = new List<Vector3>();
+    private List<Vector3> ListeVerrouBonus = new List<Vector3>();
+    
+    public List<String> NomCarre()
+    {
+        _positionVerrou = GameObject.FindGameObjectsWithTag("Verrou");
+
+        for (int i = 0; i < _positionVerrou.Length; i++)
+        {
+            if (carresVerrouilles.transform.GetChild(i).gameObject != null)
+            {
+                string nomBlock = carresVerrouilles.transform.GetChild(i).name;
+                NomBlock.Add(nomBlock);
+            }
+        }
+
+        return NomBlock;
+    }
+    public List<String> GetNomBlock()
+    {
+        return NomBlock;
+    }
+    
+    public List<Vector3> PosCarres()
+    {
+        _positionVerrou = GameObject.FindGameObjectsWithTag("Verrou");
+
+        // avec for
+        int count = _positionVerrou.Length;
+        for(int i = 0; i < _positionVerrou.Length; i++)
+        {
+            if (carresVerrouilles.transform.GetChild(i).gameObject != null)
+            {
+                Transform block = carresVerrouilles.transform.GetChild(i);
+                Vector3 positionCarre = block.transform.position;
+                ListeVerrou.Add(positionCarre);
+            }
+        }
+        return ListeVerrou;
+    }
+    public List<Vector3> GetListeVerrou()
+    {
+        return ListeVerrou;
+    }
+    
+    public List<Vector3> PosCarresBonus()
+    {
+        _positionBonus = GameObject.FindGameObjectsWithTag("BonusVerrou");
+
+        // avec for
+        int count = _positionBonus.Length;
+        for(int i = 0; i < _positionBonus.Length; i++)
+        {
+            if (BonusVerrouilles.transform.GetChild(i).gameObject != null)
+            {
+                
+                Transform blockBonus = BonusVerrouilles.transform.GetChild(i);
+                Vector3 positionCarreBonus = blockBonus.transform.position;
+                ListeVerrouBonus.Add(positionCarreBonus);
+            }
+        }
+
+        return ListeVerrouBonus;
+    }
+    public List<Vector3> GetListeVerrouBonus()
+    {
+        return ListeVerrouBonus;
+    }
+    
     
     /// <summary>
     /// Place les carrés ayant un tag "Verrou" dans le parent carresVerrouilles.
@@ -697,17 +778,17 @@ public class TetroCourrant : MonoBehaviour
         
         _positionVerrou = GameObject.FindGameObjectsWithTag("Verrou");
         //Debug.Log(_positionVerrou.Length); // Nombre de carrés vérouillés
-        
-        
+       
         // Pour chaque carrés ayant été vérouillés
         // Annoncer dans la console leur position
         // Les placer dans un seul et même groupe de Carrés vérouillés
         foreach (GameObject carre in _positionVerrou)
         {
 
-            var positionCarre = carre.transform.position;
             
             carre.transform.SetParent(carresVerrouilles.transform); // Les carrés vérouillés on été placés ici
+
+            //posCarres = carre.transform.position; // Prendre leur position
 
 
         }
@@ -725,7 +806,6 @@ public class TetroCourrant : MonoBehaviour
         }
 
 
-
     }
     
     /// <summary>
@@ -737,6 +817,7 @@ public class TetroCourrant : MonoBehaviour
         _positionVerrou = GameObject.FindGameObjectsWithTag("Verrou");
         
 
+        
         // avec for
         int count = _positionVerrou.Length;
         for(int i = 0; i < count; i++)

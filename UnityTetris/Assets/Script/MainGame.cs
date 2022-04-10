@@ -23,7 +23,7 @@ namespace Script
         private BoutonsBis _boutonsBis;
 
         public GameObject _sauvegarde;
-        // private MenuSauvegarde menuSauvegarde;
+        private MenuSauvegarde menuSauvegarde;
 
         public GameObject score;
         private Score _score;
@@ -76,7 +76,7 @@ namespace Script
                 {
                     _tetroCourrant._tetroGenerator.ListTetrominos.Dequeue();
                     _tetroCourrant._tetroGenerator.ListTetrominos.Enqueue(typeTetromino);
-                }
+                }   
 
                 _score._scoreCourant = sauvegarde.score;
                 
@@ -88,7 +88,6 @@ namespace Script
                 _tetroCourrant = tetroCourrant.GetComponent<TetroCourrant>();
                 _tetroCourrant.InitialiserTetromino();
                 
-                            
                 // Score
                 _score = score.GetComponent<Score>();
                 _score.Initialiser();
@@ -97,14 +96,13 @@ namespace Script
                 _energieCourant = energie.GetComponent<EnergieCourant>();
                 _energieCourant.Initialiser(0.0f);
             }
+            
             // Charger les tetrominos
             _tetroCourrant.UpdateTetromino();
-            // Charger l'espace Next
             
+            // Charger l'espace Next
             _tetroCourrant.Next();
-            //_tetroCourrant.Next3();
-           
-
+            
             // Charger l'utilisation des boutons
             _boutonsBis = boutonsBis.GetComponent<BoutonsBis>();
             _boutonsBis.Initialiser();
@@ -112,12 +110,10 @@ namespace Script
             
             // Destruction Ligne
             _destructionLigne = ligne.GetComponent<DestructionLigne>();
-
             _destructionLigne.Initialiser();
             
 
             // Collision
-            
             _collisions = colli.GetComponent<Collision>();
             
             // GameOver
@@ -147,6 +143,8 @@ namespace Script
             
             _tetroCourrant.Next();
             
+            //_tetroCourrant.PosCarres();
+            //_tetroCourrant.AfficherVectorList();
             //_destructionLigne.LigneBonus();
             
             _score.AjouterScoreBonus(_destructionLigne.LigneBonus());
@@ -209,6 +207,23 @@ namespace Script
             _sauvegarde.score = _score._scoreCourant;
 
             _sauvegarde.energie = _energieCourant.energie;
+
+            //////////////////////////////// A TESTER ///////////////////////////////////
+            // Je crois qu'il faut créer une classe à part qui est [Serializable] pour les Game objets...//
+            
+            // Sauvegarde les informations concernant tous les carrés verrouillés
+            // Probablement inutile pour le chargement de sauvegarde
+            _sauvegarde.nomCarre = _tetroCourrant.NomCarre(); // Enregistre le nom du carré verrouilé : permet de savoir la couleur
+            _sauvegarde.listePositionCarresBonus = _tetroCourrant.PosCarresBonus(); // Enregistre chaque position d'un carré bonus verrouillé
+            _sauvegarde.listePositionCarres = _tetroCourrant.PosCarres(); // Enregistre chaque position d'un carré verrouillé
+           
+            // Sauvegarde de GameObjects <=> Le fichier JSON enregistre le "Instance ID" du GameObject
+            // Tester si ça correspond à nos prefab etc
+            _sauvegarde.carresVerrouilles = _tetroCourrant.carresVerrouilles; // Il s'agit du GameObject parent de la liste des carrés verrouillés dans Unity, je crois que c'est inutile?
+            _sauvegarde.listeCarresVerrouilles = _tetroCourrant._positionVerrou; // Enregistre la liste des GameObject des carrés verrouillés
+            _sauvegarde.listeCarresBonusVerrouilles = _tetroCourrant._positionBonus; // Enregistre la liste des GameObject des carrés bonus verrouillés
+            
+            //////////////////////////////// A TESTER ///////////////////////////////////
 
             //_sauvegarde.Matrice = _ecranPrincipal.Matrice;
 
