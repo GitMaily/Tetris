@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 8045587990949801127}
   - component: {fileID: 3812602209246402223}
   m_Layer: 0
-  m_Name: CarrePourI
+  m_Name: CarreI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 5446697387016062694}
   - component: {fileID: 8993408830586849657}
   m_Layer: 0
-  m_Name: Carre (4)
+  m_Name: CarreI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: 9111550304631205621}
   - component: {fileID: 8044258345053797762}
   m_Layer: 0
-  m_Name: Carre (2)
+  m_Name: CarreI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -291,7 +291,7 @@ GameObject:
   - component: {fileID: 1478489902441304708}
   - component: {fileID: 1808648784181616878}
   m_Layer: 0
-  m_Name: Carre (3)
+  m_Name: CarreI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
