@@ -72,6 +72,10 @@ namespace Script
                 {
                     Destroy(_champDeJeu.Matrice[i, y].gameObject); // Pour chaque colonne i de la Matrice, détruire l'objet de la ligne y.
 
+                    _tetroCourrant.GetListeVerrou().Remove(_champDeJeu.Matrice[i, y].transform.position);
+                    _tetroCourrant.GetNomBlock().Remove(_champDeJeu.Matrice[i, y].gameObject.name);
+
+                    
                 }
             }
         }
@@ -202,6 +206,9 @@ namespace Script
                     if (_champDeJeu.Matrice[i, y ] != null)
                     {
                         Destroy(_champDeJeu.Matrice[i, y].gameObject);
+                        _tetroCourrant.GetListeVerrou().Remove(_champDeJeu.Matrice[i, y].transform.position);
+                        _tetroCourrant.GetListeVerrouBonus().Remove(_champDeJeu.Matrice[i, y].transform.position);
+
                     }
                 }
             }
