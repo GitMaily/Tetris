@@ -12,7 +12,30 @@ namespace Script
     {
         //Liste d'objets à utiliser
         #region Objets
+        
+        public GameObject TetroI;
+        public GameObject TetroJ;
+        public GameObject TetroL;
+        public GameObject TetroO;
+        public GameObject TetroS;
+        public GameObject TetroZ;
+        public GameObject TetroT;
 
+        public GameObject carreI;
+        public GameObject carreJ;
+        public GameObject carreL;
+        public GameObject carreO;
+        public GameObject carreS;
+        public GameObject carreZ;
+        public GameObject carreT;
+
+        public GameObject carreBonus;
+
+
+
+
+
+        
         public GameObject ecranPrincipal;
         private EcranPrincipal _ecranPrincipal;
 
@@ -30,6 +53,8 @@ namespace Script
 
         public GameObject pause;
 
+        private GameObject _placerEchange;
+        private GameObject placerCarre;
         
         private GameObject _shapeTetromino;
         private const int DistanceCarre = 50; // Distance entre chaque carré (espace de 3 entre chaque carré, donc 47 + 3)
@@ -52,10 +77,12 @@ namespace Script
 
         public GameObject loadController;
         private LoadController _loadController;
+
+        private List<GameObject> nomCarres;
         
         #endregion Objets
-        
-        
+
+       
         // Start is called before the first frame update
         // Chargement début
         void Start()
@@ -81,6 +108,91 @@ namespace Script
                 _score._scoreCourant = sauvegarde.score;
                 
                 _energieCourant.Initialiser(sauvegarde.energie);
+
+                //NameToGameObject();
+                List<GameObject> listNomCarres = new List<GameObject>();
+                for (int nom = 0; nom < sauvegarde.nomCarre.Count; nom++)
+                {
+                    switch (sauvegarde.nomCarre[nom])
+                    {
+                        case "CarreI":
+                            listNomCarres.Add(carreI);
+                            break;
+                        case "CarreJ":
+                            listNomCarres.Add(carreJ);
+                            break;
+                        case "CarreL":
+                            listNomCarres.Add(carreL);
+                            break;
+                        case "CarreO":
+                            listNomCarres.Add(carreO);
+                            break;
+                        case "CarreS":
+                            listNomCarres.Add(carreS);
+                            break;
+                        case "CarreZ":
+                            listNomCarres.Add(carreZ);
+                            break;
+                        case "CarreT":
+                            listNomCarres.Add(carreT);
+                            break;
+
+                    }
+                }
+
+                for (int i = 0; i < sauvegarde.listePositionCarres.Count; i++)
+                {
+                    Vector3 positionCarre = sauvegarde.listePositionCarres[i];
+                    //_tetroCourrant.carresVerrouilles.transform.position = positionCarre;
+                    placerCarre = Instantiate(listNomCarres[i], positionCarre, Quaternion.identity);
+                    placerCarre.transform.SetParent(_tetroCourrant.carresVerrouilles.transform);
+                    placerCarre.tag = "Verrou";
+                    //_tetroCourrant.VerrouillerCarre(_sauvegarde.Matrice,listNomCarres);
+
+
+                }
+                for (int i = 0; i < sauvegarde.listePositionCarresBonus.Count; i++)
+                {
+                    Vector3 positionCarreBonus = sauvegarde.listePositionCarresBonus[i];
+                    //_tetroCourrant.carresVerrouilles.transform.position = positionCarre;
+                    placerCarre = Instantiate(carreBonus, positionCarreBonus, Quaternion.identity);
+                    placerCarre.transform.SetParent(_tetroCourrant.BonusVerrouilles.transform);
+
+
+
+                }
+
+
+                if (sauvegarde.hasTetroEchange)
+                {
+                    switch (sauvegarde.typeTetrominoEchange)
+                    {
+                        case TypeTetromino.TetroI: 
+                            _placerEchange = Instantiate(TetroI,new Vector3(660, 600, 0), Quaternion.identity);
+                            break;
+                        case TypeTetromino.TetroJ:
+                            _placerEchange = Instantiate(TetroI,new Vector3(660, 600, 0), Quaternion.identity);
+                            break;
+                        case TypeTetromino.TetroL:
+                            _placerEchange = Instantiate(TetroI,new Vector3(660, 600, 0), Quaternion.identity);
+                            break;
+                        case TypeTetromino.TetroO: 
+                            _placerEchange = Instantiate(TetroI,new Vector3(660, 600, 0), Quaternion.identity);
+                            break;
+                        case TypeTetromino.TetroS: 
+                            _placerEchange = Instantiate(TetroI,new Vector3(660, 600, 0), Quaternion.identity);
+                            break;
+                        case TypeTetromino.TetroZ: 
+                            _placerEchange = Instantiate(TetroI,new Vector3(660, 600, 0), Quaternion.identity);
+                            break;
+                        case TypeTetromino.TetroT: 
+                            _placerEchange = Instantiate(TetroI,new Vector3(660, 600, 0), Quaternion.identity);
+                            break;
+
+                    }
+                    //_tetroCourrant.GenererPremierCarreBonus(_tetroCourrant._tetroEchange);
+                }
+
 
             }
             else
@@ -222,6 +334,8 @@ namespace Script
             _sauvegarde.carresVerrouilles = _tetroCourrant.carresVerrouilles; // Il s'agit du GameObject parent de la liste des carrés verrouillés dans Unity, je crois que c'est inutile?
             _sauvegarde.listeCarresVerrouilles = _tetroCourrant._positionVerrou; // Enregistre la liste des GameObject des carrés verrouillés
             _sauvegarde.listeCarresBonusVerrouilles = _tetroCourrant._positionBonus; // Enregistre la liste des GameObject des carrés bonus verrouillés
+            //_sauvegarde.Matrice = _tetroCourrant.GetMatrice();
+            /* Il faut verrouiller manuellement */
             
             //////////////////////////////// A TESTER ///////////////////////////////////
 
@@ -246,6 +360,11 @@ namespace Script
             //if (File.Exists(Application.dataPath + "/" + filename))
             {
                 string json = File.ReadAllText(Application.dataPath + "/" + filename);
+                
+                //
+              
+
+                //
                 return JsonUtility.FromJson<Sauvegarde>(json);
             }
             
