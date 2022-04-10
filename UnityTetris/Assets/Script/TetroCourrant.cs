@@ -428,7 +428,75 @@ public class TetroCourrant : MonoBehaviour
 
         }
     }
+
+    #region Echange
     
+
+    /// <summary>
+    /// Place un carré bonus dans l'espace Echange
+    /// </summary>
+    public void InstantiateBonusEspaceEchange()
+    {
+        GameObject shapeBonus;
+
+        shapeBonus = Instantiate(TetroBonus, new Vector3(660, 600, 0), Quaternion.identity);
+        shapeBonus.transform.SetParent(_tetroEchange.transform); 
+    }
+    
+    /// <summary>
+    /// Place un carré bonus dans l'espace Echange (tout premier échange)
+    /// </summary>
+    public void GenererPremierCarreBonus(GameObject groupeEchange)
+    {
+        GameObject shapeBonus;
+         // On crée le carré bonus
+        shapeBonus = Instantiate(TetroBonus, new Vector3(660, 600, 0), Quaternion.identity);
+        shapeBonus.transform.SetParent(groupeEchange.transform);
+        // On remplace un carré par le carré bonus
+        if (_shapeTetromino.transform.childCount == 5)
+        {
+            Destroy(_shapeTetromino.transform.GetChild(0).gameObject);
+
+        }
+    }
+    public void GenererCarreBonus()
+    {
+        GameObject shapeBonus;
+
+        int nbCarresBonus = 0;
+        
+        // On compte le nombre de carrés bonus parmis un groupe de Tetrominos
+        for (int i = 0; i < _tetroEchange.transform.childCount; i++)
+        {
+            bool estBonus = _tetroEchange.transform.GetChild(i).CompareTag("Bonus");
+            if (estBonus)
+            {
+                nbCarresBonus++;
+
+            }
+
+        }
+        if (nbCarresBonus == 0) // S'il n'existe aucun carré bonus, en créer un.
+        {
+            shapeBonus = Instantiate(TetroBonus, new Vector3(660, 600, 0), Quaternion.identity);
+            shapeBonus.transform.SetParent(_tetroEchange.transform); 
+        }
+        else // Sinon, détruire le carré bonus de trop
+        {
+            Destroy(GameObject.FindWithTag("Bonus"));
+                
+        }
+        
+        // On détruit un des carré qui sera remplacé par le carré bonus. Il s'agit du premier objet du groupe
+        if (_shapeTetromino.transform.childCount == 5 || _tetroEchange.transform.childCount == 5 )
+        {
+                
+            Destroy(_shapeTetromino.transform.GetChild(0).gameObject);
+            Destroy(_tetroEchange.transform.GetChild(0).gameObject);
+        }
+    }
+
+    public GameObject _tetroEchange;
     /// <summary>
     /// Instancie dans l'espace d'Echange le Tetromino courant.
     /// </summary>
@@ -439,7 +507,7 @@ public class TetroCourrant : MonoBehaviour
         GameObject nextGroupe = GameObject.FindGameObjectWithTag("next"); // On cherche les objets ayant pour tag "next"
 
         GameObject echangeGroupe = GameObject.FindGameObjectWithTag("EchangeGroupe"); // On cherche les objets ayant pour tag "EchangeGroupe"
-        GameObject _tetroEchange = _shapeTetromino;
+        _tetroEchange = _shapeTetromino;
 
 
         // S'il y a déjà un groupe d'échange : //
@@ -466,7 +534,7 @@ public class TetroCourrant : MonoBehaviour
             TypeTetromino temps = _typeTetrominoEchange;
             _typeTetrominoEchange = _typeTetromino;
             
-            int nbCarresBonus = 0;
+            /*int nbCarresBonus = 0;
 
             
             // On compte le nombre de carrés bonus parmis un groupe de Tetrominos
@@ -501,8 +569,9 @@ public class TetroCourrant : MonoBehaviour
                 
                 Destroy(_shapeTetromino.transform.GetChild(0).gameObject);
                 Destroy(_tetroEchange.transform.GetChild(0).gameObject);
-            }
+            }*/
             
+             GenererCarreBonus();
              
             GameObject _tetroEchange2 = echangeGroupe ;
 
@@ -562,6 +631,7 @@ public class TetroCourrant : MonoBehaviour
 
         }
     }
+    #endregion Echange
 
 
     public void AugmentationDifficulte(int totalLignesDetruites)
@@ -1003,6 +1073,11 @@ public class TetroCourrant : MonoBehaviour
         }
         
         return depasser;
+    }
+
+    public Transform[,] GetMatrice()
+    {
+        return _champDeJeu.Matrice;
     }
 }
         

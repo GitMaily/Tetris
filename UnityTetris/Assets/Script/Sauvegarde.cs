@@ -26,13 +26,15 @@ namespace Script
         public GameObject carresVerrouilles;
         public GameObject[] listeCarresVerrouilles;
         public GameObject[] listeCarresBonusVerrouilles;
+
+        public Transform[,] Matrice;
         public List<String> nomCarre;
         public List<Vector3> listePositionCarresBonus;
         public List<Vector3> listePositionCarres;
 
         public Sauvegarde()
         {
-            //Matrice = new Transform[550, 1151];
+            Matrice = new Transform[550, 1151];
             score = 0;
             energie = 0.0f;
             listTetromino = new List<TypeTetromino>(10);
@@ -42,6 +44,7 @@ namespace Script
             nomCarre = new List<string>();
             listePositionCarresBonus = new List<Vector3>();
             listePositionCarres = new List<Vector3>();
+            
             
             carresVerrouilles = null;
             listeCarresVerrouilles = null;
