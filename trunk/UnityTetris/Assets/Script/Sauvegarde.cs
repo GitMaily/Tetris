@@ -45,11 +45,11 @@ namespace Script
             listePositionCarresBonus = new List<Vector3>();
             listePositionCarres = new List<Vector3>();
             
-            
+            //// INUTILE ////
             carresVerrouilles = null;
             listeCarresVerrouilles = null;
             listeCarresBonusVerrouilles = null;
-
+            //// INUTILE ////
         }
     }
 }
