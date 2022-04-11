@@ -444,55 +444,23 @@ public class TetroCourrant : MonoBehaviour
     }
     
     /// <summary>
-    /// Place un carré bonus dans l'espace Echange (tout premier échange)
+    /// Génère un carré bonus dans le groupe d'échange, et supprime le premier enfant du groupe.
     /// </summary>
-    public void GenererPremierCarreBonus(GameObject groupeEchange)
+    /// <param name="groupeEchange">Le groupe GameObject où placer le carré bonus.</param>
+    public void GenererCarreBonus(GameObject groupeEchange)
     {
         GameObject shapeBonus;
-         // On crée le carré bonus
+
+        // On crée le carré bonus
         shapeBonus = Instantiate(TetroBonus, new Vector3(660, 600, 0), Quaternion.identity);
-        shapeBonus.transform.SetParent(groupeEchange.transform);
-        // On remplace un carré par le carré bonus
-        if (_shapeTetromino.transform.childCount == 5)
-        {
-            Destroy(_shapeTetromino.transform.GetChild(0).gameObject);
-
-        }
-    }
-    public void GenererCarreBonus()
-    {
-        GameObject shapeBonus;
-
-        int nbCarresBonus = 0;
-        
-        // On compte le nombre de carrés bonus parmis un groupe de Tetrominos
-        for (int i = 0; i < _tetroEchange.transform.childCount; i++)
-        {
-            bool estBonus = _tetroEchange.transform.GetChild(i).CompareTag("Bonus");
-            if (estBonus)
-            {
-                nbCarresBonus++;
-
-            }
-
-        }
-        if (nbCarresBonus == 0) // S'il n'existe aucun carré bonus, en créer un.
-        {
-            shapeBonus = Instantiate(TetroBonus, new Vector3(660, 600, 0), Quaternion.identity);
-            shapeBonus.transform.SetParent(_tetroEchange.transform); 
-        }
-        else // Sinon, détruire le carré bonus de trop
-        {
-            Destroy(GameObject.FindWithTag("Bonus"));
-                
-        }
-        
+        shapeBonus.transform.SetParent(groupeEchange.transform); 
+            
         // On détruit un des carré qui sera remplacé par le carré bonus. Il s'agit du premier objet du groupe
-        if (_shapeTetromino.transform.childCount == 5 || _tetroEchange.transform.childCount == 5 )
+        if (groupeEchange.transform.childCount == 5)
         {
-                
-            Destroy(_shapeTetromino.transform.GetChild(0).gameObject);
-            Destroy(_tetroEchange.transform.GetChild(0).gameObject);
+
+            Destroy(groupeEchange.transform.GetChild(0).gameObject);
+            
         }
     }
 
@@ -534,7 +502,7 @@ public class TetroCourrant : MonoBehaviour
             TypeTetromino temps = _typeTetrominoEchange;
             _typeTetrominoEchange = _typeTetromino;
             
-            /*int nbCarresBonus = 0;
+            int nbCarresBonus = 0;
 
             
             // On compte le nombre de carrés bonus parmis un groupe de Tetrominos
@@ -561,18 +529,15 @@ public class TetroCourrant : MonoBehaviour
                 Destroy(GameObject.FindWithTag("Bonus"));
                 
             }
-            
-            
+
             // On détruit un des carré qui sera remplacé par le carré bonus. Il s'agit du premier objet du groupe
             if (_shapeTetromino.transform.childCount == 5 || _tetroEchange.transform.childCount == 5 )
             {
                 
                 Destroy(_shapeTetromino.transform.GetChild(0).gameObject);
                 Destroy(_tetroEchange.transform.GetChild(0).gameObject);
-            }*/
+            }
             
-             GenererCarreBonus();
-             
             GameObject _tetroEchange2 = echangeGroupe ;
 
            
@@ -779,7 +744,15 @@ public class TetroCourrant : MonoBehaviour
             if (carresVerrouilles.transform.GetChild(i).gameObject != null)
             {
                 string nomBlock = carresVerrouilles.transform.GetChild(i).name;
-                NomBlock.Add(nomBlock);
+                
+                // Supprimer (clone) du nom du carré 
+                if (nomBlock.Length > 7)
+                {
+                    nomBlock = nomBlock.Remove(6, nomBlock.Length-6);  // On supprime tout ce qui est après "CarreX"
+
+                }
+
+                NomBlock.Add(nomBlock); // On ajoute le nom dans la liste
             }
         }
 
@@ -970,82 +943,10 @@ public class TetroCourrant : MonoBehaviour
             {
                 return false;
             }
-
-
-
         }
         return true;
 
-
-        /*foreach (Transform carre in _shapeTetromino.transform) // Pour chaque carré d'un Tetromino courant
-
-        {
-            foreach (Transform carreVerrou in _carreVerrou.transform)
-            {
-                if (carre.position == carreVerrou.position)
-                {
-                    return true;
-                }
-            }
-            
-            
-            if (carre.position.y < 50 && _champDeJeu.Matrice[(int) carre.transform.position.x, (int) carre.transform.position.y] != null)
-            {
-                return true;
-            }
-        }
-
-        return false;
-
-        ////// Tests //////
-
-        /*int abscisses = 0f;
-        int ordonnes = 0f;
-        Transform[,] positions = new Transform[abscisses,ordonnes];
         
-        
-     
-        foreach (Transform carre in _shapeTetromino.transform)
-        {
-            float x = carre.position.x;
-            if (positions[(int)carre.position.x,(int)carre.position.y] = GameObject.FindGameObjectWithTag("Verrou")).position[x]
-            {
-                Debug.Log("On a trouvé la collision!");
-                return true;
-            }
-        }* /
-        foreach (Transform carre in _shapeTetromino.transform)
-        {
-            if (_champDeJeu.Matrice[(int) carre.transform.position.x, (int) carre.transform.position.y] == null)
-            {
-                return true;
-            }
-        }
-        
-        /*foreach (Transform carre in _shapeTetromino.transform)
-        {
-            
-            if (carre.transform.localPosition.x.Equals(GameObject.FindGameObjectWithTag("Verrou").transform.localPosition.x) && carre.transform.localPosition.y.Equals(GameObject.FindGameObjectWithTag("Verrou").transform.localPosition.y)  )
-            {
-                Debug.Log("Collision??????!!!!!!!!!!!!!!!!!!!!!!");
-                _shapeTetromino.transform.position -= new Vector3(0, -1 * DistanceCarre, 0); // Annuler la chute
-
-                
-                return true;
-            }
-        }
-        
-        foreach (Transform carre in _shapeTetromino.transform)
-        {
-            GameObject.FindWithTag("Verrou");
-            
-        }
-
-        return false;
-
-
-        
-    }*/
     }
     
     public GameObject perdu;

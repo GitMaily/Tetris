@@ -109,8 +109,10 @@ namespace Script
                 
                 _energieCourant.Initialiser(sauvegarde.energie);
 
-                //NameToGameObject();
-                List<GameObject> listNomCarres = new List<GameObject>();
+
+                // Met dans une liste de GameObject les carrés à instancier selon leur noms enregistrés dans le fichier JSON
+                // NameToGameObject();
+                List<GameObject> listNomCarres = new List<GameObject>(); // Liste de GameObject stockant les carrés à instancier
                 for (int nom = 0; nom < sauvegarde.nomCarre.Count; nom++)
                 {
                     switch (sauvegarde.nomCarre[nom])
@@ -136,10 +138,12 @@ namespace Script
                         case "CarreT":
                             listNomCarres.Add(carreT);
                             break;
+                       
 
                     }
                 }
-
+                
+                // Intancie les carrés verrouillés par leur précédente position ainsi que par leur noms sauvegardés dans le fichier JSON
                 for (int i = 0; i < sauvegarde.listePositionCarres.Count; i++)
                 {
                     Vector3 positionCarre = sauvegarde.listePositionCarres[i];
@@ -151,18 +155,23 @@ namespace Script
 
 
                 }
+                
+                // Intancie les carrés Bonus verrouillés par leur précédente position ainsi que par leur noms sauvegardés dans le fichier JSON
                 for (int i = 0; i < sauvegarde.listePositionCarresBonus.Count; i++)
                 {
                     Vector3 positionCarreBonus = sauvegarde.listePositionCarresBonus[i];
                     //_tetroCourrant.carresVerrouilles.transform.position = positionCarre;
                     placerCarre = Instantiate(carreBonus, positionCarreBonus, Quaternion.identity);
                     placerCarre.transform.SetParent(_tetroCourrant.BonusVerrouilles.transform);
-
-
+                    placerCarre.tag = "BonusVerrou";
 
                 }
 
+                _tetroCourrant.VerrouillerCarre(); // Verrouille les nouveaux carrés instanciés
+                _tetroCourrant.VerrouillerCarreBonus(); // Verrouille les nouveaux carrés Bonus instanciés
 
+
+                // Instancie le Tetromino sauvegardé de l'espace échange 
                 if (sauvegarde.hasTetroEchange)
                 {
                     switch (sauvegarde.typeTetrominoEchange)
@@ -190,7 +199,12 @@ namespace Script
                             break;
 
                     }
-                    //_tetroCourrant.GenererPremierCarreBonus(_tetroCourrant._tetroEchange);
+                    _placerEchange.tag = "EchangeGroupe"; // Donne le tag "EchangeGroupe" au groupe
+                   
+                    _tetroCourrant.GenererCarreBonus(_placerEchange); // Va générer un carré bonus dans le groupe d'échange
+
+                    
+
                 }
 
 
@@ -320,8 +334,6 @@ namespace Script
 
             _sauvegarde.energie = _energieCourant.energie;
 
-            //////////////////////////////// A TESTER ///////////////////////////////////
-            // Je crois qu'il faut créer une classe à part qui est [Serializable] pour les Game objets...//
             
             // Sauvegarde les informations concernant tous les carrés verrouillés
             // Probablement inutile pour le chargement de sauvegarde
@@ -329,16 +341,16 @@ namespace Script
             _sauvegarde.listePositionCarresBonus = _tetroCourrant.PosCarresBonus(); // Enregistre chaque position d'un carré bonus verrouillé
             _sauvegarde.listePositionCarres = _tetroCourrant.PosCarres(); // Enregistre chaque position d'un carré verrouillé
            
+            //// INUTILE ////
             // Sauvegarde de GameObjects <=> Le fichier JSON enregistre le "Instance ID" du GameObject
             // Tester si ça correspond à nos prefab etc
             _sauvegarde.carresVerrouilles = _tetroCourrant.carresVerrouilles; // Il s'agit du GameObject parent de la liste des carrés verrouillés dans Unity, je crois que c'est inutile?
             _sauvegarde.listeCarresVerrouilles = _tetroCourrant._positionVerrou; // Enregistre la liste des GameObject des carrés verrouillés
             _sauvegarde.listeCarresBonusVerrouilles = _tetroCourrant._positionBonus; // Enregistre la liste des GameObject des carrés bonus verrouillés
-            //_sauvegarde.Matrice = _tetroCourrant.GetMatrice();
-            /* Il faut verrouiller manuellement */
+            //// INUTILE ////
             
-            //////////////////////////////// A TESTER ///////////////////////////////////
-
+            //_sauvegarde.Matrice = _tetroCourrant.GetMatrice();
+            
             //_sauvegarde.Matrice = _ecranPrincipal.Matrice;
 
             
@@ -361,10 +373,6 @@ namespace Script
             {
                 string json = File.ReadAllText(Application.dataPath + "/" + filename);
                 
-                //
-              
-
-                //
                 return JsonUtility.FromJson<Sauvegarde>(json);
             }
             
