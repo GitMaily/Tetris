@@ -20,7 +20,7 @@ namespace Script
         public  float energie;
         public List<TypeTetromino> listTetromino;
         public TypeTetromino typeTetrominoEchange;
-        public bool hasTetroEchange;
+        public bool tetroCourrantHasCarreBonus;
 
 
         public GameObject carresVerrouilles;
@@ -39,7 +39,7 @@ namespace Script
             energie = 0.0f;
             listTetromino = new List<TypeTetromino>(10);
             typeTetrominoEchange = TypeTetromino.Null;
-            hasTetroEchange = false;
+            tetroCourrantHasCarreBonus = false;
 
             nomCarre = new List<string>();
             listePositionCarresBonus = new List<Vector3>();

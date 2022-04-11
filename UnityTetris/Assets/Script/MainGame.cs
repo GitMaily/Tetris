@@ -172,7 +172,7 @@ namespace Script
 
 
                 // Instancie le Tetromino sauvegardé de l'espace échange 
-                if (sauvegarde.hasTetroEchange)
+                if (sauvegarde.typeTetrominoEchange != TypeTetromino.Null)
                 {
                     switch (sauvegarde.typeTetrominoEchange)
                     {
@@ -180,22 +180,22 @@ namespace Script
                             _placerEchange = Instantiate(TetroI,new Vector3(660, 600, 0), Quaternion.identity);
                             break;
                         case TypeTetromino.TetroJ:
-                            _placerEchange = Instantiate(TetroI,new Vector3(660, 600, 0), Quaternion.identity);
+                            _placerEchange = Instantiate(TetroJ,new Vector3(660, 600, 0), Quaternion.identity);
                             break;
                         case TypeTetromino.TetroL:
-                            _placerEchange = Instantiate(TetroI,new Vector3(660, 600, 0), Quaternion.identity);
+                            _placerEchange = Instantiate(TetroL,new Vector3(660, 600, 0), Quaternion.identity);
                             break;
                         case TypeTetromino.TetroO: 
-                            _placerEchange = Instantiate(TetroI,new Vector3(660, 600, 0), Quaternion.identity);
+                            _placerEchange = Instantiate(TetroO,new Vector3(660, 600, 0), Quaternion.identity);
                             break;
                         case TypeTetromino.TetroS: 
-                            _placerEchange = Instantiate(TetroI,new Vector3(660, 600, 0), Quaternion.identity);
+                            _placerEchange = Instantiate(TetroS,new Vector3(660, 600, 0), Quaternion.identity);
                             break;
                         case TypeTetromino.TetroZ: 
-                            _placerEchange = Instantiate(TetroI,new Vector3(660, 600, 0), Quaternion.identity);
+                            _placerEchange = Instantiate(TetroZ,new Vector3(660, 600, 0), Quaternion.identity);
                             break;
                         case TypeTetromino.TetroT: 
-                            _placerEchange = Instantiate(TetroI,new Vector3(660, 600, 0), Quaternion.identity);
+                            _placerEchange = Instantiate(TetroT,new Vector3(660, 600, 0), Quaternion.identity);
                             break;
 
                     }
@@ -315,20 +315,11 @@ namespace Script
             Sauvegarde _sauvegarde = new Sauvegarde();
             _sauvegarde.typeTetrominoEchange = _tetroCourrant._typeTetrominoEchange;
             
-            if (_sauvegarde.typeTetrominoEchange == TypeTetromino.Null)
-            {
-                for (int i = 0; i < 9; i++)
-                    _sauvegarde.listTetromino.Add(_tetroCourrant._tetroGenerator.ListTetrominos.ToArray()[i]);
-                _sauvegarde.listTetromino.Insert(0, _tetroCourrant._typeTetromino);
-            }
-            else
-            {
-                for (int i = 0; i < 8; i++)
-                    _sauvegarde.listTetromino.Add(_tetroCourrant._tetroGenerator.ListTetrominos.ToArray()[i]);
-                _sauvegarde.listTetromino.Insert(0, _sauvegarde.typeTetrominoEchange);
-                _sauvegarde.listTetromino.Insert(1, _tetroCourrant._typeTetromino);
-                _sauvegarde.hasTetroEchange = true;
-            }
+            
+            for (int i = 0; i < 9; i++)
+                _sauvegarde.listTetromino.Add(_tetroCourrant._tetroGenerator.ListTetrominos.ToArray()[i]);
+            _sauvegarde.listTetromino.Insert(0, _tetroCourrant._typeTetromino);
+            
 
             _sauvegarde.score = _score._scoreCourant;
 
