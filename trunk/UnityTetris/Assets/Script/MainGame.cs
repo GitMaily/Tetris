@@ -103,7 +103,9 @@ namespace Script
                 {
                     _tetroCourrant._tetroGenerator.ListTetrominos.Dequeue();
                     _tetroCourrant._tetroGenerator.ListTetrominos.Enqueue(typeTetromino);
-                }   
+                }
+
+                _tetroCourrant._typeTetrominoEchange = sauvegarde.typeTetrominoEchange;
 
                 _score._scoreCourant = sauvegarde.score;
                 
@@ -220,7 +222,7 @@ namespace Script
                                         
                 // Energie
                 _energieCourant = energie.GetComponent<EnergieCourant>();
-                _energieCourant.Initialiser(0.0f);
+                _energieCourant.Initialiser(16.0f);
             }
             
             // Charger les tetrominos
