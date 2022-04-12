@@ -5,17 +5,19 @@ namespace Script
 {
     public class LoadController : MonoBehaviour
     {
-        public static bool IsLoad = false;
+        public static bool isLoad = false;
 
         public void LoadClick()
         {
-            IsLoad = true;
+            isLoad = true;
         }
 
-        public bool GetIsLoad()
+        public bool IsLoad
         {
-            return IsLoad;
+            get => isLoad;
+            set => isLoad = value;
         }
+        
         
     }
 }
