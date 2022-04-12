@@ -245,7 +245,7 @@ public class TetroCourrant : MonoBehaviour
         int posX = Mathf.RoundToInt(_shapeTetromino.transform.position.x);
         int posY = Mathf.RoundToInt(_shapeTetromino.transform.position.y);
         
-        //if (_typeTetromino != TypeTetromino.TetroO)
+        if (_typeTetromino != TypeTetromino.TetroO)
         {
             //Debug.Log("Flèche bas appuyée : effectuer la rotation à gauche de la pièce de 90°");
             _shapeTetromino.transform.Rotate(0, 0, 90);
@@ -298,7 +298,7 @@ public class TetroCourrant : MonoBehaviour
         int posX = Mathf.RoundToInt(_shapeTetromino.transform.position.x);
         int posY = Mathf.RoundToInt(_shapeTetromino.transform.position.y);
         
-        //if (_typeTetromino != TypeTetromino.TetroO)
+        if (_typeTetromino != TypeTetromino.TetroO)
         {
             //Debug.Log("Flèche haut appuyée : effectuer la rotation à droite de la pièce de 90°");
             _shapeTetromino.transform.Rotate(0, 0, -90);
