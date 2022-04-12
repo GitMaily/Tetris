@@ -92,7 +92,7 @@ namespace Script
             _ecranPrincipal = ecranPrincipal.GetComponent<EcranPrincipal>(); 
             _ecranPrincipal.Initialiser();
 
-            if (_loadController.GetIsLoad())
+            if (_loadController.IsLoad)
             {
                 Sauvegarde sauvegarde = ChargerSauvegarde("sauvegarde1.json");
                 _tetroCourrant = tetroCourrant.GetComponent<TetroCourrant>();
@@ -205,7 +205,7 @@ namespace Script
                    
                     _tetroCourrant.GenererCarreBonus(_placerEchange); // Va générer un carré bonus dans le groupe d'échange
 
-                    
+                    _loadController.IsLoad = false;
 
                 }
 
