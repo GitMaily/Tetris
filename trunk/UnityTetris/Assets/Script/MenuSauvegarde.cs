@@ -1,143 +1,204 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using Script;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.SceneManagement;
 
-public class MenuSauvegarde : MonoBehaviour
+namespace Script
 {
-    private bool sauvegarde1;
-    private bool sauvegarde2;
-    private bool sauvegarde3;
-    private bool sauvegarde4;
-    private bool sauvegarde5;
-    private bool sauvegarde6;
-    private bool sauvegarde7;
-    private bool sauvegarde8;
+    
 
-    public void Initialiser()
+    public class MenuSauvegarde : MonoBehaviour
     {
-        sauvegarde1 = false;
-        sauvegarde2 = false;
-        sauvegarde3 = false;
-        sauvegarde4 = false;
-        sauvegarde5 = false;
-        sauvegarde6 = false;
-        sauvegarde7 = false;
-        sauvegarde8 = false;
-    }
-
-    public void Sauvegardes()
-    {
-        MenuSauvegarde sauvegardes = new MenuSauvegarde();
         
-        if (Input.GetKeyDown(KeyCode.F1))
+        public static int NumeroSauvegarde = 0;
+
+        
+        
+        public GameObject save1UI;
+        public GameObject save2UI;
+        public GameObject save3UI;
+        public GameObject save4UI;
+        public GameObject save5UI;
+        public GameObject save6UI;
+        public GameObject save7UI;
+        public GameObject save8UI;
+
+
+        public static bool sauvegarde1 = false;
+        public static bool sauvegarde2 = false;
+        public static bool sauvegarde3 = false;
+        public static bool sauvegarde4 = false;
+        public static bool sauvegarde5 = false;
+        public static bool sauvegarde6 = false;
+        public static bool sauvegarde7 = false;
+        public static bool sauvegarde8 = false;
+
+
+
+        /// <summary>
+        /// Active le bouton associé à la sauvegarde si le fichier existe.
+        /// </summary>
+        #region SetActive
+        
+        public void ShowSauvegarde1()
         {
-            if (!sauvegarde1)
+            if (File.Exists(Application.dataPath + "/" + "sauvegarde1.json"))
             {
-                Sauvegarder fichier = new Sauvegarder();
-                fichier.Sauvegarde();
-            }
-            else
-            {
-                ChargerSauvegarde fichiercharge = new ChargerSauvegarde();
-                fichiercharge.ChargerUneSauvegarde();
-            }
-        }else if (Input.GetKeyDown(KeyCode.F2))
-        {
-            if (!sauvegarde2)
-            {
-                Sauvegarder fichier = new Sauvegarder();
-                fichier.Sauvegarde();
-            }
-            else
-            {
-                ChargerSauvegarde fichiercharge = new ChargerSauvegarde();
-                fichiercharge.ChargerUneSauvegarde();
-            }
-        }else if (Input.GetKeyDown(KeyCode.F3))
-        {
-            if (!sauvegarde3)
-            {
-                Sauvegarder fichier = new Sauvegarder();
-                fichier.Sauvegarde();
-            }
-            else
-            {
-                ChargerSauvegarde fichiercharge = new ChargerSauvegarde();
-                fichiercharge.ChargerUneSauvegarde();
-            }
-        }else if (Input.GetKeyDown(KeyCode.F4))
-        {
-            if (!sauvegarde4)
-            {
-                Sauvegarder fichier = new Sauvegarder();
-                fichier.Sauvegarde();
-            }
-            else
-            {
-                ChargerSauvegarde fichiercharge = new ChargerSauvegarde();
-                fichiercharge.ChargerUneSauvegarde();
-            }
-        }else if (Input.GetKeyDown(KeyCode.F5))
-        {
-            if (!sauvegarde5)
-            {
-                Sauvegarder fichier = new Sauvegarder();
-                fichier.Sauvegarde();
-            }
-            else
-            {
-                ChargerSauvegarde fichiercharge = new ChargerSauvegarde();
-                fichiercharge.ChargerUneSauvegarde();
-            }
-        }else if (Input.GetKeyDown(KeyCode.F6))
-        {
-            if (!sauvegarde6)
-            {
-                Sauvegarder fichier = new Sauvegarder();
-                fichier.Sauvegarde();
-            }
-            else
-            {
-                ChargerSauvegarde fichiercharge = new ChargerSauvegarde();
-                fichiercharge.ChargerUneSauvegarde();
-            }
-        }else if (Input.GetKeyDown(KeyCode.F7))
-        {
-            if (!sauvegarde7)
-            {
-                Sauvegarder fichier = new Sauvegarder();
-                fichier.Sauvegarde();
-            }
-            else
-            {
-                ChargerSauvegarde fichiercharge = new ChargerSauvegarde();
-                fichiercharge.ChargerUneSauvegarde();
-            }
-        }else if (Input.GetKeyDown(KeyCode.F8))
-        {
-            if (!sauvegarde8)
-            {
-                Sauvegarder fichier = new Sauvegarder();
-                fichier.Sauvegarde();
-            }
-            else
-            {
-                ChargerSauvegarde fichiercharge = new ChargerSauvegarde();
-                fichiercharge.ChargerUneSauvegarde();
+                sauvegarde1 = true;
+                save1UI.SetActive(true);
+
             }
         }
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+        public void ShowSauvegarde2()
+        {
+            if (File.Exists(Application.dataPath + "/" + "sauvegarde2.json"))
+            {
+                sauvegarde2 = true;
+                save2UI.SetActive(true);
 
-    // Update is called once per frame
-    void Update()
-    {
+            }
+        }
+
+        public void ShowSauvegarde3()
+        {
+            if (File.Exists(Application.dataPath + "/" + "sauvegarde3.json"))
+            {  
+                sauvegarde3 = true;
+                save3UI.SetActive(true);
+
+            }
+        }
+
+        public void ShowSauvegarde4()
+        {
+            if (File.Exists(Application.dataPath + "/" + "sauvegarde4.json"))
+            {  
+                sauvegarde4 = true;
+                save4UI.SetActive(true);
+
+            }
+        }
+
+        public void ShowSauvegarde5()
+        {
+            if (File.Exists(Application.dataPath + "/" + "sauvegarde5.json"))
+            {  
+                sauvegarde5 = true;
+                save5UI.SetActive(true);
+
+            }
+        }
+
+        public void ShowSauvegarde6()
+        {
+            if (File.Exists(Application.dataPath + "/" + "sauvegarde6.json"))
+            {  
+                sauvegarde6 = true;
+                save6UI.SetActive(true);
+
+            }
+        }
+
+        public void ShowSauvegarde7()
+        {
+            if (File.Exists(Application.dataPath + "/" + "sauvegarde7.json"))
+            {  
+                sauvegarde7 = true;
+                save7UI.SetActive(true);
+
+            }
+        }
+
+        public void ShowSauvegarde8()
+        {
+            if (File.Exists(Application.dataPath + "/" + "sauvegarde8.json"))
+            {  
+                sauvegarde8 = true;
+                save8UI.SetActive(true);
+
+            }
+        }
+
+        #endregion SetActive
+
+        /// <summary>
+        /// Permet le chargement des sauvegardes et attribue une valeur selon le numero de la sauvegarde.
+        /// </summary>
+        #region Sauvegardes
+
+        public void Sauvegarde1()
+        {
+
+            NumeroSauvegarde = 1;
+            SceneManager.LoadScene("ChampDuJeu");
+        }
+        public void Sauvegarde2()
+        {
+
+            NumeroSauvegarde = 2;
+            SceneManager.LoadScene("ChampDuJeu");
+        }
+        public void Sauvegarde3()
+        {
+
+            NumeroSauvegarde = 3;
+            SceneManager.LoadScene("ChampDuJeu");
+        }
+        public void Sauvegarde4()
+        {
+
+            NumeroSauvegarde = 4;
+            SceneManager.LoadScene("ChampDuJeu");
+        }
+        public void Sauvegarde5()
+        {
+
+            NumeroSauvegarde = 5;
+            SceneManager.LoadScene("ChampDuJeu");
+        }
+        public void Sauvegarde6()
+        {
+
+            NumeroSauvegarde = 6;
+            SceneManager.LoadScene("ChampDuJeu");
+        }
+        public void Sauvegarde7()
+        {
+
+            NumeroSauvegarde = 7;
+            SceneManager.LoadScene("ChampDuJeu");
+        }
+        public void Sauvegarde8()
+        {
+
+            NumeroSauvegarde = 8;
+            SceneManager.LoadScene("ChampDuJeu");
+        }
+        #endregion Sauvegardes
+
         
+        // Start is called before the first frame update
+        void Start()
+        {
+            
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            
+            ShowSauvegarde1();
+            ShowSauvegarde2();
+            ShowSauvegarde3();
+            ShowSauvegarde4();
+            ShowSauvegarde5();
+            ShowSauvegarde6();
+            ShowSauvegarde7();
+            ShowSauvegarde8();
+
+        }
     }
 }

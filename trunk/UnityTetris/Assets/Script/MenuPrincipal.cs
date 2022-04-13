@@ -15,7 +15,8 @@ namespace Script
         //Commencer une partie
         public void StartGame()
         {
-            Debug.Log("Une nouvelle partie a été lancée");
+            MenuSauvegarde.NumeroSauvegarde = 0;
+
             SceneManager.LoadScene("ChampDuJeu");
         }
         
@@ -32,7 +33,7 @@ namespace Script
 
             
             
-            SceneManager.LoadScene("ChampDuJeu");
+            SceneManager.LoadScene("ListeSauvegarde");
             //return JsonUtility.FromJson<Sauvegarde>(json);
 
         }
