@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,8 +10,16 @@ namespace Script
 {
     public class MenuPause : MonoBehaviour
     {
-        public GameObject MenuPauseUI;
 
+        public string nomSauvegarde;
+        public GameObject inputField;
+        //public GameObject textDisplay;
+        
+        
+        public GameObject MenuPauseUI;
+        public GameObject sauvegardeUI;
+        public GameObject choixSauvegardeUI;
+     
 
         public static bool _estPause;
         //private GameObject menuPause;
@@ -32,9 +41,29 @@ namespace Script
         {
             MenuPauseUI.SetActive(false);
             Time.timeScale = 1f;
+            SaveClose();
+
             _estPause = false;
+
         }
 
+
+
+     
+        
+        public void Save()
+        {
+            sauvegardeUI.SetActive(false);
+            choixSauvegardeUI.SetActive(true);
+           
+        }
+
+        public void SaveClose()
+        {
+            choixSauvegardeUI.SetActive(false);
+
+            sauvegardeUI.SetActive(true);
+        }
         
 
         // Quitter la partie : retourner au menu principal
@@ -50,6 +79,7 @@ namespace Script
         {
             _estPause = false;
             Reprendre();
+            MenuSauvegarde.NumeroSauvegarde = 0;
             SceneManager.LoadScene("ChampDuJeu");
         }
 
