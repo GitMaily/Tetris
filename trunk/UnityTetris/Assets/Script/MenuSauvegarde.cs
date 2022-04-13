@@ -179,6 +179,11 @@ namespace Script
         }
         #endregion Sauvegardes
 
+
+        public void Retour()
+        {
+            SceneManager.LoadScene("MenuPrincipal");
+        }
         
         // Start is called before the first frame update
         void Start()
