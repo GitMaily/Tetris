@@ -32,6 +32,8 @@ namespace Script
 
         public void ButtonRejouer()
         {
+            MenuSauvegarde.NumeroSauvegarde = 0;
+
             MenuPause._estPause = false;
             Reprendre();
 

@@ -10,6 +10,8 @@ namespace Script
     public class MenuPrincipal : MonoBehaviour
     {
 
+        public GameObject creditsUI;
+        
         //public string partieCharger;
         public string newPartie;
         //Commencer une partie
@@ -24,37 +26,27 @@ namespace Script
         public void LoadSave()
         {
             
-            //string json = File.ReadAllText(Application.dataPath + "/" + filename);
-            
-            
-            
-            //new SceneLoadInfo();
-            //SceneManager.LoadScene("ListeSauvegarde");
-
-            
-            
             SceneManager.LoadScene("ListeSauvegarde");
-            //return JsonUtility.FromJson<Sauvegarde>(json);
 
         }
 
-        public void ChargerPartie(string filename)
-        {
-            //LoadSave("sauvegarde1.json");
-        }
-        
+ 
+       
         //Quitter l'application
-
         public void QuitGame()
         {
             Application.Quit();
         }
         
         //Afficher les crédits
-
         public void Credits()
         {
-            SceneManager.LoadScene("Credits");
+            creditsUI.SetActive(true);
+        }
+
+        public void QuitterCredits()
+        {
+            creditsUI.SetActive(false);
         }
         // Start is called before the first frame update
         void Start()
