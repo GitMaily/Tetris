@@ -1,0 +1,51 @@
+h1. *L2Y1 : Projet Tetris*
+
+h2. Membres du groupe
+
+|_. !{width:150px}Maily%20photo.png!  |_.!{width:150px}photo_yuan.jpg!    |_.!{width:150px}image.png!        |_. !{width:150px}YE_Liliane.jpg!         |
+|_.  Maily Cavaldini |_. Yuan Liu |_. Marion Mazaud |_. Liliane Ye |
+
+h2. Résumé
+
+Le projet est centré sur la programmation d'un jeu Tetris, jeu très connu dans le monde du jeu vidéo. L'application a été réalisée sur le logiciel  *+Unity+*  , réputé pour la création de divers jeux 2D ou 3D.
+> Un jeu Tetris consiste en l'agencement d'une suite de pièces composés de 4 carrés que l'on appelle *Tetromino*. Il existe 7 types de Tetromino de formes différentes. Cet agencement se fait dans une grille de jeu de taille de 10x20 carrés.
+> Les Tetrominos sont générés un par un dans la partie haute du champ de jeu, ces dernières descendent verticalement de façon régulière. Le joueur a la possibilité de les décaler a gauche, à droite, ou faire une rotation.
+> Lorsqu'une ligne horizontale entière est remplie de blocs (donc 10 carrés), cette dernière est détruite. Les lignes du dessus descendent après cette destruction.
+> Si la dernière ligne du champ de jeu est occupée, la partie est terminée. Un score final est donc affiché.
+En plus des règles et de l'implémentation du jeu de base, des fonctionnalités répondant aux demandes du projet ont été ajoutés dans notre application:
+# Système d'échange
+# Carré bonus
+# Sauvegarde d'une partie (et son chargement)
+
+L'application a été entièrement programmée en C# dans l'environnement de développement +*Rider*+ (JetBrain). Nous avons choisi cet environnement par sa maniabilité et connexion avec Unity.
+Nous avions le choix de la plateforme où programmer notre application. Jugeant une application mobile plus compliquée, nous avons opté pour une application sur l'ordinateur.
+> Merci de vous référer au manuel d'utilisation pour toutes confusions.
+
+h2. Diaporama
+
+* "Diaporama" en format PDF
+* "Diaporama Sonorisé" en format MP4 
+
+h2. Documents
+
+> Tous les documents sont en format PDF et correspondent bien à leur dernières versions.
+* "Cahier des Charges Final"
+* "Cahier de recette v2"
+* "Maquette Finale"
+* "Architecture Logicielle Finale"
+* "Plan de test v1"
+* "Conception détaillée v1"
+* "Manuel d'utilisation"
+* "Manuel d'installation"
+* "Rendu de la documentation"
+* "Rapport de projet"
+
+h2. Téléchargement Tetris
+
+> Merci de vous référer au manuel d'installation suivant votre système d'exploitation.
+* "Linux":/attachments/7427
+* "Windows":/attachments/7410
+
+h3. Langage
+
+Lien vers le Wiki en anglais: []
